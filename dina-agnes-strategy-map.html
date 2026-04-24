@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dina & Agnes — Strategy Map</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0d0d0d;
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* TOP BAR */
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 40px;
+    border-bottom: 1px solid #1e1e1e;
+    background: #0d0d0d;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .brand {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #c8f542;
+    letter-spacing: 0.05em;
+  }
+
+  .target-badge {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .target {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: #c8f542;
+    letter-spacing: -0.02em;
+  }
+
+  .target-sub {
+    font-size: 11px;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .deadline {
+    font-size: 12px;
+    color: #444;
+    letter-spacing: 0.05em;
+  }
+
+  /* MAIN GRID */
+  .map {
+    padding: 32px 40px 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* PHASE ROW */
+  .phase-row {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 0;
+    min-height: 180px;
+    position: relative;
+  }
+
+  .phase-row + .phase-row {
+    border-top: 1px solid #1a1a1a;
+  }
+
+  /* PHASE LABEL */
+  .phase-label {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px 20px 20px 0;
+    border-right: 1px solid #1e1e1e;
+    gap: 6px;
+    position: sticky;
+    top: 60px;
+    align-self: start;
+  }
+
+  .phase-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .phase-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1.2;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    letter-spacing: 0.05em;
+    margin-top: 8px;
+  }
+
+  .phase-dates {
+    font-size: 9px;
+    color: #444;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .ph1-color { color: #42c8f5; }
+  .ph2-color { color: #c8f542; }
+  .ph3-color { color: #f5a623; }
+  .ph4-color { color: #42f59e; }
+
+  /* PHASE CONTENT */
+  .phase-content {
+    padding: 20px 0 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* STREAM ROW */
+  .stream-row {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 10px;
+    align-items: start;
+  }
+
+  .stream-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #444;
+    padding-top: 6px;
+    text-align: right;
+    padding-right: 10px;
+    border-right: 1px solid #222;
+  }
+
+  .stream-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: flex-start;
+  }
+
+  /* ITEM CARDS */
+  .item {
+    border-radius: 2px;
+    padding: 6px 10px;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.3;
+    position: relative;
+    max-width: 180px;
+  }
+
+  .item-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .item-note {
+    font-size: 9.5px;
+    opacity: 0.65;
+    line-height: 1.35;
+  }
+
+  /* ITEM COLOURS BY TYPE */
+  .it-email { background: #0f2033; border: 1px solid #1a4060; color: #7ec8f5; }
+  .it-yt { background: #1a0f0f; border: 1px solid #4a1a1a; color: #f57c7c; }
+  .it-course { background: #0f1a0f; border: 1px solid #1a4a1a; color: #7cf57c; }
+  .it-product { background: #1a1500; border: 1px solid #4a3a00; color: #f5cc42; }
+  .it-launch { background: #1a0f1a; border: 1px solid #4a1a4a; color: #d07cf5; }
+  .it-social { background: #001a18; border: 1px solid #004a44; color: #42f5e8; }
+  .it-critical { background: #1a0a00; border: 1px solid #f05a3a; color: #f5a07c; }
+
+  /* MILESTONE MARKER */
+  .milestone {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border: 1px dashed #2a2a2a;
+    width: 100%;
+    margin-top: 4px;
+  }
+
+  .milestone-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .milestone-text {
+    font-size: 10px;
+    color: #555;
+  }
+
+  .milestone-val {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+
+  /* CONNECTOR ARROWS */
+  .flow-arrow {
+    height: 28px;
+    display: flex;
+    align-items: center;
+    padding-left: 124px;
+    gap: 8px;
+    color: #2a2a2a;
+    font-size: 11px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .flow-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, #2a2a2a, transparent);
+  }
+
+  /* BOTTOM TARGET */
+  .target-row {
+    margin-top: 24px;
+    padding: 24px 32px;
+    background: #0f1a0a;
+    border: 1px solid #c8f542;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+
+  .target-item {
+    text-align: center;
+    padding: 16px;
+    border-right: 1px solid #1a2e10;
+  }
+
+  .target-item:last-child { border-right: none; }
+
+  .target-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: #c8f542;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .target-lbl {
+    font-size: 10px;
+    color: #5a7a3a;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* REVENUE BREAKDOWN */
+  .rev-bar {
+    margin-top: 16px;
+    padding: 0 0 0 124px;
+    display: flex;
+    gap: 6px;
+    align-items: stretch;
+    height: 36px;
+  }
+
+  .rev-segment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .rev-course { background: rgba(66,245,158,0.2); color: #42f59e; border: 1px solid rgba(66,245,158,0.3); flex: 5; }
+  .rev-product { background: rgba(245,204,66,0.2); color: #f5cc42; border: 1px solid rgba(245,204,66,0.3); flex: 2; }
+  .rev-email { background: rgba(126,200,245,0.2); color: #7ec8f5; border: 1px solid rgba(126,200,245,0.3); flex: 1.5; }
+  .rev-adsense { background: rgba(200,200,200,0.1); color: #666; border: 1px solid rgba(200,200,200,0.15); flex: 0.5; }
+
+  .rev-label {
+    padding: 0 124px;
+    display: flex;
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  .rl { font-size: 8px; color: #333; text-align: center; text-transform: uppercase; letter-spacing: 0.08em; }
+  .rl-course { flex: 5; }
+  .rl-product { flex: 2; }
+  .rl-email { flex: 1.5; }
+  .rl-adsense { flex: 0.5; }
+
+  /* URGENT FLAG */
+  .urgent-flag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #f05a3a;
+    color: white;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 1px;
+    margin-left: 4px;
+  }
+
+  @media (max-width: 768px) {
+    .map { padding: 20px; }
+    .topbar { padding: 14px 20px; }
+    .phase-row { grid-template-columns: 60px 1fr; }
+    .stream-row { grid-template-columns: 70px 1fr; }
+    .target-row { grid-template-columns: repeat(2, 1fr); }
+    .rev-bar, .rev-label { padding-left: 80px; }
+    .flow-arrow { padding-left: 80px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">DINA & AGNES — MINDLYFTER LTD</div>
+  <div class="target-badge">
+    <div>
+      <div class="target-sub">Target</div>
+      <div class="target">£10K/month</div>
+    </div>
+    <div style="width:1px;height:36px;background:#222;"></div>
+    <div>
+      <div class="target-sub">Deadline</div>
+      <div class="target" style="font-size:16px;color:#fff;">Q1 2027</div>
+    </div>
+  </div>
+</div>
+
+<div class="map">
+
+  <!-- PHASE 1 -->
+  <div class="phase-row">
+    <div class="phase-label">
+      <span class="phase-num ph1-color">01</span>
+      <span class="phase-name ph1-color">Foundation</span>
+      <span class="phase-dates">May – Jun 2026</span>
+    </div>
+    <div class="phase-content">
+
+      <div class="stream-row">
+        <div class="stream-label">Email</div>
+        <div class="stream-items">
+          <div class="item it-critical">
+            <div class="item-title">Nurture Sequence Live <span class="urgent-flag">NOW</span></div>
+            <div class="item-note">6 emails · 14-day flow · First revenue trigger · Deadline 5 May</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stream-row">
+        <div class="stream-label">YouTube</div>
+        <div class="stream-items">
+          <div class="item it-critical">
+            <div class="item-title">Product CTAs Every Video <span class="urgent-flag">NOW</span></div>
+            <div class="item-note">Verbal mention + description link + pinned comment</div>
+          </div>
+          <div class="item it-yt">
+            <div class="item-title">Thumbnail Overhaul</div>
+            <div class="item-note">2 new templates · Outcome-first · Stronger expressions · Deadline 12 May</div>
+          </div>
+          <div class="item it-social">
+            <div class="item-title">Shorts Relaunch <span class="urgent-flag">NOW</span></div>
+            <div class="item-note">2x/week · Under 60 sec · Sourced from long-form</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stream-row">
+        <div class="stream-label">Course</div>
+        <div class="stream-items">
+          <div class="item it-course">
+            <div class="item-title">Waitlist Page Live</div>
+            <div class="item-note">Transformation-led · Kit integrated · Deadline 2 Jun</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-dot" style="background:#42c8f5;"></div>
+        <div class="milestone-text">End of Phase 1 targets</div>
+        <div class="milestone-val" style="color:#42c8f5;">Nurture live · CTAs active · Waitlist open · First £200 product revenue</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="flow-arrow">
+    <div class="flow-line"></div>
+    ↓ Phase 2 begins
+  </div>
+
+  <!-- PHASE 2 -->
+  <div class="phase-row">
+    <div class="phase-label">
+      <span class="phase-num ph2-color">02</span>
+      <span class="phase-name ph2-color">Accelerate</span>
+      <span class="phase-dates">Jul – Sep 2026</span>
+    </div>
+    <div class="phase-content">
+
+      <div class="stream-row">
+        <div class="stream-label">YouTube</div>
+        <div class="stream-items">
+          <div class="item it-yt">
+            <div class="item-title">3-Type Content Framework</div>
+            <div class="item-note">40% Search · 40% Browse · 20% Authority · 1 breakout bet/month</div>
+          </div>
+          <div class="item it-yt">
+            <div class="item-title">90-Day Content Calendar</div>
+            <div class="item-note">Jul–Sep mapped · 2 long-form + 2 Shorts/week</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stream-row">
+        <div class="stream-label">Email</div>
+        <div class="stream-items">
+          <div class="item it-email">
+            <div class="item-title">Verbal Freebie CTA Every Video</div>
+            <div class="item-note">Mid-video spoken mention · Target 10–20 sign-ups/week</div>
+          </div>
+          <div class="item it-email">
+            <div class="item-title">1 Freebie Video/Month</div>
+            <div class="item-note">Tutorial using Starter Pack assets · Natural CTA · Jul, Aug, Sep</div>
+          </div>
+          <div class="item it-product">
+            <div class="item-title">Meta Ads Test — Sep Only</div>
+            <div class="item-note">£300–500 · Freebie landing page · +200–400 subscribers pre-launch</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stream-row">
+        <div class="stream-label">Course</div>
+        <div class="stream-items">
+          <div class="item it-course">
+            <div class="item-title">Curriculum Map Final — Jul 14</div>
+            <div class="item-note">Every module + lesson + outcome locked before recording starts</div>
+          </div>
+          <div class="item it-course">
+            <div class="item-title">Recording Begins — Jul 15</div>
+            <div class="item-note">3x sessions/week · 50% done by Aug 1 checkpoint · 100% by Sep 15</div>
+          </div>
+          <div class="item it-course">
+            <div class="item-title">Beta Testing — Sep</div>
+            <div class="item-note">5–10 students · £29–49 · Feedback + testimonials collected</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-dot" style="background:#c8f542;"></div>
+        <div class="milestone-text">End of Phase 2 targets</div>
+        <div class="milestone-val" style="color:#c8f542;">2,500+ subs · 500+ email list · Course recorded · £500/mo product revenue</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="flow-arrow">
+    <div class="flow-line"></div>
+    ↓ Course launch month
+  </div>
+
+  <!-- PHASE 3 -->
+  <div class="phase-row">
+    <div class="phase-label">
+      <span class="phase-num ph3-color">03</span>
+      <span class="phase-name ph3-color">Launch</span>
+      <span class="phase-dates">Oct 2026</span>
+    </div>
+    <div class="phase-content">
+
+      <div class="stream-row">
+        <div class="stream-label">Pre-Launch</div>
+        <div class="stream-items">
+          <div class="item it-launch">
+            <div class="item-title">3-Week Pre-Launch Warm-Up</div>
+            <div class="item-note">Community tab · Waitlist emails · Transformation video live Oct 12</div>
+          </div>
+          <div class="item it-launch">
+            <div class="item-title">Sales Page + Platform Live</div>
+            <div class="item-note">Teachable/Kajabi · £147 early bird / £197 standard · Deadline Oct 1</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stream-row">
+        <div class="stream-label">Launch</div>
+        <div class="stream-items">
+          <div class="item it-critical">
+            <div class="item-title">7-Day Launch Sequence — Oct 19</div>
+            <div class="item-note">Day 1 announce · Day 3 curriculum · Day 5 proof · Day 7 final close</div>
+          </div>
+          <div class="item it-launch">
+            <div class="item-title">Launch YouTube Video</div>
+            <div class="item-note">Live Oct 19 · Editing transformation topic · Ends with course CTA</div>
+          </div>
+          <div class="item it-launch">
+            <div class="item-title">All Social Channels Active</div>
+            <div class="item-note">Day 1 + Day 7 only · Community tab + Instagram stories + TikTok</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stream-row">
+        <div class="stream-label">Upsell</div>
+        <div class="stream-items">
+          <div class="item it-product">
+            <div class="item-title">Asset Pack Checkout Add-On</div>
+            <div class="item-note">Order bump at checkout · "Add assets for £19" · 15–20% uptake target</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-dot" style="background:#f5a623;"></div>
+        <div class="milestone-text">Launch target</div>
+        <div class="milestone-val" style="color:#f5a623;">30–50 sales · £4,400–£7,350 revenue · Early bird closes Oct 26</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="flow-arrow">
+    <div class="flow-line"></div>
+    ↓ Build to consistent £10K
+  </div>
+
+  <!-- PHASE 4 -->
+  <div class="phase-row">
+    <div class="phase-label">
+      <span class="phase-num ph4-color">04</span>
+      <span class="phase-name ph4-color">Compound</span>
+      <span class="phase-dates">Nov 26 – Mar 27</span>
+    </div>
+    <div class="phase-content">
+
+      <div class="stream-row">
+        <div class="stream-label">Course</div>
+        <div class="stream-items">
+          <div class="item it-course">
+            <div class="item-title">Evergreen Funnel Live — Nov</div>
+            <div class="item-note">Course offer at Day 21 of nurture · Passive sales 24/7</div>
+          </div>
+          <div class="item it-course">
+            <div class="item-title">Mini Relaunches Every 6–8 Wks</div>
+            <div class="item-note">Dec 2026 + Feb 2027 · 3 emails to non-buyers · 72-hr genuine discount</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stream-row">
+        <div class="stream-label">Product</div>
+        <div class="stream-items">
+          <div class="item it-product">
+            <div class="item-title">Post-Purchase Email Upsell</div>
+            <div class="item-note">3-email sequence to buyers · Asset Pack at Day 7 · Target 20–30% uptake</div>
+          </div>
+          <div class="item it-product">
+            <div class="item-title">Monthly Product Video</div>
+            <div class="item-note">1x tutorial/month featuring products naturally · Passive product sales</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stream-row">
+        <div class="stream-label">YouTube</div>
+        <div class="stream-items">
+          <div class="item it-yt">
+            <div class="item-title">Double Down on Winners</div>
+            <div class="item-note">Full analytics review Nov · Top 5 formats identified · Make more of what works</div>
+          </div>
+          <div class="item it-yt">
+            <div class="item-title">Collaboration Outreach</div>
+            <div class="item-note">3–5 targets in adjacent niches · 5K–50K subs · Content swap or collab</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-dot" style="background:#42f59e;"></div>
+        <div class="milestone-text">Q1 2027 — Target State</div>
+        <div class="milestone-val" style="color:#42f59e;">6,000+ subs · 2,000+ email list · £10K+/month consistent</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- REVENUE BREAKDOWN BAR -->
+  <div style="padding-top: 28px; border-top: 1px solid #1a1a1a; margin-top: 8px;">
+    <div style="padding-left: 124px; font-size: 10px; color: #333; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px;">£10K Monthly Revenue Breakdown</div>
+    <div class="rev-bar">
+      <div class="rev-segment rev-course">Course £4.5–6K</div>
+      <div class="rev-segment rev-product">Products £1.5–2.5K</div>
+      <div class="rev-segment rev-email">Email £1–2K</div>
+      <div class="rev-segment rev-adsense">AdSense</div>
+    </div>
+  </div>
+
+  <!-- FINAL TARGET -->
+  <div class="target-row" style="margin-top: 20px;">
+    <div class="target-item">
+      <div class="target-num">£10K+</div>
+      <div class="target-lbl">Monthly Revenue</div>
+    </div>
+    <div class="target-item">
+      <div class="target-num">6K+</div>
+      <div class="target-lbl">YouTube Subscribers</div>
+    </div>
+    <div class="target-item">
+      <div class="target-num">2K+</div>
+      <div class="target-lbl">Email Subscribers</div>
+    </div>
+    <div class="target-item">
+      <div class="target-num">Q1 '27</div>
+      <div class="target-lbl">Agnes Full Time</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

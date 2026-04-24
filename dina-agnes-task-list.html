@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dina & Agnes — Master Task List 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Sans:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f5f0;
+    --surface: #ffffff;
+    --black: #111010;
+    --mid: #555250;
+    --light: #aaa8a4;
+    --border: #e2dfd9;
+    --p1: #1a1a2e;
+    --p2: #16213e;
+    --p3: #0f3460;
+    --p4: #533483;
+    --accent-y: #f0c93a;
+    --accent-g: #3ed68f;
+    --accent-b: #3ab5f0;
+    --accent-r: #f05a3a;
+    --tag-p1: #e8f4ff;
+    --tag-p2: #fff3e0;
+    --tag-p3: #fce4ff;
+    --tag-p4: #e4ffef;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--black);
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--black);
+    color: white;
+    padding: 52px 56px 44px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::after {
+    content: '£10K';
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Syne', sans-serif;
+    font-size: 120px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.04);
+    pointer-events: none;
+    letter-spacing: -4px;
+  }
+
+  .header-eyebrow {
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent-y);
+    margin-bottom: 14px;
+  }
+
+  .header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+
+  .header-desc {
+    color: rgba(255,255,255,0.5);
+    font-size: 13px;
+    max-width: 520px;
+    margin-bottom: 28px;
+  }
+
+  .header-stats {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .stat-val {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--accent-y);
+  }
+
+  .stat-lbl {
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* LEGEND */
+  .legend {
+    padding: 16px 56px;
+    background: #1a1a1a;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .legend-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-right: 4px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  /* MAIN */
+  .main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 56px 80px;
+  }
+
+  /* PROJECT */
+  .project {
+    margin-bottom: 48px;
+  }
+
+  .project-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 4px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--black);
+  }
+
+  .project-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--light);
+  }
+
+  .project-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    flex: 1;
+  }
+
+  .project-phase {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+
+  .ph1 { background: #e8f4ff; color: #1a5fa8; }
+  .ph2 { background: #fff3e0; color: #b36200; }
+  .ph3 { background: #fce4ff; color: #7b1fa2; }
+  .ph4 { background: #e4ffef; color: #1a7a4a; }
+
+  .project-desc {
+    font-size: 12.5px;
+    color: var(--mid);
+    margin: 10px 0 20px;
+    font-style: italic;
+    max-width: 680px;
+    font-family: 'Instrument Serif', serif;
+  }
+
+  /* TASK */
+  .task {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+
+  .task-header {
+    display: grid;
+    grid-template-columns: 32px 1fr auto;
+    gap: 0;
+    align-items: stretch;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .task-header:hover { background: #fafaf8; }
+
+  .task-priority {
+    width: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+  }
+
+  .p-critical { background: #f05a3a; color: white; }
+  .p-high { background: #f0c93a; color: #111; }
+  .p-medium { background: #3ab5f0; color: white; }
+  .p-low { background: #3ed68f; color: #111; }
+
+  .task-main {
+    padding: 14px 18px;
+    flex: 1;
+  }
+
+  .task-title-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+  }
+
+  .task-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .task-tag {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+
+  .tag-yt { background: #ffe8e8; color: #c0392b; }
+  .tag-email { background: #e8f0ff; color: #2c4fa8; }
+  .tag-course { background: #f0ffe8; color: #2a7a1e; }
+  .tag-product { background: #fff8e8; color: #a87c1e; }
+  .tag-content { background: #f8e8ff; color: #7a1ea8; }
+  .tag-launch { background: #ffe8f8; color: #a81e7a; }
+  .tag-social { background: #e8fff8; color: #1ea87a; }
+
+  .task-why {
+    font-size: 12.5px;
+    color: var(--mid);
+    line-height: 1.55;
+  }
+
+  .task-dates {
+    padding: 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-end;
+    justify-content: center;
+    min-width: 160px;
+    border-left: 1px solid var(--border);
+  }
+
+  .date-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1px;
+  }
+
+  .date-lbl {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--light);
+  }
+
+  .date-val {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--black);
+  }
+
+  .date-val.urgent { color: #f05a3a; }
+
+  /* SUBTASKS */
+  .subtasks {
+    border-top: 1px solid var(--border);
+    background: #fafaf8;
+  }
+
+  .subtask-header {
+    padding: 8px 18px 8px 50px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--light);
+  }
+
+  .subtask {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    padding: 10px 18px 10px 50px;
+    border-top: 1px solid #eeece8;
+    align-items: start;
+  }
+
+  .subtask-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 3px;
+  }
+
+  .subtask-title::before {
+    content: '↳ ';
+    color: var(--light);
+    font-weight: 400;
+  }
+
+  .subtask-desc {
+    font-size: 12px;
+    color: var(--mid);
+    line-height: 1.5;
+  }
+
+  .subtask-date {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--mid);
+    white-space: nowrap;
+    padding-top: 2px;
+  }
+
+  /* GOAL BOX */
+  .goal-box {
+    background: var(--black);
+    color: white;
+    padding: 12px 18px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .goal-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-y);
+    white-space: nowrap;
+    padding-top: 1px;
+  }
+
+  .goal-text {
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.5;
+  }
+
+  /* SECTION SPACER */
+  .section-break {
+    height: 2px;
+    background: linear-gradient(to right, var(--black), transparent);
+    margin: 8px 0 24px;
+  }
+
+  @media (max-width: 700px) {
+    .main, .header, .legend { padding-left: 20px; padding-right: 20px; }
+    .task-dates { display: none; }
+    .header::after { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-eyebrow">Mindlyfter Ltd — Dina & Agnes</div>
+  <h1>Master Task List<br>2026 → Q1 2027</h1>
+  <p class="header-desc">Every task, subtask, deadline and goal mapped across all four phases. Organised by project. Execute in order — sequence matters.</p>
+  <div class="header-stats">
+    <div class="stat"><span class="stat-val">4</span><span class="stat-lbl">Projects</span></div>
+    <div class="stat"><span class="stat-val">24</span><span class="stat-lbl">Tasks</span></div>
+    <div class="stat"><span class="stat-val">Oct 2026</span><span class="stat-lbl">Course Launch</span></div>
+    <div class="stat"><span class="stat-val">Q1 2027</span><span class="stat-lbl">£10K Target</span></div>
+  </div>
+</div>
+
+<div class="legend">
+  <span class="legend-label">Priority:</span>
+  <span class="legend-item"><span class="legend-dot" style="background:#f05a3a"></span>Critical</span>
+  <span class="legend-item"><span class="legend-dot" style="background:#f0c93a"></span>High</span>
+  <span class="legend-item"><span class="legend-dot" style="background:#3ab5f0"></span>Medium</span>
+  <span class="legend-item"><span class="legend-dot" style="background:#3ed68f"></span>Low</span>
+</div>
+
+<div class="main">
+
+  <!-- PROJECT 1 -->
+  <div class="project">
+    <div class="project-header">
+      <span class="project-number">PROJECT 01</span>
+      <span class="project-title">Commercial Infrastructure</span>
+      <span class="project-phase ph1">Phase 1 — May/June 2026</span>
+    </div>
+    <p class="project-desc">The revenue plumbing. None of the other projects generate consistent money without this one being complete first. Treat every task here as critical path.</p>
+
+    <!-- TASK 1 -->
+    <div class="task">
+      <div class="task-header">
+        <div class="task-priority p-critical">C</div>
+        <div class="task-main">
+          <div class="task-title-row">
+            <span class="task-title">Build & Launch Email Nurture Sequence</span>
+            <span class="task-tag tag-email">Email</span>
+          </div>
+          <div class="task-why">You are currently collecting leads into a void. Every sign-up who receives no follow-up is a dead lead. This sequence converts subscribers into product buyers and course waitlist prospects on autopilot.</div>
+        </div>
+        <div class="task-dates">
+          <div class="date-item">
+            <span class="date-lbl">Start</span>
+            <span class="date-val urgent">22 Apr 2026</span>
+          </div>
+          <div class="date-item">
+            <span class="date-lbl">Deadline</span>
+            <span class="date-val urgent">5 May 2026</span>
+          </div>
+        </div>
+      </div>
+      <div class="subtasks">
+        <div class="subtask-header">Subtasks</div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Write Email 1 — Welcome + Freebie Delivery</div>
+            <div class="subtask-desc">Warm, human tone. Deliver the Creator Starter Pack. Tell them what to expect. No selling. Set the relationship.</div>
+          </div>
+          <div class="subtask-date">By 24 Apr</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Write Email 2 — Pure Value (Day 2)</div>
+            <div class="subtask-desc">One specific CapCut tip they can apply today. No CTA except to reply. Build trust fast.</div>
+          </div>
+          <div class="subtask-date">By 24 Apr</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Write Email 3 — The Story (Day 4)</div>
+            <div class="subtask-desc">Dina & Agnes origin. Why this brand exists. What you've both learned. Makes you human and memorable.</div>
+          </div>
+          <div class="subtask-date">By 26 Apr</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Write Email 4 — Value + YouTube (Day 6)</div>
+            <div class="subtask-desc">Another value tip. Link to your 2–3 best performing videos. Move them deeper into your content ecosystem.</div>
+          </div>
+          <div class="subtask-date">By 26 Apr</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Write Email 5 — Soft Product Intro (Day 9)</div>
+            <div class="subtask-desc">Introduce one product as a natural recommendation — not a pitch. "This is what I use for this." Asset Pack or Sound Effects.</div>
+          </div>
+          <div class="subtask-date">By 28 Apr</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Write Email 6 — Direct Product CTA (Day 14)</div>
+            <div class="subtask-desc">One product, clear benefit, honest buy link. First direct revenue trigger in the sequence.</div>
+          </div>
+          <div class="subtask-date">By 28 Apr</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Build sequence in Kit & test all automations</div>
+            <div class="subtask-desc">Set up the automation flow in Kit. Test every email fires correctly, links work, freebie delivers. Live by 5 May.</div>
+          </div>
+          <div class="subtask-date">By 5 May</div>
+        </div>
+      </div>
+      <div class="goal-box">
+        <span class="goal-label">Goal</span>
+        <span class="goal-text">Every new email subscriber is automatically converted into a warm lead within 14 days of sign-up. First product revenue generated from the list within 30 days of going live.</span>
+      </div>
+    </div>
+
+    <!-- TASK 2 -->
+    <div class="task">
+      <div class="task-header">
+        <div class="task-priority p-critical">C</div>
+        <div class="task-main">
+          <div class="task-title-row">
+            <span class="task-title">Add Product CTAs to All New Videos</span>
+            <span class="task-tag tag-yt">YouTube</span>
+            <span class="task-tag tag-product">Product</span>
+          </div>
+          <div class="task-why">You are teaching without selling. Every tutorial is a commercial opportunity being left unused. A verbal mention plus description link is the minimum required on every video from this point forward.</div>
+        </div>
+        <div class="task-dates">
+          <div class="date-item">
+            <span class="date-lbl">Start</span>
+            <span class="date-val urgent">Immediately</span>
+          </div>
+          <div class="date-item">
+            <span class="date-lbl">Ongoing</span>
+            <span class="date-val">Permanent</span>
+          </div>
+        </div>
+      </div>
+      <div class="subtasks">
+        <div class="subtask-header">Subtasks</div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Map products to video topic types</div>
+            <div class="subtask-desc">Sound design → Sound Effects. Colour → LUTs. Motion/text → Asset Pack. All tutorials → Freebie. Create a reference cheat sheet.</div>
+          </div>
+          <div class="subtask-date">By 25 Apr</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Write 3 verbal CTA templates</div>
+            <div class="subtask-desc">Natural, non-salesy language that can be dropped into any script mid-video. Test different placements — mid-video converts better than end cards.</div>
+          </div>
+          <div class="subtask-date">By 25 Apr</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Update description templates in YouTube</div>
+            <div class="subtask-desc">Add product links and freebie link as standard in every video description template. Make it frictionless to include.</div>
+          </div>
+          <div class="subtask-date">By 27 Apr</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Implement pinned comment system on every new video</div>
+            <div class="subtask-desc">Pinned comment = freebie link or most relevant product link. Set within 30 minutes of every new video going live.</div>
+          </div>
+          <div class="subtask-date">Ongoing</div>
+        </div>
+      </div>
+      <div class="goal-box">
+        <span class="goal-label">Goal</span>
+        <span class="goal-text">100% of new videos include a contextual verbal product mention and description link. Passive product revenue begins within 4 weeks.</span>
+      </div>
+    </div>
+
+    <!-- TASK 3 -->
+    <div class="task">
+      <div class="task-header">
+        <div class="task-priority p-high">H</div>
+        <div class="task-main">
+          <div class="task-title-row">
+            <span class="task-title">Thumbnail System Overhaul</span>
+            <span class="task-tag tag-yt">YouTube</span>
+            <span class="task-tag tag-content">Content</span>
+          </div>
+          <div class="task-why">CTR is the single biggest lever on YouTube reach at your current stage. Your thumbnails are consistent but have settled into a formula that caps their ceiling. Two specific weaknesses: no outcome shown, expressions too neutral.</div>
+        </div>
+        <div class="task-dates">
+          <div class="date-item">
+            <span class="date-lbl">Start</span>
+            <span class="date-val">28 Apr 2026</span>
+          </div>
+          <div class="date-item">
+            <span class="date-lbl">Deadline</span>
+            <span class="date-val">12 May 2026</span>
+          </div>
+        </div>
+      </div>
+      <div class="subtasks">
+        <div class="subtask-header">Subtasks</div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Analyse top 10 competitor thumbnails by CTR</div>
+            <div class="subtask-desc">Find the 10 highest-performing CapCut tutorial videos on YouTube. Screenshot each thumbnail. Note: expression, text hierarchy, whether outcome is shown, colour use.</div>
+          </div>
+          <div class="subtask-date">By 30 Apr</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Design 2 new thumbnail template directions</div>
+            <div class="subtask-desc">Template A: outcome-first (shows the edit result prominently). Template B: emotion-first (stronger facial expression, simpler text). Both must differ from current formula.</div>
+          </div>
+          <div class="subtask-date">By 7 May</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Define a visual signature element</div>
+            <div class="subtask-desc">One recurring design element — colour accent, frame treatment, or layout — that makes D&A thumbnails instantly recognisable in a crowded search grid.</div>
+          </div>
+          <div class="subtask-date">By 7 May</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">A/B test new templates on next 4 videos</div>
+            <div class="subtask-desc">Create two thumbnail options per video. Publish the stronger one. Review CTR after 72 hours. If below 4%, swap to alternative.</div>
+          </div>
+          <div class="subtask-date">Ongoing May</div>
+        </div>
+      </div>
+      <div class="goal-box">
+        <span class="goal-label">Goal</span>
+        <span class="goal-text">Average CTR improves from current baseline to 5%+ across new videos within 6 weeks of implementing the new templates.</span>
+      </div>
+    </div>
+
+    <!-- TASK 4 -->
+    <div class="task">
+      <div class="task-header">
+        <div class="task-priority p-high">H</div>
+        <div class="task-main">
+          <div class="task-title-row">
+            <span class="task-title">Build Course Waitlist Page</span>
+            <span class="task-tag tag-course">Course</span>
+          </div>
+          <div class="task-why">You do not need the course built to start collecting buyers. A waitlist page validates demand, builds pre-launch momentum, and ensures you enter October with a warm list of people who have already raised their hand.</div>
+        </div>
+        <div class="task-dates">
+          <div class="date-item">
+            <span class="date-lbl">Start</span>
+            <span class="date-val">12 May 2026</span>
+          </div>
+          <div class="date-item">
+            <span class="date-lbl">Deadline</span>
+            <span class="date-val">2 Jun 2026</span>
+          </div>
+        </div>
+      </div>
+      <div class="subtasks">
+        <div class="subtask-header">Subtasks</div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Write waitlist page copy</div>
+            <div class="subtask-desc">Transformation-led headline. Brief curriculum overview (outcomes not modules). Clear early bird incentive. One sign-up form. No fluff, no padding.</div>
+          </div>
+          <div class="subtask-date">By 19 May</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Design and build the page</div>
+            <div class="subtask-desc">Simple, clean, on-brand. Does not need to be elaborate — it needs to convert. Integrate with Kit list tagged "course waitlist".</div>
+          </div>
+          <div class="subtask-date">By 2 Jun</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Add waitlist CTA to all relevant videos from June</div>
+            <div class="subtask-desc">Any video touching editing improvement, CapCut mastery, or skill-building should reference the course waitlist verbally and in description.</div>
+          </div>
+          <div class="subtask-date">From 2 Jun</div>
+        </div>
+      </div>
+      <div class="goal-box">
+        <span class="goal-label">Goal</span>
+        <span class="goal-text">50+ waitlist sign-ups collected before September launch prep begins. These are your highest-intent buyers on launch day.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECT 2 -->
+  <div class="project">
+    <div class="project-header">
+      <span class="project-number">PROJECT 02</span>
+      <span class="project-title">YouTube & Audience Growth</span>
+      <span class="project-phase ph2">Phase 2 — Jul/Aug/Sep 2026</span>
+    </div>
+    <p class="project-desc">The attention engine. Everything that grows your subscriber count, email list, and brand authority before the course launch window opens.</p>
+
+    <!-- TASK 5 -->
+    <div class="task">
+      <div class="task-header">
+        <div class="task-priority p-critical">C</div>
+        <div class="task-main">
+          <div class="task-title-row">
+            <span class="task-title">Implement 3-Type Content Framework</span>
+            <span class="task-tag tag-yt">YouTube</span>
+            <span class="task-tag tag-content">Content</span>
+          </div>
+          <div class="task-why">Random topic selection limits growth. A deliberate content mix of Search (40%), Browse (40%), and Authority (20%) content ensures you're building both discoverability and deep trust simultaneously.</div>
+        </div>
+        <div class="task-dates">
+          <div class="date-item">
+            <span class="date-lbl">Start</span>
+            <span class="date-val">1 Jun 2026</span>
+          </div>
+          <div class="date-item">
+            <span class="date-lbl">Ongoing</span>
+            <span class="date-val">Permanent</span>
+          </div>
+        </div>
+      </div>
+      <div class="subtasks">
+        <div class="subtask-header">Subtasks</div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Research top 20 CapCut search queries with weak competition</div>
+            <div class="subtask-desc">Use YouTube search, TubeBuddy or vidIQ. Target queries with 1,000–50,000 monthly searches and existing results under 100K views. These are your search content goldmines.</div>
+          </div>
+          <div class="subtask-date">By 10 Jun</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Build a 90-day content calendar</div>
+            <div class="subtask-desc">Map Jul–Sep with the 40/40/20 split. Two long-form per week plus two Shorts. Assign one "breakout bet" per month — your highest-potential topic that month.</div>
+          </div>
+          <div class="subtask-date">By 20 Jun</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Identify and produce one Authority video per month</div>
+            <div class="subtask-desc">20+ minutes. Comprehensive. Examples: "The Complete CapCut Beginner Guide 2026", "Master CapCut in 30 Days". One per month from July through September.</div>
+          </div>
+          <div class="subtask-date">Monthly</div>
+        </div>
+      </div>
+      <div class="goal-box">
+        <span class="goal-label">Goal</span>
+        <span class="goal-text">Channel reaches 2,500+ subscribers by end of September. At least one video in the period exceeds 5,000 views as a potential breakout signal.</span>
+      </div>
+    </div>
+
+    <!-- TASK 6 -->
+    <div class="task">
+      <div class="task-header">
+        <div class="task-priority p-high">H</div>
+        <div class="task-main">
+          <div class="task-title-row">
+            <span class="task-title">Relaunch YouTube Shorts — 2x Per Week</span>
+            <span class="task-tag tag-yt">YouTube</span>
+            <span class="task-tag tag-social">Social</span>
+          </div>
+          <div class="task-why">Shorts are a discovery layer feeding new viewers into long-form content. They cost minimal additional production time when sourced from existing long-form videos and can meaningfully accelerate subscriber growth.</div>
+        </div>
+        <div class="task-dates">
+          <div class="date-item">
+            <span class="date-lbl">Start</span>
+            <span class="date-val urgent">This Week</span>
+          </div>
+          <div class="date-item">
+            <span class="date-lbl">Ongoing</span>
+            <span class="date-val">Permanent</span>
+          </div>
+        </div>
+      </div>
+      <div class="subtasks">
+        <div class="subtask-header">Subtasks</div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Establish Shorts sourcing workflow</div>
+            <div class="subtask-desc">Every long-form recording session, identify the best 45–60 second segment. Export and reformat during editing. Keep under 60 seconds — confirmed longer Shorts underperform.</div>
+          </div>
+          <div class="subtask-date">By 26 Apr</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Test one standalone Short format per week</div>
+            <div class="subtask-desc">A single tight CapCut tip that works without watching anything else. These travel further and attract new audiences who haven't seen your long-form content.</div>
+          </div>
+          <div class="subtask-date">Weekly</div>
+        </div>
+      </div>
+      <div class="goal-box">
+        <span class="goal-label">Goal</span>
+        <span class="goal-text">Two Shorts published every week consistently. At least one Short per month exceeds 10,000 views, feeding new subscribers into the long-form funnel.</span>
+      </div>
+    </div>
+
+    <!-- TASK 7 -->
+    <div class="task">
+      <div class="task-header">
+        <div class="task-priority p-high">H</div>
+        <div class="task-main">
+          <div class="task-title-row">
+            <span class="task-title">Accelerate Email List to 500+ Before Launch</span>
+            <span class="task-tag tag-email">Email</span>
+          </div>
+          <div class="task-why">Your course launch revenue is directly proportional to list size and warmth. 500 warm subscribers at launch is the minimum viable target. Below that and launch revenue will disappoint.</div>
+        </div>
+        <div class="task-dates">
+          <div class="date-item">
+            <span class="date-lbl">Start</span>
+            <span class="date-val">1 May 2026</span>
+          </div>
+          <div class="date-item">
+            <span class="date-lbl">Deadline</span>
+            <span class="date-val">30 Sep 2026</span>
+          </div>
+        </div>
+      </div>
+      <div class="subtasks">
+        <div class="subtask-header">Subtasks</div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Add verbal freebie CTA to every video script</div>
+            <div class="subtask-desc">"Get the free Creator Starter Pack in the description" spoken naturally mid-video. Not end card only — mid-video verbal CTA converts 3–5x better than description links alone.</div>
+          </div>
+          <div class="subtask-date">Every video</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Produce one freebie-dedicated video per month</div>
+            <div class="subtask-desc">A tutorial that uses the Creator Starter Pack assets directly, making the freebie CTA completely natural. Targets 50–100 sign-ups per video in the week of posting.</div>
+          </div>
+          <div class="subtask-date">Monthly Jul–Sep</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Plan and execute September Meta Ads test</div>
+            <div class="subtask-desc">£300–£500 budget. Drive cold traffic to freebie landing page. Target creators, video editors, CapCut users aged 18–35. Goal: 200–400 additional subscribers before launch day.</div>
+          </div>
+          <div class="subtask-date">Sep 2026</div>
+        </div>
+      </div>
+      <div class="goal-box">
+        <span class="goal-label">Goal</span>
+        <span class="goal-text">500+ email subscribers by 30 September. 50+ on the course waitlist specifically. This is the minimum viable launch audience.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECT 3 -->
+  <div class="project">
+    <div class="project-header">
+      <span class="project-number">PROJECT 03</span>
+      <span class="project-title">CapCut Creator Mastery — Build & Launch</span>
+      <span class="project-phase ph3">Phase 2/3 — Jul–Oct 2026</span>
+    </div>
+    <p class="project-desc">The flagship product. The single most important commercial event of 2026. Every decision about timing, pricing, and launch sequencing determines whether October generates £4K or £400.</p>
+
+    <!-- TASK 8 -->
+    <div class="task">
+      <div class="task-header">
+        <div class="task-priority p-critical">C</div>
+        <div class="task-main">
+          <div class="task-title-row">
+            <span class="task-title">Finalise Full Curriculum Map</span>
+            <span class="task-tag tag-course">Course</span>
+          </div>
+          <div class="task-why">You cannot record what you haven't fully designed. A complete curriculum map — every module, lesson, and learning outcome — is the blueprint everything else is built from. Vague at this stage means reshoots and delays later.</div>
+        </div>
+        <div class="task-dates">
+          <div class="date-item">
+            <span class="date-lbl">Start</span>
+            <span class="date-val">1 Jul 2026</span>
+          </div>
+          <div class="date-item">
+            <span class="date-lbl">Deadline</span>
+            <span class="date-val">14 Jul 2026</span>
+          </div>
+        </div>
+      </div>
+      <div class="subtasks">
+        <div class="subtask-header">Subtasks</div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Map all modules with lesson-level detail</div>
+            <div class="subtask-desc">Every section: Foundation, Editing Techniques, Advanced Effects, AI Tools, Workflow Systems, Real-World Builds. Each lesson needs a title and one-line learning outcome.</div>
+          </div>
+          <div class="subtask-date">By 10 Jul</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Estimate recording time per module</div>
+            <div class="subtask-desc">Realistic recording estimate — not optimistic. Assume 3x longer than expected for first-time course production. Build the schedule from honest numbers.</div>
+          </div>
+          <div class="subtask-date">By 14 Jul</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Identify which modules can use existing YouTube content</div>
+            <div class="subtask-desc">Some concepts you've already taught on YouTube. Flag these — they may need only light re-recording in course format rather than building from scratch.</div>
+          </div>
+          <div class="subtask-date">By 14 Jul</div>
+        </div>
+      </div>
+      <div class="goal-box">
+        <span class="goal-label">Goal</span>
+        <span class="goal-text">A complete, locked curriculum document that both Dina and Agnes have reviewed and agreed. No gaps, no vague sections. Recording begins immediately after this is signed off.</span>
+      </div>
+    </div>
+
+    <!-- TASK 9 -->
+    <div class="task">
+      <div class="task-header">
+        <div class="task-priority p-critical">C</div>
+        <div class="task-main">
+          <div class="task-title-row">
+            <span class="task-title">Record & Edit All Course Content</span>
+            <span class="task-tag tag-course">Course</span>
+          </div>
+          <div class="task-why">The course cannot launch without content. Recording must be treated as non-negotiable calendar blocks, not fitted around other tasks. 2–3 lessons per week is the minimum pace to complete by end of September.</div>
+        </div>
+        <div class="task-dates">
+          <div class="date-item">
+            <span class="date-lbl">Start</span>
+            <span class="date-val">15 Jul 2026</span>
+          </div>
+          <div class="date-item">
+            <span class="date-lbl">Deadline</span>
+            <span class="date-val">15 Sep 2026</span>
+          </div>
+        </div>
+      </div>
+      <div class="subtasks">
+        <div class="subtask-header">Subtasks</div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Block 90-minute recording sessions 3x per week</div>
+            <div class="subtask-desc">Calendar blocks. Non-negotiable. If content output needs to drop to one long-form video per week in August to protect these sessions, that is the correct trade-off.</div>
+          </div>
+          <div class="subtask-date">From 15 Jul</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Reach 50% recorded by end of July</div>
+            <div class="subtask-desc">Checkpoint. If below 50% on August 1st, immediately reduce YouTube long-form to one per week and add the saved time to course recording.</div>
+          </div>
+          <div class="subtask-date">31 Jul checkpoint</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">All recording complete by 15 September</div>
+            <div class="subtask-desc">Hard deadline. This leaves the second half of September for editing, platform setup, and launch preparation. Recording after this date creates launch risk.</div>
+          </div>
+          <div class="subtask-date">15 Sep hard stop</div>
+        </div>
+      </div>
+      <div class="goal-box">
+        <span class="goal-label">Goal</span>
+        <span class="goal-text">100% of course lessons recorded and edited to the same quality standard as YouTube videos by 15 September. No compromises on quality — this product represents the brand.</span>
+      </div>
+    </div>
+
+    <!-- TASK 10 -->
+    <div class="task">
+      <div class="task-header">
+        <div class="task-priority p-critical">C</div>
+        <div class="task-main">
+          <div class="task-title-row">
+            <span class="task-title">Run Beta Testing Programme</span>
+            <span class="task-tag tag-course">Course</span>
+          </div>
+          <div class="task-why">Beta students validate the course before it goes to market, identify gaps, and generate the testimonials and social proof that make your launch emails convert. Without proof, you're asking strangers to trust you with £147.</div>
+        </div>
+        <div class="task-dates">
+          <div class="date-item">
+            <span class="date-lbl">Start</span>
+            <span class="date-val">1 Sep 2026</span>
+          </div>
+          <div class="date-item">
+            <span class="date-lbl">Deadline</span>
+            <span class="date-val">28 Sep 2026</span>
+          </div>
+        </div>
+      </div>
+      <div class="subtasks">
+        <div class="subtask-header">Subtasks</div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Recruit 5–10 beta students from email list & YouTube</div>
+            <div class="subtask-desc">Offer at £29–£49 in exchange for: completing the course, detailed written feedback, and a video or written testimonial. Source from your most engaged subscribers.</div>
+          </div>
+          <div class="subtask-date">By 7 Sep</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Collect structured feedback at midpoint and end</div>
+            <div class="subtask-desc">Use a simple form. Questions: what was confusing, what was most valuable, what would you add, would you recommend it and why. Act on feedback before launch.</div>
+          </div>
+          <div class="subtask-date">By 21 Sep</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Collect testimonials in video or written format</div>
+            <div class="subtask-desc">Minimum 3 strong testimonials before launch. Before/after edits from beta students are worth more than any testimonial text. Request them specifically.</div>
+          </div>
+          <div class="subtask-date">By 28 Sep</div>
+        </div>
+      </div>
+      <div class="goal-box">
+        <span class="goal-label">Goal</span>
+        <span class="goal-text">A validated course with all major gaps identified and fixed, plus a minimum of 3 compelling testimonials ready for use in launch emails and the sales page.</span>
+      </div>
+    </div>
+
+    <!-- TASK 11 -->
+    <div class="task">
+      <div class="task-header">
+        <div class="task-priority p-critical">C</div>
+        <div class="task-main">
+          <div class="task-title-row">
+            <span class="task-title">Build Course Platform, Sales Page & Pricing</span>
+            <span class="task-tag tag-course">Course</span>
+            <span class="task-tag tag-launch">Launch</span>
+          </div>
+          <div class="task-why">The sales page is where the buying decision is made. It must articulate the transformation, handle objections, demonstrate social proof, and make buying feel easy. A weak sales page will undermine even a great course and a warm email list.</div>
+        </div>
+        <div class="task-dates">
+          <div class="date-item">
+            <span class="date-lbl">Start</span>
+            <span class="date-val">15 Sep 2026</span>
+          </div>
+          <div class="date-item">
+            <span class="date-lbl">Deadline</span>
+            <span class="date-val">1 Oct 2026</span>
+          </div>
+        </div>
+      </div>
+      <div class="subtasks">
+        <div class="subtask-header">Subtasks</div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Choose and set up platform (Teachable or Kajabi)</div>
+            <div class="subtask-desc">Integrate with Kit email platform. Set up payment processing. Upload all course content. Test the full student experience end to end before launch.</div>
+          </div>
+          <div class="subtask-date">By 22 Sep</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Write the sales page</div>
+            <div class="subtask-desc">Transformation-led headline. Problem section. Solution section. Curriculum overview. Testimonials. FAQs that handle the top 5 objections. Clear pricing. Strong CTA. No filler.</div>
+          </div>
+          <div class="subtask-date">By 28 Sep</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Set pricing: £147 early bird / £197 standard</div>
+            <div class="subtask-desc">Early bird available for first 72 hours of launch only. This is a real deadline — do not extend it. Extending fake deadlines destroys trust and conversion rates simultaneously.</div>
+          </div>
+          <div class="subtask-date">By 28 Sep</div>
+        </div>
+      </div>
+      <div class="goal-box">
+        <span class="goal-label">Goal</span>
+        <span class="goal-text">A fully live course platform with a high-converting sales page ready to receive traffic on launch day. The buying experience must be frictionless from email click to payment confirmation.</span>
+      </div>
+    </div>
+
+    <!-- TASK 12 -->
+    <div class="task">
+      <div class="task-header">
+        <div class="task-priority p-critical">C</div>
+        <div class="task-main">
+          <div class="task-title-row">
+            <span class="task-title">Execute the Course Launch</span>
+            <span class="task-tag tag-launch">Launch</span>
+            <span class="task-tag tag-email">Email</span>
+          </div>
+          <div class="task-why">A great course with a poor launch is a commercial failure. The launch sequence — pre-launch warming, the open, the 7-day email sequence, the urgency close — is what converts a warm list into buyers. This is the highest-value 7 days of the year.</div>
+        </div>
+        <div class="task-dates">
+          <div class="date-item">
+            <span class="date-lbl">Pre-Launch</span>
+            <span class="date-val">12 Oct 2026</span>
+          </div>
+          <div class="date-item">
+            <span class="date-lbl">Launch</span>
+            <span class="date-val">19 Oct 2026</span>
+          </div>
+        </div>
+      </div>
+      <div class="subtasks">
+        <div class="subtask-header">Subtasks</div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Write and schedule all 7 launch emails</div>
+            <div class="subtask-desc">Day 1: Launch announcement. Day 2: Who it's for. Day 3: Curriculum deep-dive. Day 4: Objection handling. Day 5: Social proof. Day 6: Urgency. Day 7: Final call. All written before launch day.</div>
+          </div>
+          <div class="subtask-date">By 15 Oct</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Produce a launch YouTube video</div>
+            <div class="subtask-desc">A video going live on or just before launch day. Subject: the CapCut editing transformation. Ends with course CTA. This is your highest-view promotional asset.</div>
+          </div>
+          <div class="subtask-date">Live 19 Oct</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Activate all social channels on launch day</div>
+            <div class="subtask-desc">YouTube community post. Instagram story series. TikTok repost. Consistent message across all platforms on Day 1 and Day 7 (close). Silence in between is fine.</div>
+          </div>
+          <div class="subtask-date">19 Oct + 26 Oct</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Monitor, respond to DMs and comments in real time</div>
+            <div class="subtask-desc">Personal replies to launch enquiries convert at 3–5x the rate of leaving questions unanswered. Block time to respond to every comment and DM during the 7-day launch window.</div>
+          </div>
+          <div class="subtask-date">19–26 Oct</div>
+        </div>
+      </div>
+      <div class="goal-box">
+        <span class="goal-label">Goal</span>
+        <span class="goal-text">30–50 course sales in the 7-day launch window. Revenue target: £4,400–£7,350. Every sale collected within the early bird window. Zero fake extensions.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECT 4 -->
+  <div class="project">
+    <div class="project-header">
+      <span class="project-number">PROJECT 04</span>
+      <span class="project-title">Compound to £10K Consistent</span>
+      <span class="project-phase ph4">Phase 4 — Nov 2026 – Mar 2027</span>
+    </div>
+    <p class="project-desc">Converting the launch into sustained monthly revenue. Building the evergreen engine that runs independently of active launching effort.</p>
+
+    <!-- TASK 13 -->
+    <div class="task">
+      <div class="task-header">
+        <div class="task-priority p-high">H</div>
+        <div class="task-main">
+          <div class="task-title-row">
+            <span class="task-title">Build Evergreen Course Funnel</span>
+            <span class="task-tag tag-course">Course</span>
+            <span class="task-tag tag-email">Email</span>
+          </div>
+          <div class="task-why">A launch-only course model means income spikes and drops. An evergreen funnel sells the course continuously to every new email subscriber, generating consistent revenue without you needing to actively launch again every month.</div>
+        </div>
+        <div class="task-dates">
+          <div class="date-item">
+            <span class="date-lbl">Start</span>
+            <span class="date-val">1 Nov 2026</span>
+          </div>
+          <div class="date-item">
+            <span class="date-lbl">Deadline</span>
+            <span class="date-val">30 Nov 2026</span>
+          </div>
+        </div>
+      </div>
+      <div class="subtasks">
+        <div class="subtask-header">Subtasks</div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Extend nurture sequence to include course offer at Day 21</div>
+            <div class="subtask-desc">Every new subscriber automatically receives a course offer email 21 days after sign-up. This is your passive revenue engine running 24/7.</div>
+          </div>
+          <div class="subtask-date">By 15 Nov</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Schedule mini-relaunches every 6–8 weeks</div>
+            <div class="subtask-desc">A 3-email sequence to non-buyers only, with a genuine 72-hour discount. Targets people who were interested but didn't buy at launch. Generates £500–£1,500 per cycle.</div>
+          </div>
+          <div class="subtask-date">Dec 2026, Feb 2027</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Add course mentions naturally into YouTube videos</div>
+            <div class="subtask-desc">"I go deeper on this inside CapCut Creator Mastery" — used genuinely when a video topic aligns with course content. Not every video. Only where it's natural and honest.</div>
+          </div>
+          <div class="subtask-date">Ongoing</div>
+        </div>
+      </div>
+      <div class="goal-box">
+        <span class="goal-label">Goal</span>
+        <span class="goal-text">30–40 course sales per month by January 2027 from the evergreen funnel alone, generating £4,400–£6,000/month in course revenue without active launching.</span>
+      </div>
+    </div>
+
+    <!-- TASK 14 -->
+    <div class="task">
+      <div class="task-header">
+        <div class="task-priority p-high">H</div>
+        <div class="task-main">
+          <div class="task-title-row">
+            <span class="task-title">Post-Purchase Upsell System</span>
+            <span class="task-tag tag-product">Product</span>
+            <span class="task-tag tag-email">Email</span>
+          </div>
+          <div class="task-why">Course buyers are your highest-trust customers. They have proven they will pay to improve their editing. An immediate post-purchase sequence offering the Asset Pack as a natural complement is the highest-converting sales opportunity in the entire business.</div>
+        </div>
+        <div class="task-dates">
+          <div class="date-item">
+            <span class="date-lbl">Start</span>
+            <span class="date-val">27 Oct 2026</span>
+          </div>
+          <div class="date-item">
+            <span class="date-lbl">Deadline</span>
+            <span class="date-val">10 Nov 2026</span>
+          </div>
+        </div>
+      </div>
+      <div class="subtasks">
+        <div class="subtask-header">Subtasks</div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Write post-purchase email sequence (3 emails)</div>
+            <div class="subtask-desc">Email 1 (Day 1): Welcome and quick-start guide. Email 2 (Day 3): Value tip + soft Asset Pack mention. Email 3 (Day 7): Direct Asset Pack offer framed as "the tools to use with your new skills".</div>
+          </div>
+          <div class="subtask-date">By 5 Nov</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Add Asset Pack as checkout add-on</div>
+            <div class="subtask-desc">Offer the Asset Pack as an order bump at checkout — "Add the full asset toolkit for £19" (discounted from £39). Even 15–20% uptake adds meaningful revenue per launch.</div>
+          </div>
+          <div class="subtask-date">Before launch</div>
+        </div>
+      </div>
+      <div class="goal-box">
+        <span class="goal-label">Goal</span>
+        <span class="goal-text">20–30% of course buyers also purchase the Asset Pack, contributing £200–£500 additional revenue per 10 course sales.</span>
+      </div>
+    </div>
+
+    <!-- TASK 15 -->
+    <div class="task">
+      <div class="task-header">
+        <div class="task-priority p-medium">M</div>
+        <div class="task-main">
+          <div class="task-title-row">
+            <span class="task-title">YouTube Growth — Double Down on Winners</span>
+            <span class="task-tag tag-yt">YouTube</span>
+          </div>
+          <div class="task-why">By November you have 6+ months of performance data. The guesswork phase is over. Analytics will clearly show which video types, topics, and formats are driving subscribers and watch time. Stop making content that doesn't work. Make more of what does.</div>
+        </div>
+        <div class="task-dates">
+          <div class="date-item">
+            <span class="date-lbl">Start</span>
+            <span class="date-val">1 Nov 2026</span>
+          </div>
+          <div class="date-item">
+            <span class="date-lbl">Ongoing</span>
+            <span class="date-val">Permanent</span>
+          </div>
+        </div>
+      </div>
+      <div class="subtasks">
+        <div class="subtask-header">Subtasks</div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Full analytics review — identify top 5 video formats</div>
+            <div class="subtask-desc">Review all video data: CTR, average view duration, subscriber conversion per view, comments. The top 5 formats by subscriber conversion become your primary content output going forward.</div>
+          </div>
+          <div class="subtask-date">By 10 Nov</div>
+        </div>
+        <div class="subtask">
+          <div>
+            <div class="subtask-title">Identify 3–5 collaboration targets</div>
+            <div class="subtask-desc">YouTubers in adjacent niches (video editing, content creation, smartphone video) with 5K–50K subscribers. Approach for content swap or collaboration. One good collaboration can add 300–500 subscribers.</div>
+          </div>
+          <div class="subtask-date">By 30 Nov</div>
+        </div>
+      </div>
+      <div class="goal-box">
+        <span class="goal-label">Goal</span>
+        <span class="goal-text">Channel reaches 6,000+ subscribers by March 2027. Monthly views exceed 80,000, generating meaningful AdSense alongside product and course revenue.</span>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>

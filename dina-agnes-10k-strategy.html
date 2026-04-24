@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dina & Agnes — £10K/Month Strategy 2026–2027</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f3ee;
+    --accent: #c8f542;
+    --accent2: #42c8f5;
+    --muted: #6b6b6b;
+    --border: #1e1e1e;
+    --card: #111111;
+    --warn: #f5a623;
+    --danger: #f54242;
+    --success: #42f59e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  /* HEADER */
+  .header {
+    border-bottom: 1px solid var(--border);
+    padding: 60px 48px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(200,245,66,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .header-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 64px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+
+  .header h1 span {
+    color: var(--accent);
+  }
+
+  .header-sub {
+    color: var(--muted);
+    font-size: 14px;
+    max-width: 600px;
+    margin-bottom: 32px;
+  }
+
+  .header-meta {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .meta-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .meta-value {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--white);
+  }
+
+  /* LAYOUT */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 48px 80px;
+  }
+
+  /* SECTION */
+  .section {
+    padding: 56px 0 0;
+    border-top: 1px solid var(--border);
+    margin-top: 56px;
+  }
+
+  .section:first-child {
+    border-top: none;
+    margin-top: 0;
+    padding-top: 56px;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 24px;
+    letter-spacing: -0.01em;
+  }
+
+  /* PHASE BLOCKS */
+  .phase {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 28px 32px;
+    margin-bottom: 16px;
+    position: relative;
+  }
+
+  .phase.phase-2 { border-left-color: var(--accent2); }
+  .phase.phase-3 { border-left-color: var(--warn); }
+  .phase.phase-4 { border-left-color: var(--success); }
+
+  .phase-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .phase-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .phase-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    padding: 4px 10px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .badge-1 { background: rgba(200,245,66,0.15); color: var(--accent); }
+  .badge-2 { background: rgba(66,200,245,0.15); color: var(--accent2); }
+  .badge-3 { background: rgba(245,166,35,0.15); color: var(--warn); }
+  .badge-4 { background: rgba(66,245,158,0.15); color: var(--success); }
+
+  /* REVENUE TABLE */
+  .revenue-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+  }
+
+  .revenue-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+    text-align: left;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .revenue-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #181818;
+    font-size: 14px;
+    vertical-align: top;
+  }
+
+  .revenue-table tr:last-child td {
+    border-bottom: none;
+    font-weight: 600;
+    color: var(--accent);
+    border-top: 1px solid var(--border);
+  }
+
+  .revenue-table .num {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--white);
+  }
+
+  /* CALLOUT */
+  .callout {
+    padding: 20px 24px;
+    margin: 20px 0;
+    border-radius: 2px;
+  }
+
+  .callout.critical {
+    background: rgba(245,66,66,0.08);
+    border-left: 3px solid var(--danger);
+  }
+
+  .callout.important {
+    background: rgba(245,166,35,0.08);
+    border-left: 3px solid var(--warn);
+  }
+
+  .callout.insight {
+    background: rgba(200,245,66,0.06);
+    border-left: 3px solid var(--accent);
+  }
+
+  .callout-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    color: var(--muted);
+  }
+
+  .callout.critical .callout-label { color: var(--danger); }
+  .callout.important .callout-label { color: var(--warn); }
+  .callout.insight .callout-label { color: var(--accent); }
+
+  /* CHECKLIST */
+  .checklist {
+    list-style: none;
+    margin: 16px 0;
+  }
+
+  .checklist li {
+    padding: 8px 0 8px 28px;
+    position: relative;
+    border-bottom: 1px solid #161616;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .checklist li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+  }
+
+  .checklist li:last-child { border-bottom: none; }
+
+  /* MILESTONE */
+  .milestone-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin: 24px 0;
+  }
+
+  .milestone-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 20px;
+    text-align: center;
+  }
+
+  .milestone-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .milestone-label {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  /* BODY TEXT */
+  p {
+    margin-bottom: 16px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #d4d0c8;
+  }
+
+  strong {
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 28px 0 12px;
+    color: var(--white);
+  }
+
+  h4 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin: 20px 0 8px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* TIMELINE */
+  .timeline {
+    position: relative;
+    margin: 24px 0;
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 24px;
+    margin-bottom: 0;
+    position: relative;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 119px;
+    top: 20px;
+    bottom: -1px;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .timeline-item:last-child::before { display: none; }
+
+  .timeline-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    padding-top: 4px;
+    text-align: right;
+    letter-spacing: 0.05em;
+  }
+
+  .timeline-content {
+    padding: 0 0 32px 24px;
+    border-left: 1px solid var(--border);
+    position: relative;
+  }
+
+  .timeline-content::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+
+  .timeline-title {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: var(--white);
+  }
+
+  .timeline-body {
+    font-size: 13px;
+    color: #999;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 32px 0;
+  }
+
+  /* FOOTER */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .footer-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  /* NUMBER HIGHLIGHT */
+  .n {
+    font-family: 'DM Mono', monospace;
+    color: var(--accent);
+    font-size: 0.95em;
+  }
+
+  /* WARNING ROW */
+  .warning-row {
+    background: rgba(245,166,35,0.06);
+    border: 1px solid rgba(245,166,35,0.2);
+    padding: 16px 20px;
+    margin: 12px 0;
+    font-size: 13px;
+    color: #d4d0c8;
+  }
+
+  .warning-row strong {
+    color: var(--warn);
+  }
+
+  @media (max-width: 600px) {
+    .header, .container, .footer { padding-left: 24px; padding-right: 24px; }
+    .timeline-item { grid-template-columns: 80px 1fr; }
+    .header-meta { gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-label">Confidential — Mindlyfter Ltd / Dina & Agnes</div>
+  <h1>The Path to<br><span>£10K/Month</span><br>by Q1 2027</h1>
+  <p class="header-sub">A full-spectrum growth strategy covering YouTube, content, email, products, course launch, and revenue architecture. Built to be executed, not admired.</p>
+  <div class="header-meta">
+    <div class="meta-item">
+      <span class="meta-label">Target</span>
+      <span class="meta-value">£10,000/month consistent</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Deadline</span>
+      <span class="meta-value">Q1 2027 (March 31)</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Current MRR</span>
+      <span class="meta-value">~£0 consistent</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Time Available</span>
+      <span class="meta-value">~11 months</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- EXECUTIVE SUMMARY -->
+  <div class="section">
+    <div class="section-label">00 — Executive Summary</div>
+    <div class="section-title">The Honest Starting Point</div>
+
+    <p>You are in a stronger position than you realise, but you are not yet operating as a business — you are operating as a content channel. The gap between those two things is the gap between where you are and £10k/month. This strategy closes that gap systematically.</p>
+
+    <p>The good news: your YouTube growth rate of <strong>~40% monthly</strong> since January is exceptional. Your niche has genuine demand. Your content quality is improving. Your thumbnails are consistent. You have a functioning lead magnet. These are real assets.</p>
+
+    <p>The hard truth: none of that converts to money without deliberate commercial infrastructure. No nurture sequence. No consistent product CTAs. No course yet. No pricing strategy. No launch plan. Those gaps are costing you money every single week.</p>
+
+    <div class="callout insight">
+      <div class="callout-label">The Core Thesis</div>
+      £10k/month by Q1 2027 is achievable but it requires three engines running simultaneously: YouTube growing your audience, email converting that audience into warm leads, and products plus the course converting those leads into buyers. All three must be built in parallel. Neglect any one of them and the target fails.
+    </div>
+
+    <div class="milestone-grid">
+      <div class="milestone-card">
+        <div class="milestone-number">£0</div>
+        <div class="milestone-label">Current consistent monthly revenue</div>
+      </div>
+      <div class="milestone-card">
+        <div class="milestone-number">536</div>
+        <div class="milestone-label">Current YouTube subscribers</div>
+      </div>
+      <div class="milestone-card">
+        <div class="milestone-number">~50</div>
+        <div class="milestone-label">Email list size</div>
+      </div>
+      <div class="milestone-card">
+        <div class="milestone-number">8–10</div>
+        <div class="milestone-label">New email sign-ups per week</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REVENUE ARCHITECTURE -->
+  <div class="section">
+    <div class="section-label">01 — Revenue Architecture</div>
+    <div class="section-title">How £10K/Month Is Actually Built</div>
+
+    <p>Before strategy, understand the maths. £10,000/month does not come from one source. It comes from multiple revenue streams that compound together. Here is the realistic breakdown by the time you hit target:</p>
+
+    <table class="revenue-table">
+      <thead>
+        <tr>
+          <th>Revenue Stream</th>
+          <th>Target Monthly</th>
+          <th>How</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>CapCut Creator Mastery Course</strong></td>
+          <td class="num">£4,500–£6,000</td>
+          <td>30–40 sales/month at £147–£150. Evergreen funnel + periodic relaunch.</td>
+        </tr>
+        <tr>
+          <td><strong>Digital Product Sales</strong></td>
+          <td class="num">£1,500–£2,500</td>
+          <td>Asset Pack, Sound Effects, Motion Graphics via contextual video CTAs + email.</td>
+        </tr>
+        <tr>
+          <td><strong>Email List Revenue</strong></td>
+          <td class="num">£1,000–£2,000</td>
+          <td>Nurture sequence + broadcast promotions to 2,000+ warm subscribers.</td>
+        </tr>
+        <tr>
+          <td><strong>YouTube AdSense</strong></td>
+          <td class="num">£200–£500</td>
+          <td>Passive. Grows with view count. Do not optimise for this.</td>
+        </tr>
+        <tr>
+          <td><strong>TOTAL</strong></td>
+          <td class="num">£7,200–£11,000</td>
+          <td>Conservative to optimistic range. Target sits comfortably in the middle.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout critical">
+      <div class="callout-label">Non-Negotiable</div>
+      The course is load-bearing. Without it, £10k/month requires an unrealistic volume of digital product sales at your price points. Price the course at a minimum of £147. Do not undercharge. Underpricing is not humility — it is a business error that will haunt every launch.
+    </div>
+  </div>
+
+  <!-- PHASE 1 -->
+  <div class="section">
+    <div class="section-label">02 — Phase 1</div>
+    <div class="section-title">Build the Commercial Foundation<br><span style="color:var(--accent);font-size:0.7em;">May – June 2026</span></div>
+
+    <p>Nothing else in this strategy works without Phase 1 being complete. This is infrastructure, not growth. You are building the plumbing before turning on the taps.</p>
+
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-title">Email Nurture Sequence — Live Within 2 Weeks</div>
+        <div class="phase-badge badge-1">Priority 1</div>
+      </div>
+      <p style="margin:0 0 12px;">Right now you are collecting leads with no conversion layer beneath them. Every person who signs up for the Creator Starter Pack and receives nothing of value for 30 days is a dead lead. This is your most urgent fix.</p>
+      <ul class="checklist">
+        <li><strong>Email 1 (Day 0):</strong> Welcome + deliver the freebie. Warm, human, brief. Tell them exactly what they'll get from being on your list. No selling.</li>
+        <li><strong>Email 2 (Day 2):</strong> Pure value. One specific CapCut tip or technique they can use today. Build trust fast.</li>
+        <li><strong>Email 3 (Day 4):</strong> Your story. Why Dina & Agnes exist. What you've both learned. Make it personal and real. This is where connection happens.</li>
+        <li><strong>Email 4 (Day 6):</strong> Another value hit. Point to your two or three best YouTube videos. Move them deeper into your ecosystem.</li>
+        <li><strong>Email 5 (Day 9):</strong> Soft product introduction. Frame the Asset Pack or Sound Effects as a natural extension of what they've been learning. Not a pitch — a recommendation.</li>
+        <li><strong>Email 6 (Day 14):</strong> Direct but low-pressure product email. One product, clear benefit, honest CTA. This is your first revenue trigger from the list.</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-title">Product CTAs — Built Into Every New Video</div>
+        <div class="phase-badge badge-1">Priority 1</div>
+      </div>
+      <p style="margin:0 0 12px;">Your videos are teaching without selling. That is leaving money on the table. Every video from this point forward must include one contextual product mention — not a hard sell, but a natural "if you want the assets I used here, they're in the description." Specific actions:</p>
+      <ul class="checklist">
+        <li>Sound design videos → link Sound Effects pack in description + mention verbally at natural point in video</li>
+        <li>Colour grading videos → link LUTs pack</li>
+        <li>Motion graphics / text animation videos → link Asset Pack or Motion Graphics</li>
+        <li>General tutorials → mention Creator Starter Pack freebie to drive list sign-ups</li>
+        <li>Every video → pinned comment with either freebie link or relevant product link</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-title">Thumbnail System Overhaul</div>
+        <div class="phase-badge badge-1">Priority 2</div>
+      </div>
+      <p style="margin:0 0 12px;">Your thumbnails are consistent but have settled into a formula that limits CTR ceiling. The fix is not a complete redesign — it is introducing two new elements that your current thumbnails are missing:</p>
+      <ul class="checklist">
+        <li><strong>Show the outcome:</strong> At least 50% of thumbnails should show the actual edit result — the text animation, the colour grade, the motion graphic. Not just a face with a number. Viewers click when they see something they want to achieve.</li>
+        <li><strong>Stronger facial expressions:</strong> Neutral and composed is not clickable. Genuine surprise, excitement, or curiosity reads in a thumbnail at 120px. Review your top 5 competitors' highest-performing thumbnails and study the expression intensity.</li>
+        <li><strong>Develop a visual signature:</strong> One recurring design element — a specific frame treatment, colour accent, or layout structure — that makes your thumbnails instantly recognisable as Dina & Agnes in a crowded search grid.</li>
+        <li><strong>Test split packaging:</strong> For every new video, create two thumbnail concepts. Publish the stronger one, but keep the data. After 48 hours, if CTR is below 4%, consider swapping to the alternative.</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-title">Course Waitlist Page — Live by End of June</div>
+        <div class="phase-badge badge-1">Priority 2</div>
+      </div>
+      <p style="margin:0 0 12px;">You do not need to have built the course to start collecting demand for it. A simple, well-written waitlist page serves three purposes: it validates demand, it builds urgency, and it gives you a warm list of buyers before launch day. Build a single page with:</p>
+      <ul class="checklist">
+        <li>Clear transformation statement: "Go from overwhelmed beginner to confident CapCut editor"</li>
+        <li>Brief curriculum overview — the outcomes, not the modules</li>
+        <li>Waitlist sign-up with a compelling incentive (early bird pricing, bonus lesson, or first access)</li>
+        <li>Mention in every relevant video from July onwards</li>
+      </ul>
+    </div>
+
+    <h4>Phase 1 Success Metrics</h4>
+    <div class="milestone-grid">
+      <div class="milestone-card">
+        <div class="milestone-number">6</div>
+        <div class="milestone-label">Email nurture sequence live and sending</div>
+      </div>
+      <div class="milestone-card">
+        <div class="milestone-number">100%</div>
+        <div class="milestone-label">New videos have product CTA</div>
+      </div>
+      <div class="milestone-card">
+        <div class="milestone-number">£200+</div>
+        <div class="milestone-label">First consistent monthly product revenue</div>
+      </div>
+      <div class="milestone-card">
+        <div class="milestone-number">1</div>
+        <div class="milestone-label">Course waitlist page live</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 2 -->
+  <div class="section">
+    <div class="section-label">03 — Phase 2</div>
+    <div class="section-title">Accelerate YouTube & List Growth<br><span style="color:var(--accent2);font-size:0.7em;">July – September 2026</span></div>
+
+    <p>With commercial infrastructure in place, Phase 2 is about aggressive but sustainable growth. The goal entering October is a channel at <strong>2,500–4,000 subscribers</strong> and an email list of <strong>400–700 warm subscribers</strong>. Those numbers give you a viable course launch.</p>
+
+    <div class="phase phase-2">
+      <div class="phase-header">
+        <div class="phase-title">YouTube Content Strategy — The Topic Framework</div>
+        <div class="phase-badge badge-2">Core Engine</div>
+      </div>
+      <p style="margin:0 0 12px;">Not all topics are equal. You need a deliberate mix of three content types working together:</p>
+
+      <h4>Type 1 — Search Content (40% of output)</h4>
+      <p>Videos targeting specific high-volume CapCut search queries. These are your long-term evergreen assets. They get found months or years after posting. Examples: "how to speed ramp in CapCut", "CapCut colour grading tutorial", "CapCut text animation tutorial". These grow slowly but compound powerfully. Research your top 10 search-driven topics and build them into your schedule permanently.</p>
+
+      <h4>Type 2 — Browse Content (40% of output)</h4>
+      <p>Videos the algorithm pushes to people who aren't actively searching — compelling hooks, strong packaging, broader appeal. "Your CapCut Edits Look Bad Because of This" is browse content. "5 Text Animations That Look Like After Effects" is browse content. These are your growth drivers. They require stronger thumbnails and titles but have breakout potential.</p>
+
+      <h4>Type 3 — Authority Content (20% of output)</h4>
+      <p>Longer, more comprehensive content that positions you as the definitive source. "The Complete CapCut Beginner Guide", "Master CapCut in 30 Days". These build deep trust and tend to attract your most committed viewers — the ones who eventually buy. One per month minimum.</p>
+
+      <div class="callout insight">
+        <div class="callout-label">The Breakout Strategy</div>
+        Every month, identify one video concept with genuine breakout potential — a topic with high search volume, weak existing competition, and strong thumbnail appeal. Treat it as your "big bet" for that month. Spend disproportionate time on the packaging. One breakout video can add 500–2,000 subscribers overnight and reset your growth trajectory permanently.
+      </div>
+    </div>
+
+    <div class="phase phase-2">
+      <div class="phase-header">
+        <div class="phase-title">Shorts Strategy — Reintroduction</div>
+        <div class="phase-badge badge-2">Discovery Layer</div>
+      </div>
+      <p style="margin:0 0 12px;">Two Shorts per week. Non-negotiable. Their role is purely discovery and awareness — feeding new eyes into long-form content and the email freebie. Shorts should never replace long-form in your thinking. They supplement it.</p>
+      <ul class="checklist">
+        <li>Source Shorts from proven long-form moments — take the best 45–60 seconds from a video that performed well and repackage it</li>
+        <li>Every Short ends with a verbal or text CTA pointing to the full tutorial or the free pack</li>
+        <li>Keep Shorts under 60 seconds. You have confirmed longer Shorts underperform on your channel.</li>
+        <li>Test one "standalone Short" format per week — a single tight CapCut tip that works without watching anything else. These tend to travel further.</li>
+      </ul>
+    </div>
+
+    <div class="phase phase-2">
+      <div class="phase-header">
+        <div class="phase-title">Email List — Scale to 500+ Before Launch</div>
+        <div class="phase-badge badge-2">Revenue Engine</div>
+      </div>
+      <p style="margin:0 0 12px;">At 8–10 sign-ups per week organically, you will have roughly 350–500 subscribers by October without any additional effort. That is the absolute floor. You want to exceed it. Three ways to accelerate:</p>
+      <ul class="checklist">
+        <li><strong>Dedicate one video per month specifically to the freebie</strong> — a tutorial that uses the Creator Starter Pack assets, where the natural CTA is "get these free." This single tactic can spike sign-ups significantly in the week of posting.</li>
+        <li><strong>Add the freebie CTA to every video verbally</strong> — not just the description. "If you want the free pack I use for this, link is below" mentioned naturally mid-video converts far better than a description link alone.</li>
+        <li><strong>Pre-launch Meta ads in September</strong> — a small £300–£500 test campaign driving cold traffic to the freebie landing page in the 4–6 weeks before course launch. This is the one moment where paid traffic makes sense. It can add 200–400 subscribers before launch day.</li>
+      </ul>
+    </div>
+
+    <div class="phase phase-2">
+      <div class="phase-header">
+        <div class="phase-title">Course Pre-Production — Start July</div>
+        <div class="phase-badge badge-2">Critical Path</div>
+      </div>
+      <p style="margin:0 0 12px;">The course cannot be an afterthought squeezed into September. Pre-production starts in July while content output continues. This is not optional if October is the deadline.</p>
+      <ul class="checklist">
+        <li><strong>July:</strong> Full curriculum map finalised. Every module, lesson, and learning outcome written. No gaps, no vague sections.</li>
+        <li><strong>August:</strong> Recording begins. Treat course recording like YouTube videos — same quality standards, same energy. Aim to record 2–3 lessons per week minimum alongside regular content.</li>
+        <li><strong>September:</strong> Editing, platform setup, sales page copy, launch sequence writing. This month is production and commercial infrastructure.</li>
+        <li><strong>Platform recommendation:</strong> Teachable or Kajabi. Both integrate with Kit (your email platform). Do not build custom. Speed matters more than bespoke.</li>
+      </ul>
+    </div>
+
+    <h4>Phase 2 Target State (End of September)</h4>
+    <div class="milestone-grid">
+      <div class="milestone-card">
+        <div class="milestone-number">2,500+</div>
+        <div class="milestone-label">YouTube subscribers</div>
+      </div>
+      <div class="milestone-card">
+        <div class="milestone-number">500+</div>
+        <div class="milestone-label">Email list subscribers</div>
+      </div>
+      <div class="milestone-card">
+        <div class="milestone-number">£500+</div>
+        <div class="milestone-label">Monthly product revenue</div>
+      </div>
+      <div class="milestone-card">
+        <div class="milestone-number">100%</div>
+        <div class="milestone-label">Course recorded & edited</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 3 -->
+  <div class="section">
+    <div class="section-label">04 — Phase 3</div>
+    <div class="section-title">The Course Launch<br><span style="color:var(--warn);font-size:0.7em;">October 2026</span></div>
+
+    <p>This is your first major commercial event. Executed properly, it generates £3,000–£8,000 in a single month and establishes the course as a real product in the market. Executed poorly, it generates £400 and demoralises you. The difference is almost entirely in launch preparation, not the course itself.</p>
+
+    <div class="callout critical">
+      <div class="callout-label">Pricing — Do Not Get This Wrong</div>
+      Price the CapCut Creator Mastery Course at £147 minimum. Ideally £197 with an early bird of £147 for the first 72 hours. Anything below £97 signals low value and attracts price-sensitive buyers who are harder to retain and less likely to leave strong reviews. The course covers a comprehensive curriculum that genuinely transforms editing ability. Price it accordingly.
+    </div>
+
+    <div class="phase phase-3">
+      <div class="phase-header">
+        <div class="phase-title">Pre-Launch Sequence — 3 Weeks Before</div>
+        <div class="phase-badge badge-3">Launch Infrastructure</div>
+      </div>
+      <ul class="checklist">
+        <li><strong>Week –3:</strong> "Course is coming" announcement on YouTube community tab and in email. Build anticipation. Mention the transformation, not the features.</li>
+        <li><strong>Week –3:</strong> Dedicated YouTube video about CapCut editing transformation — frame it as the problem the course solves. Ends with waitlist/early access CTA.</li>
+        <li><strong>Week –2:</strong> Email sequence begins for waitlist. 3 emails: problem agitation, transformation story, early bird offer reveal.</li>
+        <li><strong>Week –1:</strong> Countdown begins. Behind-the-scenes content on Instagram and YouTube community tab. Student success framing. Social proof if you have beta testers.</li>
+        <li><strong>Launch Day:</strong> Full email to entire list. YouTube video going live on launch day if possible. Community tab post. All social channels active.</li>
+      </ul>
+    </div>
+
+    <div class="phase phase-3">
+      <div class="phase-header">
+        <div class="phase-title">Launch Email Sequence — 7 Emails Over 7 Days</div>
+        <div class="phase-badge badge-3">Revenue Driver</div>
+      </div>
+      <ul class="checklist">
+        <li><strong>Day 1:</strong> Launch announcement. Transformation focus. Early bird pricing revealed. Hard deadline communicated.</li>
+        <li><strong>Day 2:</strong> "Who this is for" email. Be specific. Speak directly to the person who feels lost in CapCut. Show them they are exactly who this course was built for.</li>
+        <li><strong>Day 3:</strong> Curriculum deep-dive. Show the breadth. Highlight 3–4 specific lessons that solve burning problems.</li>
+        <li><strong>Day 4:</strong> Objection handling. "I'm not sure if I'm ready." "I've tried tutorials before." "Can't I just watch YouTube?" Address these directly and honestly.</li>
+        <li><strong>Day 5:</strong> Social proof email. Beta tester testimonials, results, transformation screenshots if available.</li>
+        <li><strong>Day 6:</strong> Urgency email. Early bird pricing ends tomorrow. Not fake scarcity — real deadline.</li>
+        <li><strong>Day 7:</strong> Final call. Last chance at early bird. Reminder of transformation. Clean, direct, no fluff.</li>
+      </ul>
+    </div>
+
+    <div class="phase phase-3">
+      <div class="phase-header">
+        <div class="phase-title">Beta Testing — Run in September</div>
+        <div class="phase-badge badge-3">Trust Builder</div>
+      </div>
+      <p style="margin:0 0 12px;">Recruit 5–10 beta students in September at a heavily discounted rate (£29–£49) in exchange for detailed feedback and a testimonial. This serves three purposes: it validates the course before full launch, it generates social proof you can use in the launch sequence, and it identifies any gaps or confusion in the curriculum before it matters commercially.</p>
+      <p style="margin:0;">Source beta students from your email list and YouTube community. People who are already engaged will be motivated testers.</p>
+    </div>
+
+    <h4>October Launch Target</h4>
+    <div class="milestone-grid">
+      <div class="milestone-card">
+        <div class="milestone-number">30–50</div>
+        <div class="milestone-label">Course sales in launch month</div>
+      </div>
+      <div class="milestone-card">
+        <div class="milestone-number">£4,400+</div>
+        <div class="milestone-label">Launch month revenue (conservative)</div>
+      </div>
+      <div class="milestone-card">
+        <div class="milestone-number">£147</div>
+        <div class="milestone-label">Minimum course price</div>
+      </div>
+      <div class="milestone-card">
+        <div class="milestone-number">7</div>
+        <div class="milestone-label">Launch email sequence length</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 4 -->
+  <div class="section">
+    <div class="section-label">05 — Phase 4</div>
+    <div class="section-title">Compound to £10K Consistent<br><span style="color:var(--success);font-size:0.7em;">November 2026 – March 2027</span></div>
+
+    <p>The October launch proves the model. November through March is about converting that proof into consistent monthly revenue by building the evergreen engine that runs whether or not you are actively launching.</p>
+
+    <div class="phase phase-4">
+      <div class="phase-header">
+        <div class="phase-title">Evergreen Course Funnel</div>
+        <div class="phase-badge badge-4">Recurring Revenue</div>
+      </div>
+      <p style="margin:0 0 12px;">After launch, the course does not go dormant. It enters an evergreen funnel — a system where new email subscribers are automatically moved through a sequence that sells the course without you actively launching it. This is the difference between a business and a job.</p>
+      <ul class="checklist">
+        <li>Extend your nurture sequence to include the course offer at Day 21–28 after sign-up</li>
+        <li>Add a course-specific email to every new subscriber who hasn't purchased after 30 days</li>
+        <li>Run a mini relaunch every 6–8 weeks — a 3-email sequence to non-buyers with a 72-hour discount. This alone can generate £500–£1,500 per cycle.</li>
+        <li>YouTube videos from this point should naturally reference the course where relevant — "I teach this in depth inside CapCut Creator Mastery" is a powerful organic CTA when used genuinely.</li>
+      </ul>
+    </div>
+
+    <div class="phase phase-4">
+      <div class="phase-header">
+        <div class="phase-title">YouTube — Scale to 5,000–8,000 Subs by March</div>
+        <div class="phase-badge badge-4">Growth Engine</div>
+      </div>
+      <p style="margin:0 0 12px;">By November, if growth has continued at even a moderated rate, you should be approaching or past 3,000 subscribers. The content strategy from Phase 2 continues, with two additional focuses:</p>
+      <ul class="checklist">
+        <li><strong>Double down on what has worked:</strong> Review your analytics in November. Which videos have the highest CTR, best retention, and most subscriber conversion? Make more of those. Stop second-guessing data.</li>
+        <li><strong>Collaboration targeting:</strong> Identify 3–5 YouTubers in adjacent niches — video editing broadly, content creation, smartphone videography — who have 5,000–50,000 subscribers and approach them for a content swap or collaboration. One well-matched collaboration can add 200–500 subscribers in a week.</li>
+        <li><strong>Produce one "pillar" video per month</strong> at 20+ minutes covering a comprehensive topic. These build watch time, subscriber loyalty, and search authority simultaneously.</li>
+      </ul>
+    </div>
+
+    <div class="phase phase-4">
+      <div class="phase-header">
+        <div class="phase-title">Product Revenue — Contextual Upsell System</div>
+        <div class="phase-badge badge-4">Revenue Layer</div>
+      </div>
+      <ul class="checklist">
+        <li>Every course student should receive a post-purchase email introducing the Asset Pack as a natural next step — they've learned the techniques, now give them the tools. Conversion rate on post-purchase upsell to existing buyers is significantly higher than cold traffic.</li>
+        <li>Bundle the Asset Pack as a course add-on at a discounted rate during checkout. Even 20–30% uptake adds meaningful revenue per launch.</li>
+        <li>Product-specific YouTube videos continue on a rotating basis — one product-adjacent tutorial per month minimum keeps passive sales alive.</li>
+      </ul>
+    </div>
+
+    <div class="phase phase-4">
+      <div class="phase-header">
+        <div class="phase-title">Instagram & TikTok — Targeted Role</div>
+        <div class="phase-badge badge-4">Support Channels</div>
+      </div>
+      <p style="margin:0 0 12px;">Do not try to win Instagram and TikTok in the same way you are winning YouTube. That path leads to spread-too-thin syndrome. Their specific roles from November onwards:</p>
+      <ul class="checklist">
+        <li><strong>Instagram:</strong> Social proof engine. Course student results, before/after edits, behind-the-scenes. The goal is brand warmth and trust reinforcement for people who find you outside YouTube. DM responses to warm leads are valuable here — a personal reply converts far better than any post.</li>
+        <li><strong>TikTok:</strong> Pure discovery. Repurpose your best YouTube Shorts content. Do not create uniquely for TikTok at this stage — the ROI does not justify it until you have more operational capacity.</li>
+      </ul>
+    </div>
+
+    <h4>Q1 2027 Target State</h4>
+    <div class="milestone-grid">
+      <div class="milestone-card">
+        <div class="milestone-number">6,000+</div>
+        <div class="milestone-label">YouTube subscribers</div>
+      </div>
+      <div class="milestone-card">
+        <div class="milestone-number">2,000+</div>
+        <div class="milestone-label">Email list subscribers</div>
+      </div>
+      <div class="milestone-card">
+        <div class="milestone-number">£10K+</div>
+        <div class="milestone-label">Consistent monthly revenue</div>
+      </div>
+      <div class="milestone-card">
+        <div class="milestone-number">30–40</div>
+        <div class="milestone-label">Course sales per month (evergreen)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RISKS -->
+  <div class="section">
+    <div class="section-label">06 — Risk Register</div>
+    <div class="section-title">What Can Break This Plan</div>
+
+    <p>A strategy that does not acknowledge its failure modes is not a strategy — it is optimism. These are the real risks, ranked by likelihood and impact.</p>
+
+    <div class="warning-row">
+      <strong>Risk 1 — Course delayed past October.</strong> This is the highest probability risk. Course production is hard to estimate and easy to deprioritise when content demands are high. Mitigation: treat course recording as a non-negotiable calendar block from July, not something fitted around content. If necessary, reduce long-form to one video per week in August and September to protect course production time.
+    </div>
+
+    <div class="warning-row">
+      <strong>Risk 2 — Email list too small at launch.</strong> If you enter October with fewer than 300 warm email subscribers, launch revenue will be significantly lower. Mitigation: start the freebie verbal CTA in every video immediately, and seriously consider the September Meta ads test at £300–£500.
+    </div>
+
+    <div class="warning-row">
+      <strong>Risk 3 — YouTube growth decelerates sharply.</strong> 40% monthly growth will not hold forever. If it drops to 10–15% monthly by Q3, the subscriber and view targets become harder. Mitigation: this is why the email list matters. Your business cannot be entirely dependent on algorithm generosity. Own your audience.
+    </div>
+
+    <div class="warning-row">
+      <strong>Risk 4 — Course underpriced.</strong> Pricing below £97 collapses the revenue maths entirely. At £69, you need 145 sales per month to hit £10k from the course alone. That is unrealistic. Mitigation: commit to £147 minimum now and do not negotiate with yourself about it later.
+    </div>
+
+    <div class="warning-row">
+      <strong>Risk 5 — Operational burnout.</strong> Two long-form videos per week plus two Shorts plus course production plus email plus social is a heavy load for two people. Mitigation: reduce long-form to one per week during course production months. Consistency matters more than volume.
+    </div>
+  </div>
+
+  <!-- WEEKLY RHYTHM -->
+  <div class="section">
+    <div class="section-label">07 — Weekly Operating Rhythm</div>
+    <div class="section-title">What the Week Actually Looks Like</div>
+
+    <p>Strategy without execution rhythm fails. Here is the sustainable weekly operating structure from Phase 2 onwards:</p>
+
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-title">Content Production Week</div>
+        <div class="phase-badge badge-1">Repeatable System</div>
+      </div>
+      <ul class="checklist">
+        <li><strong>Monday:</strong> Research and script for Video 1. Thumbnail concept. Review previous week's analytics — what worked, what did not, why.</li>
+        <li><strong>Tuesday:</strong> Record and edit Video 1. Film two Short clips simultaneously.</li>
+        <li><strong>Wednesday:</strong> Publish Video 1. Write and schedule email broadcast if relevant. Research and script Video 2.</li>
+        <li><strong>Thursday:</strong> Record and edit Video 2. Edit and schedule two Shorts.</li>
+        <li><strong>Friday:</strong> Publish Short 1. Thumbnail finalise for Video 2. Course production block (July onwards — 90 minutes minimum).</li>
+        <li><strong>Weekend:</strong> Publish Video 2 Sunday or Monday depending on your posting schedule. Batch social content if capacity allows.</li>
+      </ul>
+    </div>
+
+    <div class="callout important">
+      <div class="callout-label">Operational Note</div>
+      During August and September, if course production is behind schedule, drop to one long-form video per week without guilt. A delayed course launch costs more than a missed YouTube upload. Protect the launch window.
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="section">
+    <div class="section-label">08 — Master Timeline</div>
+    <div class="section-title">Month by Month</div>
+
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-date">May 2026</div>
+        <div class="timeline-content">
+          <div class="timeline-title">Foundation Month</div>
+          <p class="timeline-body">Email nurture sequence live (6 emails). Product CTAs added to all new videos. Thumbnail system reviewed and two new template directions tested. Course waitlist page briefed and in development.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">June 2026</div>
+        <div class="timeline-content">
+          <div class="timeline-title">Infrastructure Complete</div>
+          <p class="timeline-body">Course waitlist page live. First product revenue from email sequence. Shorts reintroduction — two per week. Channel approaching 800–1,000 subs. Email list at 100–150 subscribers.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">July 2026</div>
+        <div class="timeline-content">
+          <div class="timeline-title">Course Pre-Production Begins</div>
+          <p class="timeline-body">Full curriculum map finalised. Recording begins. Content output maintained at two long-form + two Shorts per week. Monthly "breakout bet" video strategy in place. Channel at 1,200–1,800 subs.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">August 2026</div>
+        <div class="timeline-content">
+          <div class="timeline-title">Production & Growth</div>
+          <p class="timeline-body">Course recording at 60–70% complete. Long-form may reduce to one per week to protect course schedule. Email list at 250–350. Channel at 1,800–2,800 subs. Product revenue at £300–£500/month.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">September 2026</div>
+        <div class="timeline-content">
+          <div class="timeline-title">Launch Preparation</div>
+          <p class="timeline-body">Course recording complete. Platform setup, sales page, and launch emails written. Beta testing with 5–10 students. Meta ads test begins (£300–£500 budget). Email list at 400–600. Channel at 2,500–3,500 subs.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">October 2026</div>
+        <div class="timeline-content">
+          <div class="timeline-title">Course Launch</div>
+          <p class="timeline-body">7-day launch sequence to full email list. Course live at £147 early bird / £197 standard. Target: 30–50 sales. Revenue target: £4,400–£7,350. Post-launch: evergreen funnel activated.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">Nov–Dec 2026</div>
+        <div class="timeline-content">
+          <div class="timeline-title">Compound & Optimise</div>
+          <p class="timeline-body">Evergreen funnel running. Mini relaunch in November to non-buyers. Product upsell emails to course students. YouTube content doubles down on highest-performing formats. Channel approaching 4,000–6,000 subs. Monthly revenue: £3,000–£6,000.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">Q1 2027</div>
+        <div class="timeline-content">
+          <div class="timeline-title">Target Achieved</div>
+          <p class="timeline-body">Evergreen course sales at 30–40/month. Product revenue £1,500–£2,500/month. Email list 2,000+. Channel 6,000–10,000 subs. Consistent monthly revenue: £10,000+. Agnes full-time viable.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FINAL WORD -->
+  <div class="section">
+    <div class="section-label">09 — Final Assessment</div>
+    <div class="section-title">Is This Actually Achievable?</div>
+
+    <p>Yes. With the caveat that it requires every major component to execute adequately — not perfectly, but adequately. The course launches on time and at the right price. The email list reaches 500+ before launch. YouTube growth continues at a decelerated but still positive rate. Product CTAs go live immediately.</p>
+
+    <p>The one scenario where this fails is if the course is delayed to December or beyond. That removes your primary revenue event from the equation and leaves you dependent on digital product sales and a still-growing YouTube channel. That path still gets you to £3,000–£5,000/month by Q1 — which is real and meaningful — but it does not reach £10k without the course.</p>
+
+    <p>The other scenario worth naming: a breakout video. One video hitting 100,000–500,000 views between now and October changes everything. It compresses this entire timeline by months. You cannot plan for it, but you can engineer better conditions by consistently targeting topics with breakout potential and packaging them aggressively.</p>
+
+    <div class="callout insight">
+      <div class="callout-label">The Single Most Important Action This Week</div>
+      Get the email nurture sequence written and live. Not next month. This week. Every day it is not running is a day of leads entering a dead end. That sequence, running properly, will generate your first consistent product revenue and build the warm list that makes October's course launch viable. Everything else in this strategy depends on that list being large and warm enough to convert. Start there.
+    </div>
+
+    <p style="margin-top:24px;">The business is real. The niche has demand. The growth signals are genuine. The gap between where you are and £10k/month is not talent or luck — it is commercial infrastructure that has not been built yet. This document is the blueprint. Execution is everything now.</p>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-brand">Dina & Agnes — Mindlyfter Ltd</div>
+  <div class="footer-note">CONFIDENTIAL STRATEGY DOCUMENT — APRIL 2026</div>
+</div>
+
+</body>
+</html>
