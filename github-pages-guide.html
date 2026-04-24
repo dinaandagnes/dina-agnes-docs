@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub Pages — Dina & Agnes Quick Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --surface: #141414;
+    --surface-2: #1a1a1a;
+    --border: #242424;
+    --border-light: #2e2e2e;
+    --accent: #02e482;
+    --accent-dim: rgba(2, 228, 130, 0.12);
+    --white: #f0f0f0;
+    --mid: #888;
+    --light: #555;
+    --text: #d4d4d4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .header {
+    padding: 56px 56px 48px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    left: -60px;
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, rgba(2,228,130,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+  }
+
+  .header h1 {
+    font-size: clamp(30px, 4vw, 52px);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    margin-bottom: 14px;
+  }
+
+  .header h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .header-sub {
+    font-size: 14px;
+    color: var(--mid);
+    max-width: 480px;
+    line-height: 1.65;
+  }
+
+  .quick-ref {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 56px;
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .qr-item { display: flex; flex-direction: column; gap: 3px; }
+  .qr-label { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--light); }
+  .qr-value { font-size: 12px; font-weight: 600; color: var(--accent); }
+
+  .main { max-width: 820px; margin: 0 auto; padding: 48px 56px 80px; }
+
+  .section { margin-bottom: 56px; }
+
+  .section-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-dim);
+    padding: 3px 8px;
+    border-radius: 2px;
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+  }
+
+  .section-desc { font-size: 13.5px; color: var(--mid); margin-bottom: 20px; line-height: 1.7; }
+
+  .divider { height: 1px; background: var(--border); margin: 0 0 56px; }
+
+  .url-display {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--accent);
+    padding: 12px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    margin: 10px 0;
+    word-break: break-all;
+    line-height: 1.5;
+  }
+
+  .steps { display: flex; flex-direction: column; }
+
+  .step { display: grid; grid-template-columns: 40px 1fr; }
+
+  .step-left { display: flex; flex-direction: column; align-items: center; padding-top: 2px; }
+
+  .step-num {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--accent); color: #000;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; flex-shrink: 0; z-index: 1;
+  }
+
+  .step-connector { width: 1px; flex: 1; background: var(--border-light); margin: 6px 0; min-height: 16px; }
+
+  .step-body { padding: 2px 0 28px 18px; }
+
+  .step-title { font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 6px; letter-spacing: -0.01em; }
+  .step-desc { font-size: 13px; color: var(--mid); line-height: 1.65; }
+
+  .callout { padding: 14px 16px; margin: 12px 0; border-radius: 2px; }
+  .callout.tip { background: rgba(2,228,130,0.06); border: 1px solid rgba(2,228,130,0.2); }
+  .callout.warning { background: rgba(255,160,50,0.06); border: 1px solid rgba(255,160,50,0.2); }
+  .callout-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 5px; }
+  .callout.tip .callout-label { color: var(--accent); }
+  .callout.warning .callout-label { color: #ffa032; }
+  .callout-text { font-size: 12.5px; line-height: 1.6; color: #999; }
+
+  .table-wrap { border: 1px solid var(--border); overflow: hidden; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead th { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--light); text-align: left; padding: 12px 16px; background: var(--surface); border-bottom: 1px solid var(--border); }
+  tbody td { padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--mid); line-height: 1.5; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody td:first-child { font-size: 12px; font-weight: 600; color: var(--accent); white-space: nowrap; }
+
+  .cheat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); margin: 16px 0; }
+  .cheat-card { background: var(--surface); padding: 20px; }
+  .cheat-title { font-size: 13px; font-weight: 700; color: var(--white); margin-bottom: 12px; letter-spacing: -0.01em; }
+  .cheat-list { list-style: none; font-size: 12.5px; color: var(--mid); line-height: 2; }
+  .cheat-list li { display: flex; align-items: flex-start; gap: 8px; }
+  .cheat-list li::before { content: '→'; color: var(--accent); font-size: 11px; font-weight: 700; padding-top: 2px; flex-shrink: 0; }
+
+  .faq-item { border-bottom: 1px solid var(--border); padding: 18px 0; }
+  .faq-item:first-child { padding-top: 0; }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-q { font-size: 13.5px; font-weight: 700; color: var(--white); margin-bottom: 6px; letter-spacing: -0.01em; }
+  .faq-a { font-size: 13px; color: var(--mid); line-height: 1.65; }
+
+  .footer { border-top: 1px solid var(--border); padding: 24px 56px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .footer-brand { font-size: 13px; font-weight: 700; color: var(--accent); }
+  .footer-note { font-size: 11px; color: var(--light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  @media (max-width: 640px) {
+    .header, .quick-ref, .main, .footer { padding-left: 20px; padding-right: 20px; }
+    .cheat-grid { grid-template-columns: 1fr; }
+    .quick-ref { gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="eyebrow">Dina & Agnes — Mindlyfter Ltd</div>
+  <h1>GitHub Pages<br><em>Quick Guide</em></h1>
+  <p class="header-sub">Everything you need to add, update, and manage your HTML documents. No need to come back to Claude for this.</p>
+</div>
+
+<div class="quick-ref">
+  <div class="qr-item"><span class="qr-label">Your GitHub</span><span class="qr-value">github.com/dinaandagnes</span></div>
+  <div class="qr-item"><span class="qr-label">Repository</span><span class="qr-value">dina-agnes-docs</span></div>
+  <div class="qr-item"><span class="qr-label">Live URL base</span><span class="qr-value">dinaandagnes.github.io/dina-agnes-docs/</span></div>
+  <div class="qr-item"><span class="qr-label">Cost</span><span class="qr-value">Free forever</span></div>
+</div>
+
+<div class="main">
+
+  <div class="section">
+    <span class="section-tag">Overview</span>
+    <div class="section-title">How It Works in Plain English</div>
+    <p class="section-desc">Your GitHub repository is like a folder in the cloud. Any HTML file you upload becomes a live web page automatically. Every file follows the same URL pattern:</p>
+    <div class="url-display">dinaandagnes.github.io/dina-agnes-docs/<strong>your-filename.html</strong></div>
+    <p class="section-desc" style="margin-top:12px;margin-bottom:0;">Upload a file, get a permanent URL. No configuration, no build steps, no waiting beyond about 60 seconds.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <span class="section-tag">Task 01</span>
+    <div class="section-title">Adding a New HTML Document</div>
+    <p class="section-desc">Do this whenever Claude creates a new HTML document you want to host permanently.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-left"><div class="step-num">1</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <div class="step-title">Go to your repository</div>
+          <div class="step-desc">Open your browser and go to:</div>
+          <div class="url-display">github.com/dinaandagnes/dina-agnes-docs</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">2</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <div class="step-title">Click "Add file" → "Upload files"</div>
+          <div class="step-desc">The green "Add file" button is near the top right of the file list. Click it and select "Upload files" from the dropdown.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">3</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <div class="step-title">Drag your HTML file into the upload box</div>
+          <div class="step-desc">Drag directly from your Downloads folder. You can upload multiple files at once. Do NOT drag a folder — drag individual files only.</div>
+          <div class="callout tip">
+            <div class="callout-label">Important</div>
+            <div class="callout-text">File names become part of the URL. Use lowercase letters and hyphens instead of spaces. Example: <strong style="color:#d4d4d4;">june-content-plan.html</strong> not "June Content Plan (Final).html"</div>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">4</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <div class="step-title">Click "Commit changes"</div>
+          <div class="step-desc">Scroll down and click the green "Commit changes" button. Leave the commit message as default.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">5</div></div>
+        <div class="step-body">
+          <div class="step-title">Wait ~60 seconds then open your URL</div>
+          <div class="url-display">dinaandagnes.github.io/dina-agnes-docs/<strong>your-filename.html</strong></div>
+          <div class="callout tip">
+            <div class="callout-label">Done</div>
+            <div class="callout-text">Copy this URL and paste it into Notion, share with Agnes, or add it anywhere. Permanent and never expires.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <span class="section-tag">Task 02</span>
+    <div class="section-title">Updating an Existing Document</div>
+    <p class="section-desc">When Claude creates an updated version of a document you already have hosted. The URL stays exactly the same.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-left"><div class="step-num">1</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <div class="step-title">Go to your repository</div>
+          <div class="step-desc">Go to <strong style="color:#d4d4d4;">github.com/dinaandagnes/dina-agnes-docs</strong></div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">2</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <div class="step-title">Click on the file you want to update</div>
+          <div class="step-desc">Find the file in the list and click its name.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">3</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <div class="step-title">Click the pencil icon → Select all → Delete</div>
+          <div class="step-desc">Pencil ✏️ icon is top right of the file content. Click it, then Cmd+A and delete everything.</div>
+          <div class="callout tip">
+            <div class="callout-label">Easier alternative</div>
+            <div class="callout-text">Delete the old file and upload the new one with the exact same filename. URL stays identical.</div>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">4</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <div class="step-title">Paste the new HTML content</div>
+          <div class="step-desc">Open the new HTML file in TextEdit (right-click → Open With → TextEdit), select all, copy, paste into GitHub editor.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">5</div></div>
+        <div class="step-body">
+          <div class="step-title">Click "Commit changes"</div>
+          <div class="step-desc">The page at the same URL updates within 60 seconds.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <span class="section-tag">Task 03</span>
+    <div class="section-title">Deleting a Document</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-left"><div class="step-num">1</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <div class="step-title">Click on the file in your repository</div>
+          <div class="step-desc">Find it in the file list and click its name.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">2</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <div class="step-title">Click ⋯ → Delete file</div>
+          <div class="step-desc">The ⋯ icon is top right of the file view, next to the pencil icon.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">3</div></div>
+        <div class="step-body">
+          <div class="step-title">Commit the deletion</div>
+          <div class="step-desc">Click "Commit changes". The file and its URL are permanently gone.</div>
+          <div class="callout warning">
+            <div class="callout-label">Note</div>
+            <div class="callout-text">Remove any Notion links pointing to that URL — they'll show a 404 error once deleted.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <span class="section-tag">Reference</span>
+    <div class="section-title">Your Current Documents</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>File Name</th><th>Live URL</th></tr></thead>
+        <tbody>
+          <tr><td>dina-agnes-10k-strategy.html</td><td>dinaandagnes.github.io/dina-agnes-docs/dina-agnes-10k-strategy.html</td></tr>
+          <tr><td>dina-agnes-strategy-map.html</td><td>dinaandagnes.github.io/dina-agnes-docs/dina-agnes-strategy-map.html</td></tr>
+          <tr><td>dina-agnes-task-list.html</td><td>dinaandagnes.github.io/dina-agnes-docs/dina-agnes-task-list.html</td></tr>
+          <tr><td>github-pages-guide.html</td><td>dinaandagnes.github.io/dina-agnes-docs/github-pages-guide.html</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13px;color:var(--mid);margin-top:12px;">New files follow the same pattern: <strong style="color:var(--accent);">dinaandagnes.github.io/dina-agnes-docs/filename.html</strong></p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <span class="section-tag">Quick Reference</span>
+    <div class="section-title">Cheat Sheet</div>
+    <div class="cheat-grid">
+      <div class="cheat-card">
+        <div class="cheat-title">Add a new document</div>
+        <ul class="cheat-list">
+          <li>Go to repo on GitHub</li>
+          <li>Add file → Upload files</li>
+          <li>Drag HTML file in</li>
+          <li>Commit changes</li>
+          <li>Wait 60 sec → URL is live</li>
+        </ul>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-title">Update an existing document</div>
+        <ul class="cheat-list">
+          <li>Click the file in repo</li>
+          <li>Click pencil icon</li>
+          <li>Select all → Delete → Paste new</li>
+          <li>Commit changes</li>
+          <li>Same URL updates automatically</li>
+        </ul>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-title">Delete a document</div>
+        <ul class="cheat-list">
+          <li>Click the file in repo</li>
+          <li>Click ⋯ → Delete file</li>
+          <li>Commit changes</li>
+          <li>Remove Notion link too</li>
+        </ul>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-title">Find a document URL</div>
+        <ul class="cheat-list">
+          <li>Note the exact filename</li>
+          <li>dinaandagnes.github.io</li>
+          <li>/dina-agnes-docs/</li>
+          <li>+ filename.html</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <span class="section-tag">FAQ</span>
+    <div class="section-title">Common Questions</div>
+    <div class="faq-item">
+      <div class="faq-q">How long until a new file is live?</div>
+      <div class="faq-a">Usually 30–90 seconds. If it's not loading after 2 minutes, do a hard refresh (Cmd+Shift+R on Mac).</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Will these URLs ever break or expire?</div>
+      <div class="faq-a">No. As long as your GitHub account and repository exist, the URLs are permanent. GitHub Pages has been free for years with no sign of that changing.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Can Agnes access these documents?</div>
+      <div class="faq-a">Yes — just share the URL. Anyone with the link can view the page. No login required to view.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Can I add other file types — PDFs, images?</div>
+      <div class="faq-a">Yes. Upload them the same way. PDFs and images get their own URL too. Example: dinaandagnes.github.io/dina-agnes-docs/my-document.pdf</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How many files can I have?</div>
+      <div class="faq-a">Free GitHub plan allows up to 1GB per repository. You'd need hundreds of thousands of HTML files to hit that. Effectively unlimited for your use case.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Can I use a custom domain like docs.dinaandagnes.com?</div>
+      <div class="faq-a">Yes, and it's free. Go to repository Settings → Pages → Custom domain. You'll also need a DNS record in your domain registrar. Ask Claude to walk you through it when ready — it takes about 10 minutes.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="footer-brand">Dina & Agnes — Mindlyfter Ltd</div>
+  <div class="footer-note">GitHub Pages Reference Guide — April 2026</div>
+</div>
+
+</body>
+</html>
