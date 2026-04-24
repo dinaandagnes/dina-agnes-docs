@@ -1,0 +1,156 @@
+
+<h2 class="sr-only">YouTube video performance tables ranked by views, watch time, subscribers gained, average view duration, and percentage viewed</h2>
+
+<style>
+  .tabs { display: flex; gap: 6px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .tab { padding: 6px 14px; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); font-size: 13px; cursor: pointer; background: transparent; color: var(--color-text-secondary); transition: all 0.15s; }
+  .tab.active { background: var(--color-background-secondary); color: var(--color-text-primary); border-color: var(--color-border-primary); font-weight: 500; }
+  .tab:hover:not(.active) { background: var(--color-background-secondary); }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
+  th { text-align: left; font-weight: 500; font-size: 12px; color: var(--color-text-secondary); padding: 8px 10px; border-bottom: 0.5px solid var(--color-border-tertiary); white-space: nowrap; }
+  td { padding: 9px 10px; border-bottom: 0.5px solid var(--color-border-tertiary); color: var(--color-text-primary); vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--color-background-secondary); }
+  .rank { font-size: 11px; color: var(--color-text-tertiary); font-weight: 500; text-align: center; }
+  .title-cell { font-size: 12px; line-height: 1.4; }
+  .metric { font-weight: 500; text-align: right; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: var(--border-radius-md); font-size: 11px; font-weight: 500; }
+  .badge-gold { background: #FAEEDA; color: #633806; }
+  .badge-silver { background: #D3D1C7; color: #2C2C2A; }
+  .badge-bronze { background: #F5C4B3; color: #4A1B0C; }
+  .section-hidden { display: none; }
+  .bar-wrap { display: flex; align-items: center; gap: 8px; }
+  .bar { height: 6px; border-radius: 3px; background: var(--color-background-info); }
+  .val { min-width: 38px; text-align: right; font-weight: 500; font-size: 13px; }
+  th.r { text-align: right; }
+  td.r { text-align: right; }
+</style>
+
+<div class="tabs">
+  <button class="tab active" onclick="show('views')">By views</button>
+  <button class="tab" onclick="show('watch')">By watch time</button>
+  <button class="tab" onclick="show('subs')">By subs gained</button>
+  <button class="tab" onclick="show('avd')">By avg view duration</button>
+  <button class="tab" onclick="show('pct')">By % viewed</button>
+</div>
+
+<div id="views" class="table-wrap">
+<table>
+  <colgroup><col style="width:34px"><col><col style="width:70px"><col style="width:80px"></colgroup>
+  <thead><tr><th>#</th><th>Title</th><th class="r">Published</th><th class="r">Views</th></tr></thead>
+  <tbody id="views-body"></tbody>
+</table>
+</div>
+
+<div id="watch" class="table-wrap section-hidden">
+<table>
+  <colgroup><col style="width:34px"><col><col style="width:70px"><col style="width:90px"></colgroup>
+  <thead><tr><th>#</th><th>Title</th><th class="r">Published</th><th class="r">Watch time (hrs)</th></tr></thead>
+  <tbody id="watch-body"></tbody>
+</table>
+</div>
+
+<div id="subs" class="table-wrap section-hidden">
+<table>
+  <colgroup><col style="width:34px"><col><col style="width:70px"><col style="width:90px"></colgroup>
+  <thead><tr><th>#</th><th>Title</th><th class="r">Published</th><th class="r">Subs gained</th></tr></thead>
+  <tbody id="subs-body"></tbody>
+</table>
+</div>
+
+<div id="avd" class="table-wrap section-hidden">
+<table>
+  <colgroup><col style="width:34px"><col><col style="width:70px"><col style="width:90px"></colgroup>
+  <thead><tr><th>#</th><th>Title</th><th class="r">Published</th><th class="r">Avg view duration</th></tr></thead>
+  <tbody id="avd-body"></tbody>
+</table>
+</div>
+
+<div id="pct" class="table-wrap section-hidden">
+<table>
+  <colgroup><col style="width:34px"><col><col style="width:70px"><col style="width:120px"></colgroup>
+  <thead><tr><th>#</th><th>Title</th><th class="r">Published</th><th class="r">% viewed</th></tr></thead>
+  <tbody id="pct-body"></tbody>
+</table>
+</div>
+
+<script>
+const videos = [
+  { title: "You Won't Believe This Was Made in CapCut UI Animations", pub: "21 Apr", views: 350, watch: 11.2, subs: 1, avdSec: 121, pct: 14.1 },
+  { title: "CapCut Compound Clips Saves Hours of Editing", pub: "18 Apr", views: 139, watch: 6.9, subs: 1, avdSec: 177, pct: 34.9 },
+  { title: "5 Text Animations That Look Like After Effects CapCut", pub: "14 Apr", views: 633, watch: 30.7, subs: 19, avdSec: 174, pct: 23.0 },
+  { title: "These 3 CapCut Transitions Will Level Up Your Edits", pub: "11 Apr", views: 1220, watch: 41.3, subs: 33, avdSec: 121, pct: 32.7 },
+  { title: "Every Editor Needs This Motion Graphics, SFX, LUTs", pub: "8 Apr", views: 92, watch: 2.5, subs: 0, avdSec: 98, pct: 30.4 },
+  { title: "Layer Sounds Like a Pro Sound Designer in CapCut", pub: "7 Apr", views: 327, watch: 16.3, subs: 11, avdSec: 180, pct: 25.3 },
+  { title: "These 3 Color Effects Will Transform Your CapCut Edits", pub: "4 Apr", views: 156, watch: 6.4, subs: 4, avdSec: 147, pct: 30.8 },
+  { title: "Color Grading in CapCut Clean Cinematic Look", pub: "1 Apr", views: 437, watch: 25.0, subs: 14, avdSec: 205, pct: 21.5 },
+  { title: "4 INSANE CapCut Tricks That Make a Huge Difference", pub: "28 Mar", views: 314, watch: 17.5, subs: 13, avdSec: 200, pct: 27.1 },
+  { title: "Animate Logos Like After Effects in CapCut", pub: "24 Mar", views: 131, watch: 5.8, subs: 0, avdSec: 159, pct: 29.7 },
+  { title: "These CapCut AI Templates Save Hours of Editing Time", pub: "21 Mar", views: 175, watch: 11.3, subs: 4, avdSec: 233, pct: 35.3 },
+  { title: "10 INSANE Text Animations That Look Expensive CapCut", pub: "17 Mar", views: 415, watch: 34.1, subs: 9, avdSec: 296, pct: 21.0 },
+  { title: "CapCut's New AI Video Generator is INSANE 2026 Update", pub: "14 Mar", views: 1031, watch: 65.3, subs: 16, avdSec: 229, pct: 26.2 },
+  { title: "5 Insane Motion Graphics in CapCut Using Only Shapes?!", pub: "10 Mar", views: 235, watch: 15.5, subs: 5, avdSec: 237, pct: 18.9 },
+  { title: "These CapCut AI Features Save Hours of Editing Time", pub: "7 Mar", views: 472, watch: 22.9, subs: 11, avdSec: 175, pct: 24.7 },
+  { title: "CapCut Speed Ramp Tutorial Create Clean, Smooth Edits", pub: "3 Mar", views: 346, watch: 20.3, subs: 8, avdSec: 211, pct: 26.1 },
+  { title: "CapCut for COMPLETE BEGINNERS Build Your First Edit", pub: "28 Feb", views: 201, watch: 10.6, subs: 2, avdSec: 192, pct: 29.0 },
+  { title: "Master These CapCut Techniques Before Your Next Edit", pub: "24 Feb", views: 976, watch: 110.4, subs: 23, avdSec: 407, pct: 21.1 },
+  { title: "CapCut Cloning Tutorial Create Twins or An Entire Army", pub: "20 Feb", views: 85, watch: 3.8, subs: 0, avdSec: 159, pct: 25.9 },
+  { title: "Your Text Looks Boring? Try These CapCut Text Animations", pub: "17 Feb", views: 1315, watch: 63.7, subs: 39, avdSec: 174, pct: 15.4 },
+  { title: "Your Edits Will Look Better After This CapCut", pub: "13 Feb", views: 96, watch: 4.3, subs: 1, avdSec: 160, pct: 25.6 },
+  { title: "9 CapCut Effects That Look Impossible (But Only Use Masks)", pub: "10 Feb", views: 417, watch: 23.6, subs: 19, avdSec: 203, pct: 22.1 },
+  { title: "3 Text Animation Tricks That Hook Viewers CapCut", pub: "6 Feb", views: 69, watch: 2.8, subs: 2, avdSec: 144, pct: 27.7 },
+  { title: "Master CapCut Graphs in 12 Minutes Buttery Smooth Animations", pub: "3 Feb", views: 301, watch: 15.2, subs: 9, avdSec: 181, pct: 24.3 },
+  { title: "VIRAL CapCut Effects Go CRAZY Every Time Full Tutorial", pub: "31 Jan", views: 59, watch: 2.1, subs: 0, avdSec: 126, pct: 28.4 }
+];
+
+function fmtDur(sec) {
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  return m + ':' + String(s).padStart(2, '0');
+}
+
+function rankBadge(i) {
+  if (i === 0) return '<span class="badge badge-gold">1st</span>';
+  if (i === 1) return '<span class="badge badge-silver">2nd</span>';
+  if (i === 2) return '<span class="badge badge-bronze">3rd</span>';
+  return '<span class="rank">' + (i + 1) + '</span>';
+}
+
+function barCell(val, max, display) {
+  const w = Math.round((val / max) * 120);
+  return '<div class="bar-wrap"><div class="bar" style="width:' + w + 'px; min-width:2px;"></div><span class="val">' + display + '</span></div>';
+}
+
+function buildTable(bodyId, sorted, keyFn, displayFn, maxVal) {
+  const tbody = document.getElementById(bodyId);
+  tbody.innerHTML = sorted.map((v, i) => {
+    const val = keyFn(v);
+    return '<tr><td class="rank">' + rankBadge(i) + '</td>' +
+      '<td class="title-cell">' + v.title + '</td>' +
+      '<td class="r" style="font-size:12px; color:var(--color-text-secondary);">' + v.pub + '</td>' +
+      '<td>' + barCell(val, maxVal, displayFn(v)) + '</td></tr>';
+  }).join('');
+}
+
+const byViews = [...videos].sort((a, b) => b.views - a.views);
+const byWatch = [...videos].sort((a, b) => b.watch - a.watch);
+const bySubs = [...videos].sort((a, b) => b.subs - a.subs);
+const byAvd = [...videos].sort((a, b) => b.avdSec - a.avdSec);
+const byPct = [...videos].sort((a, b) => b.pct - a.pct);
+
+buildTable('views-body', byViews, v => v.views, v => v.views.toLocaleString(), Math.max(...videos.map(v=>v.views)));
+buildTable('watch-body', byWatch, v => v.watch, v => v.watch.toFixed(1) + ' hrs', Math.max(...videos.map(v=>v.watch)));
+buildTable('subs-body', bySubs, v => v.subs, v => v.subs > 0 ? '+' + v.subs : '—', Math.max(...videos.map(v=>v.subs)));
+buildTable('avd-body', byAvd, v => v.avdSec, v => fmtDur(v.avdSec), Math.max(...videos.map(v=>v.avdSec)));
+buildTable('pct-body', byPct, v => v.pct, v => v.pct.toFixed(1) + '%', Math.max(...videos.map(v=>v.pct)));
+
+function show(id) {
+  ['views','watch','subs','avd','pct'].forEach(s => {
+    document.getElementById(s).classList.toggle('section-hidden', s !== id);
+  });
+  document.querySelectorAll('.tab').forEach((t, i) => {
+    t.classList.toggle('active', ['views','watch','subs','avd','pct'][i] === id);
+  });
+}
+</script>
