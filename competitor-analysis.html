@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Competitor Thumbnail & Content Analysis — Dina & Agnes</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0b0b0d;
+    --surface: #141416;
+    --surface2: #1c1c20;
+    --surface3: #222228;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --gold: #d4a853;
+    --gold-dim: rgba(212,168,83,0.12);
+    --blue: #5b9bd5;
+    --blue-dim: rgba(91,155,213,0.1);
+    --pink: #d55b8a;
+    --pink-dim: rgba(213,91,138,0.1);
+    --green: #5bd58a;
+    --green-dim: rgba(91,213,138,0.1);
+    --red: #d55b5b;
+    --red-dim: rgba(213,91,91,0.1);
+    --text: #ede9e3;
+    --muted: #7a7875;
+    --muted2: #4a4845;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  /* ---- COVER ---- */
+  .cover {
+    padding: 64px 64px 56px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0.4;
+  }
+  .cover-eyebrow {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 18px;
+  }
+  .cover h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 400;
+    line-height: 1.18;
+    color: var(--text);
+    max-width: 700px;
+    margin-bottom: 16px;
+  }
+  .cover h1 em { font-style: italic; color: var(--gold); }
+  .cover-sub {
+    font-size: 14px;
+    color: var(--muted);
+    max-width: 580px;
+    line-height: 1.6;
+    margin-bottom: 28px;
+  }
+  .cover-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 11px;
+    border-radius: 3px;
+    border: 1px solid var(--border2);
+    color: var(--muted);
+    background: var(--surface);
+    letter-spacing: 0.02em;
+  }
+
+  /* ---- LAYOUT ---- */
+  .page { max-width: 960px; margin: 0 auto; padding: 52px 64px 80px; }
+
+  section { margin-bottom: 60px; }
+
+  .eyebrow {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 6px;
+    line-height: 1.25;
+  }
+  .h2-rule {
+    height: 1px;
+    background: var(--border);
+    margin: 14px 0 24px;
+    position: relative;
+  }
+  .h2-rule::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0;
+    width: 48px; height: 1px;
+    background: var(--gold);
+    opacity: 0.6;
+  }
+
+  h3 { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 8px; letter-spacing: 0.02em; }
+
+  p { color: #c5c1bc; margin-bottom: 13px; font-size: 13.5px; line-height: 1.75; }
+  p:last-child { margin-bottom: 0; }
+  strong { color: var(--text); font-weight: 600; }
+
+  .divider { height: 1px; background: var(--border); margin: 48px 0; }
+
+  /* ---- CREATOR BLOCK ---- */
+  .creator-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 36px;
+  }
+  .creator-header {
+    padding: 20px 24px 18px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .creator-id { display: flex; align-items: center; gap: 14px; }
+  .creator-avatar {
+    width: 46px; height: 46px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-style: italic;
+    flex-shrink: 0;
+  }
+  .av-gold { background: var(--gold-dim); color: var(--gold); }
+  .av-blue { background: var(--blue-dim); color: var(--blue); }
+  .av-pink { background: var(--pink-dim); color: var(--pink); }
+
+  .creator-name { font-size: 16px; font-weight: 600; color: var(--text); }
+  .creator-desc { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  .creator-stats { display: flex; gap: 24px; flex-shrink: 0; }
+  .stat { text-align: right; }
+  .stat-n { font-size: 15px; font-weight: 600; color: var(--text); }
+  .stat-l { font-size: 10px; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; margin-top: 1px; }
+
+  .creator-body { padding: 22px 24px; }
+
+  /* ---- TWO COL ---- */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+
+  .panel {
+    background: var(--surface2);
+    border-radius: 7px;
+    padding: 16px 18px;
+    border: 1px solid var(--border);
+  }
+  .panel-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .panel ul { list-style: none; }
+  .panel ul li {
+    font-size: 13px;
+    color: #b0aca8;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 9px;
+    align-items: flex-start;
+    line-height: 1.5;
+  }
+  .panel ul li:last-child { border-bottom: none; }
+  .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+  .dot-g { background: var(--green); }
+  .dot-r { background: var(--red); }
+  .dot-a { background: var(--gold); }
+
+  /* ---- VIDEO TABLE ---- */
+  .vid-table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin: 4px 0 16px; }
+  .vid-table th {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted2); padding: 0 8px 7px 0; text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .vid-table td {
+    padding: 7px 8px 7px 0; border-bottom: 1px solid var(--border);
+    color: #aaa8a4; vertical-align: top; line-height: 1.5;
+  }
+  .vid-table tr:last-child td { border-bottom: none; }
+  .vid-table td strong { color: var(--text); }
+
+  .badge {
+    display: inline-block; font-size: 10px; font-weight: 700;
+    padding: 2px 7px; border-radius: 3px; white-space: nowrap;
+    letter-spacing: 0.04em;
+  }
+  .b-gold { background: var(--gold-dim); color: var(--gold); }
+  .b-blue { background: var(--blue-dim); color: var(--blue); }
+  .b-muted { background: var(--surface3); color: var(--muted); }
+  .b-green { background: var(--green-dim); color: var(--green); }
+  .b-red { background: var(--red-dim); color: var(--red); }
+
+  /* ---- VERDICT ---- */
+  .verdict {
+    border-left: 2px solid var(--gold);
+    background: var(--gold-dim);
+    border-radius: 0 7px 7px 0;
+    padding: 14px 18px;
+    margin-top: 16px;
+  }
+  .verdict-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 6px;
+  }
+  .verdict p { font-size: 13px; color: #c5c0b8; margin: 0; }
+
+  /* ---- THUMBNAIL PATTERNS ---- */
+  .pattern-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
+  .pattern-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px;
+  }
+  .pattern-rank {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 8px;
+  }
+  .pattern-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .pattern-desc { font-size: 12.5px; color: #9e9b96; line-height: 1.55; }
+
+  /* ---- TOPIC TABLE ---- */
+  .topic-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .topic-table th {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted2); padding: 0 10px 8px 0; text-align: left;
+    border-bottom: 1px solid var(--border2);
+  }
+  .topic-table td {
+    padding: 9px 10px 9px 0; border-bottom: 1px solid var(--border);
+    color: #b0aca8; vertical-align: top; line-height: 1.5;
+  }
+  .topic-table tr:last-child td { border-bottom: none; }
+  .topic-table td:first-child { color: var(--text); font-weight: 500; }
+
+  /* ---- DA GAPS ---- */
+  .gap-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .gap-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 18px;
+  }
+  .gap-flag {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .gap-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .gap-desc { font-size: 12px; color: var(--muted); line-height: 1.55; }
+
+  /* ---- PRIORITY ACTIONS ---- */
+  .action-list { display: flex; flex-direction: column; gap: 10px; }
+  .action-row {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    display: grid;
+    grid-template-columns: 200px 1fr 110px;
+    gap: 16px;
+    align-items: start;
+  }
+  .action-title { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.4; }
+  .action-body { font-size: 12.5px; color: #a8a5a0; line-height: 1.55; }
+  .priority {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 4px 10px; border-radius: 3px;
+    white-space: nowrap; text-align: center;
+  }
+  .p-now { background: var(--gold-dim); color: var(--gold); }
+  .p-soon { background: var(--blue-dim); color: var(--blue); }
+  .p-watch { background: var(--surface3); color: var(--muted); }
+
+  /* ---- FOOTER ---- */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 20px 64px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--muted2);
+  }
+
+  @media (max-width: 720px) {
+    .cover, .page { padding: 28px 20px; }
+    .two-col, .pattern-grid, .gap-grid { grid-template-columns: 1fr; }
+    .action-row { grid-template-columns: 1fr; }
+    .creator-stats { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-eyebrow">Dina & Agnes — Competitive Intelligence Report</div>
+  <h1>CapCut Competitor Analysis<br><em>Thumbnails, Topics & Performance</em></h1>
+  <p class="cover-sub">Built from direct analysis of 100+ actual thumbnails across Matt Loui, Patrik Key and Joey Edits. View counts, VPH data, upload dates and visual design patterns all read from source screenshots.</p>
+  <div class="cover-tags">
+    <span class="tag">Matt Loui — ~100 thumbnails</span>
+    <span class="tag">Patrik Key — ~22 thumbnails</span>
+    <span class="tag">Joey Edits — ~115 thumbnails</span>
+    <span class="tag">27 April 2026</span>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- EXECUTIVE SUMMARY -->
+  <section>
+    <div class="eyebrow">Overview</div>
+    <h2>What the data actually shows</h2>
+    <div class="h2-rule"></div>
+    <p>Having looked through all three channels properly, the picture is more nuanced than any generalisation suggests. Each creator has a distinct visual identity, a distinct content strategy, and distinct performance patterns. The one thing that is genuinely universal: <strong>face-forward thumbnails with large, legible text consistently outperform no-face or UI-screenshot-only thumbnails</strong> across all three channels without exception.</p>
+    <p>Beyond that, the patterns diverge significantly. Matt Loui is the most evolved and most inconsistent — his channel has gone through multiple visual identities and his highest-performing work sits in very specific formats. Joey Edits is the most systematically formatted creator of the three, with the clearest repeatable thumbnail template. Patrik Key is the smallest but arguably the sharpest strategically — his positioning is tighter and his recent thumbnails show a creator finding a distinct visual voice.</p>
+    <p><strong>The single most important number in this dataset:</strong> Matt Loui's "15 BEST CapCut Tricks — Noob to PRO" has 1.6 million views and a 79.2x ratio. That is a category-defining outlier and the clearest content signal in all three channels combined. The format that produced it is directly replicable.</p>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- MATT LOUI -->
+  <section>
+    <div class="eyebrow">Competitor 01</div>
+    <h2>Matt Loui</h2>
+    <div class="h2-rule"></div>
+
+    <div class="creator-block">
+      <div class="creator-header">
+        <div class="creator-id">
+          <div class="creator-avatar av-gold">M</div>
+          <div>
+            <div class="creator-name">Matt Loui</div>
+            <div class="creator-desc">CapCut + AI education — sells CapCut Lab course on Teachable — 15+ years editing experience</div>
+          </div>
+        </div>
+        <div class="creator-stats">
+          <div class="stat"><div class="stat-n">~100</div><div class="stat-l">Thumbnails analysed</div></div>
+          <div class="stat"><div class="stat-n">High</div><div class="stat-l">Threat level</div></div>
+        </div>
+      </div>
+
+      <div class="creator-body">
+
+        <h3>Thumbnail visual identity — what I actually see</h3>
+        <p>Matt Loui does not have one consistent thumbnail formula — he has evolved through several, and you can trace this across the screenshots chronologically. His oldest content (2–3 years ago) used almost no face, relying entirely on text-over-footage or software UI screenshots. Performance on those is uniformly poor — most sitting under 30k views. His middle-era work (1–2 years ago) introduced his face alongside bold kinetic typography on dark backgrounds. His current thumbnails lean more heavily on face expression combined with one large text hook and frequent use of the CapCut logo as a visual anchor.</p>
+        <p>The most consistent visual traits across his current work: <strong>dark or black backgrounds with his face slightly off-centre, white bold text with a single colour accent word, and the CapCut X logo placed prominently</strong>. He regularly uses a muted shocked/incredulous expression rather than an aggressive high-energy face — more "you won't believe this" than "this is amazing." His backgrounds are rarely clean — he often composites UI elements, app icons or abstract graphics behind or beside his face.</p>
+        <p>One important observation: his most recent thumbnails (last 1–2 months, image 1) show him experimenting more aggressively — the Seedance 2.0 thumbnail uses animated AI visuals, the "Pros do this" thumbnail is cleaner and text-forward. This suggests he is actively A/B testing formats right now, which means his formula is not fixed.</p>
+
+        <div class="two-col">
+          <div class="panel">
+            <div class="panel-label">What works in his thumbnails</div>
+            <ul>
+              <li><span class="dot dot-g"></span>Face always present — even when secondary to text, it anchors the thumbnail</li>
+              <li><span class="dot dot-g"></span>High text legibility — bold, white or yellow, readable at small sizes</li>
+              <li><span class="dot dot-g"></span>Consistent use of CapCut X logo builds category recognition</li>
+              <li><span class="dot dot-g"></span>Dark background creates contrast that makes face and text pop</li>
+              <li><span class="dot dot-g"></span>Curiosity-gap text hooks — "Pros do this", "never do this", "you won't believe"</li>
+              <li><span class="dot dot-g"></span>Rainbow/colourful border accent on some thumbnails creates brand distinctiveness</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <div class="panel-label">What is weak or inconsistent</div>
+            <ul>
+              <li><span class="dot dot-r"></span>No single locked formula — visual identity shifts video to video</li>
+              <li><span class="dot dot-r"></span>Some thumbnails overcrowded — too many icons, text blocks and graphics competing</li>
+              <li><span class="dot dot-r"></span>Older text-only / UI-screenshot thumbnails are visually weak and performed badly</li>
+              <li><span class="dot dot-r"></span>Occasional face expressions are flat — not high-energy enough to earn the click</li>
+              <li><span class="dot dot-r"></span>Off-topic content (Final Cut Pro, Filmora, MacBook reviews) dilutes channel identity</li>
+              <li><span class="dot dot-r"></span>Some thumbnails rely on text alone with no face — consistently his lower performers</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>View performance — what actually performs vs what doesn't</h3>
+        <table class="vid-table">
+          <thead>
+            <tr>
+              <th style="width:42%">Video / title pattern</th>
+              <th style="width:12%">Views</th>
+              <th style="width:12%">Ratio</th>
+              <th>Why it worked / didn't</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>15 BEST CapCut Tricks — Noob to PRO</strong> (1yr ago)</td>
+              <td>1.6M</td>
+              <td><span class="badge b-gold">79.2x</span></td>
+              <td>The clearest outlier in the entire dataset. Numbered compilation + identity transformation promise. Thumbnail: bold white text, expressive face, dark BG.</td>
+            </tr>
+            <tr>
+              <td><strong>Typography Motion Graphics Animation</strong> (1yr ago)</td>
+              <td>717k</td>
+              <td><span class="badge b-gold">>100x</span></td>
+              <td>Specific technique + kinetic text thumbnail that demonstrates the actual effect. Shows the result visually. Very strong.</td>
+            </tr>
+            <tr>
+              <td><strong>Create a VOX style Documentary in CapCut</strong> (1yr ago)</td>
+              <td>385k</td>
+              <td><span class="badge b-gold">13x</span></td>
+              <td>"Edit like a famous creator" format. Strong aspiration hook. VOX brand recognition drives clicks.</td>
+            </tr>
+            <tr>
+              <td><strong>8 Sneaky YouTube Editing Techniques in CapCut</strong> (11mo ago)</td>
+              <td>381k</td>
+              <td><span class="badge b-gold">4.2x</span></td>
+              <td>Sneaky = insider knowledge framing. Multiple faces in thumbnail triggers curiosity. Strong performer.</td>
+            </tr>
+            <tr>
+              <td><strong>Ali Abdaal Paper Transition / How to do it</strong> (2yr ago)</td>
+              <td>504k</td>
+              <td><span class="badge b-gold">>100x</span></td>
+              <td>"Edit like famous creator" format again. Ali Abdaal name + recognisable effect = huge search pull.</td>
+            </tr>
+            <tr>
+              <td><strong>10 Viral CapCut Text Effects</strong> (recent)</td>
+              <td>447k</td>
+              <td><span class="badge b-gold">2.8x</span></td>
+              <td>Number + viral adjective + specific feature. Red background with white text thumbnail breaks the dark pattern, high contrast.</td>
+            </tr>
+            <tr>
+              <td><strong>21 BEST CapCut Tricks — Noob to PRO</strong> (4mo ago)</td>
+              <td>637k</td>
+              <td><span class="badge b-gold">6.7x</span></td>
+              <td>Exact repeat of 15 tricks formula with higher number. Still strong but 79x vs 6.7x shows diminishing returns on the repeat.</td>
+            </tr>
+            <tr>
+              <td><strong>Motion Typography Smooth Animation</strong> (2mo ago)</td>
+              <td>136k</td>
+              <td><span class="badge b-blue">55 VPH, 1.4x</span></td>
+              <td>Yellow full-frame kinetic text thumbnail is distinctive. Shows the effect visually. Good but not exceptional.</td>
+            </tr>
+            <tr>
+              <td><strong>CapCut Beginner Tutorial 2026</strong> (2mo ago)</td>
+              <td>196k</td>
+              <td><span class="badge b-blue">70 VPH, 2.1x</span></td>
+              <td>Evergreen search pull. Simple noob-to-pro thumbnail. Steady performer, not a spike video.</td>
+            </tr>
+            <tr>
+              <td><strong>MacBook M1, Filmora tutorials, Final Cut Pro</strong> (various)</td>
+              <td>1.8k–47k</td>
+              <td><span class="badge b-muted">low</span></td>
+              <td>Off-niche content. His audience doesn't come for this. Consistently low performance.</td>
+            </tr>
+            <tr>
+              <td><strong>How to Edit Like Vox / Johnny Harris / Ali Abdaal</strong> (8–12mo)</td>
+              <td>49k–106k</td>
+              <td><span class="badge b-blue">moderate</span></td>
+              <td>Creator-style replication format works but at a lower ceiling than his best compilations.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="verdict">
+          <div class="verdict-label">Verdict on Matt Loui</div>
+          <p>His channel peak was 1–2 years ago when he hit the numbered tricks format and creator-style replication. He is now experimenting with AI content and going broader (Seedance, Filmora, Final Cut) which is diluting the channel. His thumbnail formula is not as locked-in as it appears — he is currently in a testing phase. The 1.6M "15 tricks" video is the single most important data point you should study and reverse-engineer. The format, the thumbnail design, the title structure — all of it is replicable. His weakness is inconsistency and off-niche drift. You can beat him by being tighter and more focused on what he's proven works.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PATRIK KEY -->
+  <section>
+    <div class="eyebrow">Competitor 02</div>
+    <h2>Patrik Key</h2>
+    <div class="h2-rule"></div>
+
+    <div class="creator-block">
+      <div class="creator-header">
+        <div class="creator-id">
+          <div class="creator-avatar av-blue">P</div>
+          <div>
+            <div class="creator-name">Patrik Key</div>
+            <div class="creator-desc">CapCut-to-professional-income positioning — After Effects comparison angle — systematic thumbnail formula</div>
+          </div>
+        </div>
+        <div class="creator-stats">
+          <div class="stat"><div class="stat-n">~22</div><div class="stat-l">Thumbnails analysed</div></div>
+          <div class="stat"><div class="stat-n">Rising</div><div class="stat-l">Threat level</div></div>
+        </div>
+      </div>
+
+      <div class="creator-body">
+
+        <h3>Thumbnail visual identity — what I actually see</h3>
+        <p>Patrik Key has the most visually consistent thumbnail formula of the three creators, which is striking given he appears to be the smallest channel. He has clearly reverse-engineered what works and locked it in. <strong>His formula is almost identical across every thumbnail: his face in close-up on the right side, near-expressionless with cold direct eye contact, a dark near-black background, and a bold text statement or visual graphic on the left.</strong> He uses a bald head with sharp facial features that photograph well in close-up, and he leans into that deliberately — the thumbnails are cold, serious, professional.</p>
+        <p>What is visually interesting about Patrik's thumbnails is the text treatment. He uses large, clear typography with deliberate colour contrast — white main text, gold or yellow accent words, and occasionally a bright graphic element (green glowing charts, money visualisations, app icons). He consistently shows value-related visual cues: dollar amounts, client notification mock-ups, income graphs. This is directly tied to his "CapCut to clients" positioning and it works as a visual differentiator — no other creator in this dataset uses money/income imagery in thumbnails this consistently.</p>
+        <p>His older thumbnails (10+ months ago) used a bright neon-green and black palette with more hyperactive expression, which performed less well. He has clearly evolved toward the colder, more authoritative look and it appears to be working better based on the VPH data visible in the recent thumbnails.</p>
+
+        <div class="two-col">
+          <div class="panel">
+            <div class="panel-label">What works in his thumbnails</div>
+            <ul>
+              <li><span class="dot dot-g"></span>Most consistent formula of all three creators — strong brand recognition building</li>
+              <li><span class="dot dot-g"></span>Cold, authoritative expression creates a "this person knows something you don't" feeling</li>
+              <li><span class="dot dot-g"></span>Income/money visual cues are unique in this space and appeal to the ambitious creator</li>
+              <li><span class="dot dot-g"></span>Clean dark backgrounds with high-contrast text — readable and uncluttered</li>
+              <li><span class="dot dot-g"></span>After Effects comparison angle is smart — positions CapCut as a legitimate professional tool</li>
+              <li><span class="dot dot-g"></span>Tight close-up framing makes his face feel intimate and direct on small screens</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <div class="panel-label">What is weak or missing</div>
+            <ul>
+              <li><span class="dot dot-r"></span>Views are generally low — formula may be visually consistent but not yet widely discovered</li>
+              <li><span class="dot dot-r"></span>Cold/serious expression can read as low energy — less clickable on a busy feed</li>
+              <li><span class="dot dot-r"></span>Very small sample of high-view outliers — no breakout hit visible in this dataset</li>
+              <li><span class="dot dot-r"></span>Income angle may narrow the audience to freelancer-aspiring editors vs general creators</li>
+              <li><span class="dot dot-r"></span>Titles are sometimes over-complex — "9 Minute Before/After Template That Gets You Hired" is trying to do too much</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>View performance — what actually performs vs what doesn't</h3>
+        <table class="vid-table">
+          <thead>
+            <tr>
+              <th style="width:42%">Video / title pattern</th>
+              <th style="width:12%">Views</th>
+              <th style="width:12%">Ratio</th>
+              <th>Why it worked / didn't</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>How To Edit VIRAL Reels in CapCut — Full Tutorial</strong> (6mo ago)</td>
+              <td>56k</td>
+              <td><span class="badge b-gold">6.8x</span></td>
+              <td>His best performer. "VIRAL Reels" is high search volume. Bright neon thumbnail with money visual — stood out from his usual dark palette.</td>
+            </tr>
+            <tr>
+              <td><strong>How To Make VIRAL Captions in CapCut</strong> (7mo ago)</td>
+              <td>130k</td>
+              <td><span class="badge b-gold">1.9x</span></td>
+              <td>VIRAL + captions = highly searched combination. Thumbnail showed his face holding two phones with floating UI — visual proof concept.</td>
+            </tr>
+            <tr>
+              <td><strong>Make Your CapCut Edits Look Like After Effects</strong> (8mo ago)</td>
+              <td>152k</td>
+              <td><span class="badge b-blue">moderate</span></td>
+              <td>His After Effects angle at its clearest. Strong aspirational hook. Good performer, not exceptional.</td>
+            </tr>
+            <tr>
+              <td><strong>10 CapCut Tricks Every Pro Editor Uses (But You Don't)</strong> (8mo ago)</td>
+              <td>69k</td>
+              <td><span class="badge b-blue">moderate</span></td>
+              <td>Insider knowledge framing. The "(But You Don't)" addition creates exclusivity and mild shame — effective psychological hook.</td>
+            </tr>
+            <tr>
+              <td><strong>CapCut Tricks That Look Like After Effects (Nobody Teaches This)</strong> (4mo ago)</td>
+              <td>41k</td>
+              <td><span class="badge b-blue">3.5x</span></td>
+              <td>The "(Nobody Teaches This)" framing adds insider exclusivity. Solid performer.</td>
+            </tr>
+            <tr>
+              <td><strong>People Think This Is After Effects (It's CapCut)</strong> (2mo ago)</td>
+              <td>9.6k</td>
+              <td><span class="badge b-muted">low</span></td>
+              <td>Very recent, may still be building. But the implied social proof angle hasn't broken through yet.</td>
+            </tr>
+            <tr>
+              <td><strong>Most recent videos (last 3 weeks)</strong></td>
+              <td>1.4k–8.5k</td>
+              <td><span class="badge b-muted">too early</span></td>
+              <td>Too new to judge fairly. VPH numbers are 1–2 which is low but the channel is small.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="verdict">
+          <div class="verdict-label">Verdict on Patrik Key</div>
+          <p>Patrik Key is the most strategically interesting competitor even though his view counts are the lowest. His positioning is sharper than either Matt Loui or Joey Edits — the "CapCut to professional income" angle is specific, aspirational, and underserved. His thumbnail formula is the most consistent of the three. He hasn't broken out yet but he is finding his identity. The After Effects comparison angle he owns is smart and his income/money visual language is a genuine differentiator. You do not want to fight him on the freelancer angle — that's his lane. But his approach of using a locked-in visual formula with a cold authoritative expression is worth noting as a design principle: consistency builds recognition faster than variety.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOEY EDITS -->
+  <section>
+    <div class="eyebrow">Competitor 03</div>
+    <h2>Joey Edits (Mathew)</h2>
+    <div class="h2-rule"></div>
+
+    <div class="creator-block">
+      <div class="creator-header">
+        <div class="creator-id">
+          <div class="creator-avatar av-pink">J</div>
+          <div>
+            <div class="creator-name">Joey Edits</div>
+            <div class="creator-desc">CapCut PC specialist — most prolific of the three — heavy "edit like famous creator" content series — multiple template series running simultaneously</div>
+          </div>
+        </div>
+        <div class="creator-stats">
+          <div class="stat"><div class="stat-n">~115</div><div class="stat-l">Thumbnails analysed</div></div>
+          <div class="stat"><div class="stat-n">High</div><div class="stat-l">Threat level</div></div>
+        </div>
+      </div>
+
+      <div class="creator-body">
+
+        <h3>Thumbnail visual identity — what I actually see</h3>
+        <p>Joey Edits is the most prolific creator of the three by far, and the volume shows in his thumbnail approach — he runs multiple concurrent template series. Looking across all 10 screenshots, I can identify at least four distinct repeating thumbnail formats he cycles between.</p>
+        <p><strong>Format 1 — "Edit Like [Famous Creator]":</strong> Red banner with white text top-left, the target creator's face on the right with a white arrow pointing to them, his own face on the left. This is used repeatedly across videos featuring Iman Gadzhi, MagnatesMedia, Natt Jongsala, Vox, Isaac, Ali Abdaal. It is his clearest branded template and it generates strong search pull from fans of those creators.</p>
+        <p><strong>Format 2 — "Yes You Can" series:</strong> Red pill/banner with white text bottom-left, his face or a guest creator's face alongside the CapCut logo and an arrow. Used across multiple "Can I edit like X in CapCut PC?" videos. Visually consistent and recognisable.</p>
+        <p><strong>Format 3 — Bold text + face:</strong> Large all-caps white or yellow text dominating most of the thumbnail space, his face occupying the remaining side. Used for tips, tricks and compilation content. Clean and punchy.</p>
+        <p><strong>Format 4 — No-face / graphic only:</strong> Shows the actual editing technique, app icons, before/after comparison, or CapCut interface. Used less in recent work, more in early work. These are his consistently weaker performers.</p>
+        <p>Visually, Joey's thumbnails use far more colour saturation than Matt Loui — brighter backgrounds, more contrast, more use of red and yellow. His face expressions are high-energy and warm — big smiles, wide eyes, genuine enthusiasm. This creates a different emotional tone from both Matt Loui (serious/credible) and Patrik Key (cold/authoritative).</p>
+
+        <div class="two-col">
+          <div class="panel">
+            <div class="panel-label">What works in his thumbnails</div>
+            <ul>
+              <li><span class="dot dot-g"></span>Multiple locked template series create instant recognition for repeat viewers</li>
+              <li><span class="dot dot-g"></span>"Edit Like [Creator]" series is a repeatable format with built-in search traffic</li>
+              <li><span class="dot dot-g"></span>High energy, warm expressions are approachable and invite clicks from beginners</li>
+              <li><span class="dot dot-g"></span>Bright colour palette stands out from the dark-dominant thumbnails in this space</li>
+              <li><span class="dot dot-g"></span>Red accent banners create a consistent visual identity across the whole channel</li>
+              <li><span class="dot dot-g"></span>Arrow devices consistently used to direct eye toward key element — clean visual grammar</li>
+              <li><span class="dot dot-g"></span>VPH multipliers on his best content are very strong (14.3x on Claude + CapCut is impressive)</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <div class="panel-label">What is weak or missing</div>
+            <ul>
+              <li><span class="dot dot-r"></span>Runs too many series simultaneously — channel feels scattered to first-time visitors</li>
+              <li><span class="dot dot-r"></span>Heavy PC focus limits audience to desktop editors — a smaller subset of CapCut users</li>
+              <li><span class="dot dot-r"></span>Some thumbnails are graphically cluttered — too many visual elements competing</li>
+              <li><span class="dot dot-r"></span>Sponsored/review content (UniConverter, Aiarty etc.) dilutes content trust</li>
+              <li><span class="dot dot-r"></span>Off-niche content (Filmora, DaVinci, fitness video timers) confuses channel identity</li>
+              <li><span class="dot dot-r"></span>No-face thumbnails — cinematic transitions, app icons only — consistently underperform</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>View performance — what actually performs vs what doesn't</h3>
+        <table class="vid-table">
+          <thead>
+            <tr>
+              <th style="width:42%">Video / title pattern</th>
+              <th style="width:12%">Views</th>
+              <th style="width:12%">Ratio</th>
+              <th>Why it worked / didn't</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Claude + CapCut = GOD MODE (3 cool ways)</strong> (2 weeks ago)</td>
+              <td>111k</td>
+              <td><span class="badge b-gold">14.3x</span></td>
+              <td>Current top performer. AI angle + catchy phrasing. Crown icons on thumbnail. Very timely topic. Still climbing.</td>
+            </tr>
+            <tr>
+              <td><strong>How To Edit Like Iman Gadzhi in CapCut PC</strong> (2yr ago)</td>
+              <td>350k</td>
+              <td><span class="badge b-gold">2.4x</span></td>
+              <td>His single highest-view video. Iman Gadzhi has massive search pull. "Edit Like" template thumbnail is clean and effective.</td>
+            </tr>
+            <tr>
+              <td><strong>Can I Edit Videos like Vox in CapCut PC?</strong> (2yr ago)</td>
+              <td>305k</td>
+              <td><span class="badge b-gold">2.7x</span></td>
+              <td>Vox has strong recognition and an aspirational editing style. "Yes You Can" template thumbnail.</td>
+            </tr>
+            <tr>
+              <td><strong>Master Keyframing in CapCut PC — Complete Beginner's Guide</strong> (2yr ago)</td>
+              <td>251k</td>
+              <td><span class="badge b-gold">4.1x</span></td>
+              <td>Evergreen deep-dive. Keyframes are a major pain point. Strong search volume. Clean thumbnail.</td>
+            </tr>
+            <tr>
+              <td><strong>How to Edit Like Natt Jongsala in CapCut PC</strong> (2yr ago)</td>
+              <td>234k</td>
+              <td><span class="badge b-blue">moderate</span></td>
+              <td>"Edit Like" format again. Natt Jongsala has a distinctive aesthetic that creators want to replicate.</td>
+            </tr>
+            <tr>
+              <td><strong>ChatGPT + CapCut = GOD MODE (4 cool ways)</strong> (8mo ago)</td>
+              <td>115k</td>
+              <td><span class="badge b-gold">9.4x</span></td>
+              <td>Same formula as the Claude version above — AI + CapCut pairing keeps working for him. The "GOD MODE" hook is very strong.</td>
+            </tr>
+            <tr>
+              <td><strong>How To Share Projects With Source Footage — CapCut PC</strong> (1yr ago)</td>
+              <td>88k</td>
+              <td><span class="badge b-gold">3.9x</span></td>
+              <td>Specific practical problem. Workflow-focused. People search exactly for this.</td>
+            </tr>
+            <tr>
+              <td><strong>How to animate like a Pro (CapCut PC Tutorial)</strong> (1yr ago)</td>
+              <td>97k</td>
+              <td><span class="badge b-gold">7.9x</span></td>
+              <td>Aspirational "pro" framing. Thumbnail shows graduated transformation (1, 2, 3 figures). Strong.</td>
+            </tr>
+            <tr>
+              <td><strong>How To Get CapCut PC PRO in Any Region</strong> (1yr ago)</td>
+              <td>118k</td>
+              <td><span class="badge b-gold">3.7x</span></td>
+              <td>Evergreen problem-solving. International audience pain point. Keeps getting search traffic.</td>
+            </tr>
+            <tr>
+              <td><strong>9 Practical Ways to Use Kling 01 as a Video Editor</strong> (3mo ago)</td>
+              <td>113k</td>
+              <td><span class="badge b-gold">5.2x</span></td>
+              <td>Timely AI tool coverage. Start/end transformation thumbnail. Strong early momentum.</td>
+            </tr>
+            <tr>
+              <td><strong>No-face, app icon only thumbnails</strong> (various)</td>
+              <td>2k–10k</td>
+              <td><span class="badge b-muted">low</span></td>
+              <td>Consistently his lowest performers. Cinematic transitions, circle mask, progress bars with no face — all underperform.</td>
+            </tr>
+            <tr>
+              <td><strong>Sponsored tool reviews (UniConverter, Aiarty etc.)</strong> (various)</td>
+              <td>3k–11k</td>
+              <td><span class="badge b-muted">low</span></td>
+              <td>Audience doesn't come for these. Clear mismatch. Low VPH across the board.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="verdict">
+          <div class="verdict-label">Verdict on Joey Edits</div>
+          <p>Joey Edits is your most direct competitor because he is actively growing, has a clear system, and has proven several formats that you can adapt. His two biggest wins are the "Edit Like [Famous Creator]" series — which generates consistent search pull — and the AI + CapCut pairing which is his current momentum topic. His weakness is scatter: too many series, too much off-niche content, too heavy a PC focus. Your advantage over him is that you cover all CapCut versions (mobile included, which is the larger audience), your approach is more human and creator-focused rather than technique-focused, and you have two faces on screen which is a visual differentiator he does not have.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- THUMBNAIL PATTERNS -->
+  <section>
+    <div class="eyebrow">Design Analysis</div>
+    <h2>Thumbnail patterns that actually perform — ranked by evidence</h2>
+    <div class="h2-rule"></div>
+    <p style="margin-bottom:22px;">These patterns are ranked by how consistently they correlate with high view counts and strong VPH ratios across all three channels. Not theory — what the data shows.</p>
+
+    <div class="pattern-grid">
+      <div class="pattern-card" style="border-left:2px solid var(--gold);">
+        <div class="pattern-rank">Rank 01 — Strongest evidence</div>
+        <div class="pattern-title">Face + large text hook + dark or high-contrast background</div>
+        <div class="pattern-desc">The dominant pattern across all three channels' best performers. Face occupies roughly 30–50% of the frame, one clear bold text statement occupies the rest. Dark or cinematic background keeps focus on face and text. Seen in virtually every video above 100k views across all three channels. The text must be readable at 100px width — if it needs squinting it fails.</div>
+      </div>
+
+      <div class="pattern-card" style="border-left:2px solid var(--gold);">
+        <div class="pattern-rank">Rank 02 — Strong evidence (Joey Edits)</div>
+        <div class="pattern-title">Locked template series — "Edit Like", "Yes You Can", etc.</div>
+        <div class="pattern-desc">Joey Edits' "Edit Like [Creator]" red-banner template is his most repeatable high-performer. The template itself becomes recognisable over time — returning viewers know what they're getting. Creates a content series that compounds. The red banner + arrow + two-face layout is visually distinctive in a way that builds channel identity fast. Patrik Key's consistent close-up formula achieves something similar.</div>
+      </div>
+
+      <div class="pattern-card">
+        <div class="pattern-rank">Rank 03 — Strong evidence (Matt Loui)</div>
+        <div class="pattern-title">The effect/technique visually shown inside the thumbnail</div>
+        <div class="pattern-desc">Matt Loui's 717k typography video and the kinetic motion thumbnails show the actual result — not just a face promising a result. When the thumbnail demonstrates the technique visually, it reduces viewer uncertainty about what they'll get. His text-effect thumbnails (where the text design IS the thumbnail design) are among his strongest. Underused by all three creators relative to how well it performs when they do it.</div>
+      </div>
+
+      <div class="pattern-card">
+        <div class="pattern-rank">Rank 04 — Reliable evidence</div>
+        <div class="pattern-title">Curiosity-gap or insider knowledge text framing</div>
+        <div class="pattern-desc">"Pros do this", "Nobody teaches this", "But You Don't", "It Feels Illegal", "Sneaky techniques", "Secrets" — these text framings create an implied gap between what the viewer knows and what the creator knows. Appear consistently on mid-to-high performers across all three channels. Works best paired with a face expression that matches the framing — a slight smirk or knowing look, rather than a shocked wide-eyes expression.</div>
+      </div>
+
+      <div class="pattern-card">
+        <div class="pattern-rank">Rank 05 — Contextual evidence</div>
+        <div class="pattern-title">Famous creator name or brand prominently in thumbnail</div>
+        <div class="pattern-desc">Joey Edits' "Edit Like" series and Matt Loui's Vox/Ali Abdaal/Johnny Harris thumbnails consistently pull views. The famous creator's face or brand logo in the thumbnail borrows their search traffic and their audience's aspiration. Works especially well when that creator has a visually distinctive editing style (Vox, MagnatesMedia, Natt Jongsala). The thumbnail must make the connection obvious at a glance.</div>
+      </div>
+
+      <div class="pattern-card">
+        <div class="pattern-rank">Rank 06 — Works when fresh</div>
+        <div class="pattern-title">Timely AI tool pairing — "X + CapCut"</div>
+        <div class="pattern-desc">Joey Edits' "Claude + CapCut = GOD MODE" (14.3x) and "ChatGPT + CapCut = GOD MODE" (9.4x) show that pairing CapCut with a trending AI tool drives strong early momentum. The thumbnail for these uses the AI tool's logo + CapCut logo + face, which is clean and communicates the collaboration immediately. This format has a shorter shelf life than evergreen techniques but can spike hard when timed well.</div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:4px;">
+      <div class="panel-label">What consistently does not work — evidenced across all three channels</div>
+      <ul>
+        <li><span class="dot dot-r"></span>Thumbnails with no face at all — software UI, app icons, or animation screenshots only. Across all three channels these are the bottom performers. No exceptions in the data.</li>
+        <li><span class="dot dot-r"></span>Off-niche content regardless of thumbnail quality — MacBook reviews, DaVinci Resolve, fitness timers. The audience doesn't click these regardless of how good the thumbnail is.</li>
+        <li><span class="dot dot-r"></span>Cluttered thumbnails with 3+ competing text elements or too many floating app icons — reduces focal clarity and hurts click-through.</li>
+        <li><span class="dot dot-r"></span>Sponsored review content — UniConverter, Aiarty, Wondershare. Universally low performers across all three channels. Audiences can smell ads.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- TOPIC PERFORMANCE -->
+  <section>
+    <div class="eyebrow">Content Strategy</div>
+    <h2>Topics — evergreen vs outliers vs dead ends</h2>
+    <div class="h2-rule"></div>
+
+    <h3 style="color:var(--gold); margin-bottom:14px;">Outlier topics — evidence of above-average spikes</h3>
+    <table class="topic-table" style="margin-bottom:28px;">
+      <thead>
+        <tr>
+          <th style="width:28%">Topic format</th>
+          <th style="width:15%">Best example view count</th>
+          <th>Evidence and notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Numbered tricks compilation</td>
+          <td>1.6M (Matt Loui)</td>
+          <td>The single highest-performing topic type in the dataset. "X BEST CapCut Tricks" — the number acts as both a value signal and a curiosity hook. Matt Loui's 15-tricks video at 1.6M and 79.2x ratio is the definitive proof. The 21-tricks follow-up at 637k confirms the format, not just the video. You have not made one of these yet — this is your clearest gap.</td>
+        </tr>
+        <tr>
+          <td>Edit Like [Famous Creator]</td>
+          <td>504k (Matt Loui — Ali Abdaal paper transition)</td>
+          <td>Appears across all three channels and is reliably strong. Joey Edits built an entire series around it. Requires picking creators with a visually distinctive style and a large enough audience to drive search. Ali Abdaal, Iman Gadzhi, Vox, MagnatesMedia, Natt Jongsala all appear multiple times. Thumbnail borrows the creator's recognition. Strong evergreen search pull.</td>
+        </tr>
+        <tr>
+          <td>CapCut + AI tool pairing</td>
+          <td>115k (Joey Edits — Claude/ChatGPT + CapCut)</td>
+          <td>Joey Edits has run this formula twice (ChatGPT, then Claude) and hit 115k both times with strong VPH ratios. Matt Loui is starting to move this direction. The "AI + CapCut" angle is rising and not yet crowded. Moving early with a well-packaged video positions you as the authority on this specific combination before the space fills up.</td>
+        </tr>
+        <tr>
+          <td>CapCut vs After Effects / pro tool comparison</td>
+          <td>152k (Patrik Key)</td>
+          <td>The "you can do what AE does, in CapCut, for free" angle is consistent across all three channels. Appears in Patrik Key's entire positioning, in Matt Loui's "You CAN Animate Like After Effect in CapCut" (176k), and in multiple Joey Edits videos. Works because it frames CapCut as aspirational rather than beginner. Appeals to creators who feel self-conscious about using a "free" tool.</td>
+        </tr>
+        <tr>
+          <td>Kinetic / motion typography</td>
+          <td>717k (Matt Loui — 100x)</td>
+          <td>Matt Loui's typography video is his 2nd highest performer and has an extraordinary 100x+ ratio. Motion typography is visually demonstrable in the thumbnail itself, which is a double advantage. Also searchable from a technique angle. Joey Edits covers it too. Strong topic with a long shelf life.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="color:var(--blue); margin-bottom:14px;">Evergreen topics — steady search, lower viral ceiling</h3>
+    <table class="topic-table" style="margin-bottom:28px;">
+      <thead>
+        <tr>
+          <th style="width:28%">Topic</th>
+          <th style="width:15%">Performance pattern</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>CapCut beginners guide / full tutorial</td>
+          <td>Steady — 28k–196k</td>
+          <td>Matt Loui's 2026 beginner tutorial sits at 196k from 2 months ago with 70 VPH — good steady performer. Not a spike video but drives consistent subscriber acquisition from new CapCut users. Year-tagging is important — the 2026 version outperforms older ones.</td>
+        </tr>
+        <tr>
+          <td>Keyframes deep-dive</td>
+          <td>Strong — 251k (Joey)</td>
+          <td>Keyframes are a universal pain point. Joey's comprehensive keyframe guide is one of his all-time top performers. Evergreen search traffic. Long videos do better here because people genuinely need the depth.</td>
+        </tr>
+        <tr>
+          <td>Captions / subtitles in CapCut</td>
+          <td>Steady — 21k–432k</td>
+          <td>Matt Loui's caption styles video at 432k shows the ceiling is real. Captions are one of the most searched CapCut topics because it's a need every creator has. Strong format with high search volume and consistent discovery.</td>
+        </tr>
+        <tr>
+          <td>Speed ramp tutorial</td>
+          <td>Steady — 150k+ (Matt Loui)</td>
+          <td>Matt Loui's speed ramp tutorial sits at 150k. Evergreen — new creators are always learning this. The old vs new CapCut speed ramp comparison thumbnail is visually smart.</td>
+        </tr>
+        <tr>
+          <td>Transitions tutorial</td>
+          <td>Steady — 49k–197k</td>
+          <td>Joey Edits' transitions video at 197k is a strong performer. Transitions are universally desired and searched. Specific transition types outperform generic tutorials.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="color:var(--red); margin-bottom:14px;">Dead ends — low performance across all three channels</h3>
+    <div class="panel">
+      <div class="panel-label">Consistently underperforming topic types</div>
+      <ul>
+        <li><span class="dot dot-r"></span><strong>Off-niche software reviews</strong> — Filmora tutorials, MacBook reviews, DaVinci Resolve comparisons. Low views across all three. The CapCut audience doesn't come for these.</li>
+        <li><span class="dot dot-r"></span><strong>Sponsored tool reviews</strong> — UniConverter, Aiarty, Wondershare, etc. 3k–11k views regardless of channel size. Audiences can identify ad content and skip it.</li>
+        <li><span class="dot dot-r"></span><strong>Very niche technical CapCut features in isolation</strong> — Specific settings, compression tools, file format converters. Low search volume, limited appeal. Works better as part of a wider "tips" compilation than as a standalone video.</li>
+        <li><span class="dot dot-r"></span><strong>Business/creator growth content without editing angle</strong> — Matt Loui's "How Much We Paid a TikTok Influencer" (1.2k views) is a clear example. The CapCut audience wants editing. They will not follow a pivot to general creator business content unless the channel is already large enough to carry the trust.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- DA GAPS -->
+  <section>
+    <div class="eyebrow">Your Opportunity</div>
+    <h2>Where Dina & Agnes can take ground</h2>
+    <div class="h2-rule"></div>
+    <p style="margin-bottom:22px;">Based on what is actually visible in this data — not general advice.</p>
+
+    <div class="gap-grid">
+      <div class="gap-card" style="border-top:2px solid var(--gold);">
+        <div class="gap-flag">Clearest gap</div>
+        <div class="gap-title">Make a numbered compilation video immediately</div>
+        <div class="gap-desc">The 1.6M Matt Loui video is the loudest signal in the entire dataset. You have not made one. "15 CapCut tricks that make your videos look professional" or "20 CapCut editing tricks that will change how you edit" — the format is proven, the template is known. This is your most direct, evidence-backed growth lever right now.</div>
+      </div>
+      <div class="gap-card" style="border-top:2px solid var(--gold);">
+        <div class="gap-flag">Fastest win</div>
+        <div class="gap-title">AI + CapCut video while Joey Edits owns it but before Matt Loui does</div>
+        <div class="gap-desc">Joey Edits is running the "AI + CapCut = GOD MODE" format and getting 14.3x on it. Matt Loui is moving toward AI content but hasn't locked in the format. Your curriculum already covers ChatGPT for creators. A well-packaged "Claude + CapCut workflow" or "AI tools in CapCut that actually save you time" video timed now captures the rising search curve.</div>
+      </div>
+      <div class="gap-card" style="border-top:2px solid var(--gold);">
+        <div class="gap-flag">Design gap</div>
+        <div class="gap-title">Two faces on one thumbnail — no competitor uses this</div>
+        <div class="gap-desc">Not one thumbnail across all three channels uses two host faces. You are a co-presenter brand. That is a visual differentiator that none of them can replicate. Side-by-side, reaction shot, or teaching dynamic — two faces creates more visual interest than one and signals a different format of content. Use it deliberately and consistently.</div>
+      </div>
+      <div class="gap-card" style="border-top:2px solid var(--blue);">
+        <div class="gap-flag">Technique gap</div>
+        <div class="gap-title">Show the result in the thumbnail more consistently</div>
+        <div class="gap-desc">Matt Loui's 717k typography video and his best text-effect thumbnails demonstrate the technique visually. None of the three do this consistently. When your thumbnail actually shows what the viewer will learn to create — a text animation, a colour grade, a transition — it converts better than a face with a promise. Especially for technique-specific content.</div>
+      </div>
+      <div class="gap-card" style="border-top:2px solid var(--blue);">
+        <div class="gap-flag">Positioning gap</div>
+        <div class="gap-title">Mobile CapCut — underserved by all three</div>
+        <div class="gap-desc">Joey Edits is heavily PC-focused. Patrik Key skews professional. Matt Loui covers both but without emphasising mobile. The majority of CapCut's user base edits on mobile. Explicitly owning "CapCut mobile" in titles and thumbnails captures a search audience that Joey Edits' PC focus is largely ignoring.</div>
+      </div>
+      <div class="gap-card" style="border-top:2px solid var(--pink);">
+        <div class="gap-flag">Series gap</div>
+        <div class="gap-title">Start a locked-template series like Joey's "Edit Like"</div>
+        <div class="gap-desc">Joey Edits' "Edit Like [Creator]" series is his most systemically valuable content strategy. It combines search pull, aspiration, and a reusable thumbnail template. You could run a "Creator Edit Breakdown" series or similar — analysing a well-known creator's editing style and teaching it in CapCut. The template compounds faster than standalone videos.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PRIORITY ACTIONS -->
+  <section>
+    <div class="eyebrow">What To Do</div>
+    <h2>Priority actions — ordered by evidence strength</h2>
+    <div class="h2-rule"></div>
+
+    <div class="action-list">
+      <div class="action-row" style="border-color:rgba(212,168,83,0.3);">
+        <div class="action-title">Make a "20 CapCut tricks" compilation video</div>
+        <div class="action-body">This is the single highest-evidenced format in the dataset. Matt Loui's 15-tricks video is 1.6M views with a 79.2x ratio. Thumbnail formula: your faces + bold numbered text + dark background + CapCut logo. Title formula: "X CapCut Tricks That Will Change How You Edit" or "X CapCut Tricks Beginners Don't Know." Aim for 15–25 tricks. Include a range from beginner to intermediate to maximise audience breadth.</div>
+        <div><span class="priority p-now">Do this now</span></div>
+      </div>
+      <div class="action-row" style="border-color:rgba(212,168,83,0.3);">
+        <div class="action-title">Lock your thumbnail formula and apply it going forward</div>
+        <div class="action-body">The evidence is clear: consistent formula = faster brand recognition. Pick one of: (1) dark background + faces + bold text, or (2) high-contrast bright background + faces + text. Test both with your next 4 videos. Once you see which performs better, lock it. Your dual-presenter setup is a genuine visual differentiator — use both faces in every thumbnail from here.</div>
+        <div><span class="priority p-now">This week</span></div>
+      </div>
+      <div class="action-row">
+        <div class="action-title">Publish an AI + CapCut video while the window is open</div>
+        <div class="action-body">Joey Edits has 111k views from 2 weeks ago on "Claude + CapCut = GOD MODE." Matt Loui hasn't claimed this space yet. Your curriculum covers ChatGPT for creators. A strong "How I use AI and CapCut together to edit faster" or "AI + CapCut workflow that saves hours" — packaged cleanly with the AI logo + CapCut logo + your faces in the thumbnail — captures this audience now.</div>
+        <div><span class="priority p-soon">Next 2 weeks</span></div>
+      </div>
+      <div class="action-row">
+        <div class="action-title">Start an "Edit Like [Creator]" series</div>
+        <div class="action-body">Joey Edits built his channel partly on this. Pick a creator your audience aspires to edit like — someone with a distinctive visual style (Vox, Johnny Harris, MagnatesMedia, Iman Gadzhi are all proven). Build a locked thumbnail template for the series: your faces + creator's face + "Edit Like" banner. The series compounds: each video in it drives discovery of the others.</div>
+        <div><span class="priority p-soon">Next 4 weeks</span></div>
+      </div>
+      <div class="action-row">
+        <div class="action-title">Publish a dedicated CapCut mobile video — claim the underserved niche</div>
+        <div class="action-body">Joey Edits' PC focus is a structural constraint you don't share. A strong "CapCut mobile: everything you can do that you didn't know" or "CapCut mobile tips that PC editors overlook" addresses the larger segment of CapCut's audience and captures search traffic that Joey Edits is not serving. Include "CapCut mobile" explicitly in the title and thumbnail text.</div>
+        <div><span class="priority p-soon">Next 4 weeks</span></div>
+      </div>
+      <div class="action-row">
+        <div class="action-title">Start seeding course authority in relevant videos</div>
+        <div class="action-body">Matt Loui links CapCut Lab in every video description and mentions it within the content. This is how he converts tutorial viewers into course students. You don't need to hard-sell — a natural mention ("this is actually one of the core modules in the course we're building") plants the seed. Do this in every video from now until launch. It compounds into demand.</div>
+        <div><span class="priority p-watch">Ongoing from now</span></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="footer">
+  <span>Dina & Agnes — Mindlyfter Ltd</span>
+  <span>Competitor Thumbnail & Content Analysis — April 2026 — built from source screenshots</span>
+  <span>Internal document</span>
+</div>
+
+</body>
+</html>
