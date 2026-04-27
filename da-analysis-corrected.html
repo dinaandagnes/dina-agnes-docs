@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dina & Agnes — Channel Analysis (Corrected)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0b0b0d;
+    --surface: #141416;
+    --surface2: #1c1c20;
+    --surface3: #222228;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --gold: #d4a853;
+    --gold-dim: rgba(212,168,83,0.10);
+    --blue: #5b9bd5;
+    --blue-dim: rgba(91,155,213,0.10);
+    --green: #5bd58a;
+    --green-dim: rgba(91,213,138,0.10);
+    --red: #d55b5b;
+    --red-dim: rgba(213,91,91,0.10);
+    --amber: #e0903a;
+    --amber-dim: rgba(224,144,58,0.10);
+    --text: #ede9e3;
+    --muted: #7a7875;
+    --muted2: #4a4845;
+  }
+
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 14px; line-height: 1.7; }
+
+  .cover { padding: 64px 64px 56px; border-bottom: 1px solid var(--border); position: relative; }
+  .cover::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0.35; }
+  .cover-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
+  .cover h1 { font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 400; line-height: 1.2; max-width: 680px; margin-bottom: 14px; }
+  .cover h1 em { font-style: italic; color: var(--gold); }
+  .cover-sub { font-size: 13.5px; color: var(--muted); max-width: 580px; line-height: 1.65; margin-bottom: 26px; }
+  .cover-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag { font-size: 11px; font-weight: 500; padding: 4px 11px; border-radius: 3px; border: 1px solid var(--border2); color: var(--muted); background: var(--surface); }
+
+  .page { max-width: 960px; margin: 0 auto; padding: 52px 64px 80px; }
+  section { margin-bottom: 60px; }
+
+  .eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  h2 { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 400; color: var(--text); margin-bottom: 6px; line-height: 1.25; }
+  .h2-rule { height: 1px; background: var(--border); margin: 14px 0 24px; position: relative; }
+  .h2-rule::before { content: ''; position: absolute; left: 0; top: 0; width: 48px; height: 1px; background: var(--gold); opacity: 0.6; }
+  h3 { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 10px; letter-spacing: 0.02em; }
+  p { color: #c5c1bc; margin-bottom: 13px; font-size: 13.5px; line-height: 1.75; }
+  p:last-child { margin-bottom: 0; }
+  strong { color: var(--text); font-weight: 600; }
+  .divider { height: 1px; background: var(--border); margin: 48px 0; }
+
+  .panel { background: var(--surface2); border-radius: 7px; padding: 16px 18px; border: 1px solid var(--border); }
+  .panel-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+  .panel ul { list-style: none; }
+  .panel ul li { font-size: 13px; color: #b0aca8; padding: 5px 0; border-bottom: 1px solid var(--border); display: flex; gap: 9px; align-items: flex-start; line-height: 1.5; }
+  .panel ul li:last-child { border-bottom: none; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+  .dot-g { background: var(--green); }
+  .dot-r { background: var(--red); }
+  .dot-a { background: var(--gold); }
+  .dot-b { background: var(--blue); }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+
+  .badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 3px; white-space: nowrap; letter-spacing: 0.04em; }
+  .b-gold { background: var(--gold-dim); color: var(--gold); }
+  .b-blue { background: var(--blue-dim); color: var(--blue); }
+  .b-muted { background: var(--surface3); color: var(--muted); }
+  .b-green { background: var(--green-dim); color: var(--green); }
+  .b-red { background: var(--red-dim); color: var(--red); }
+
+  .vid-table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin: 4px 0 20px; }
+  .vid-table th { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); padding: 0 8px 7px 0; text-align: left; border-bottom: 1px solid var(--border); }
+  .vid-table td { padding: 8px 8px 8px 0; border-bottom: 1px solid var(--border); color: #aaa8a4; vertical-align: top; line-height: 1.55; }
+  .vid-table tr:last-child td { border-bottom: none; }
+  .vid-table td strong { color: var(--text); }
+
+  .verdict { border-left: 2px solid var(--green); background: var(--green-dim); border-radius: 0 7px 7px 0; padding: 14px 18px; margin-top: 16px; margin-bottom: 20px; }
+  .verdict-label { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--green); margin-bottom: 6px; }
+  .verdict p { font-size: 13px; color: #c5c0b8; margin: 0; }
+
+  .note { border-left: 2px solid var(--gold); background: var(--gold-dim); border-radius: 0 7px 7px 0; padding: 14px 18px; margin-bottom: 16px; }
+  .note-label { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .note p { font-size: 13px; color: #c5c0b8; margin: 0; }
+
+  .thumb-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
+  .thumb-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; }
+  .thumb-flag { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 7px; }
+  .flag-gold { color: var(--gold); }
+  .flag-blue { color: var(--blue); }
+  .flag-green { color: var(--green); }
+  .thumb-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .thumb-desc { font-size: 12.5px; color: #9e9b96; line-height: 1.55; }
+
+  .action-block { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; margin-bottom: 10px; display: grid; grid-template-columns: 1fr 100px; gap: 16px; align-items: start; }
+  .action-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 5px; }
+  .action-body { font-size: 12.5px; color: #a8a5a0; line-height: 1.55; }
+  .pri { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 10px; border-radius: 3px; white-space: nowrap; text-align: center; display: block; }
+  .pri-now { background: var(--gold-dim); color: var(--gold); }
+  .pri-soon { background: var(--blue-dim); color: var(--blue); }
+  .pri-ongoing { background: var(--surface3); color: var(--muted); }
+
+  .footer { border-top: 1px solid var(--border); padding: 20px 64px; display: flex; justify-content: space-between; font-size: 11px; color: var(--muted2); }
+
+  @media (max-width: 720px) {
+    .cover, .page { padding: 28px 20px; }
+    .two-col, .thumb-grid { grid-template-columns: 1fr; }
+    .action-block { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-eyebrow">Dina & Agnes — Channel Self-Analysis (Corrected & Honest)</div>
+  <h1>Your Channel at <em>3–4 Months Old</em><br>What the Data Actually Shows</h1>
+  <p class="cover-sub">This analysis looks at your channel on its own terms — not benchmarked against creators with 100K+ subscribers and years of search authority. Competitor data is used only to extract patterns: what topics and formats have proven demand. Not as a comparison of view counts.</p>
+  <div class="cover-tags">
+    <span class="tag">~38 thumbnails — all three screenshots</span>
+    <span class="tag">Channel started January 2026</span>
+    <span class="tag">~460 subscribers</span>
+    <span class="tag">~40% monthly growth</span>
+    <span class="tag">32 videos</span>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- FRAMING -->
+  <section>
+    <div class="eyebrow">The Right Frame</div>
+    <h2>How to read your numbers at this stage</h2>
+    <div class="h2-rule"></div>
+
+    <p>A channel with 460 subscribers does not get the same starting velocity as a channel with 100K subscribers. When Matt Loui publishes a video, over 100,000 people get a notification. When you publish, roughly 460 do — and not all of those will open it in the first 48 hours. That means your first-day view counts are structurally different, and comparing them directly is meaningless. What matters at your stage is different: <strong>are people who find your videos watching them? Are those viewers becoming subscribers? Is the channel growing?</strong></p>
+
+    <p>The VPH ratios you can see in your screenshots — 5.1x, 4.3x, 3.5x, 2.9x on your best videos — are the real signal. These ratios tell you how your video is performing relative to your own channel baseline, regardless of absolute size. A 5.1x ratio means that video is pulling in views at 5x the rate of your average. That is a strong signal regardless of whether the absolute number is 1,300 or 1,300,000.</p>
+
+    <p>Your 40% monthly growth rate is the most important number on your channel right now. That rate, sustained, means you compound fast. A channel that grows 40% per month goes from 460 subscribers to roughly 2,000 in 3 months, 9,000 in 6 months. The view counts that feel small today will look very different by October when your course launches — if you keep the growth rate. That is where your focus belongs.</p>
+
+    <div class="verdict">
+      <div class="verdict-label">The honest summary before anything else</div>
+      <p>You are doing well for 3–4 months in. The channel is not in trouble. It is growing faster than most channels at this stage. The analysis below is about refinements — not about fixing something broken. Several of your thumbnails have real strengths. A few specific patterns are worth adjusting. Nothing requires a dramatic overhaul.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- THUMBNAIL ANALYSIS -->
+  <section>
+    <div class="eyebrow">Thumbnail Design</div>
+    <h2>What your thumbnails are actually doing</h2>
+    <div class="h2-rule"></div>
+
+    <p>Looking across all 38 thumbnails in your screenshots, the clearest observation is that your visual identity is genuinely forming. You have a recognisable palette — dark backgrounds, bold white or green text, the CapCut X logo, face forward — and it is consistent enough that someone scrolling would start to recognise a Dina & Agnes thumbnail. That is not nothing at 3–4 months in. Most channels at this age are still figuring out what they look like.</p>
+
+    <p>The two presenters are correctly assigned: Dina's videos have Dina, Agnes's videos have Agnes. Both are featured clearly and at good scale. Expressions have visibly improved from your oldest thumbnails to your newest — the more recent work shows more energy and engagement in the face, which is the right direction.</p>
+
+    <h3 style="margin-top:20px; margin-bottom:14px;">What is working</h3>
+    <div class="panel" style="margin-bottom:18px;">
+      <ul>
+        <li><span class="dot dot-g"></span><strong>Both faces appear where relevant and are well-sized.</strong> The "YOU NEED THIS" thumbnail has both Dina and Agnes — and it's one of your more visually distinctive thumbnails because of that energy dynamic between two faces pointing at something together.</li>
+        <li><span class="dot dot-g"></span><strong>Green as a brand colour is working.</strong> The bright green accent on dark — "3 Transitions that look clean," "PRO 30 TIPS," the green backgrounds on several thumbnails — is becoming a recognisable signature. This is good. Protect it and make it consistent.</li>
+        <li><span class="dot dot-g"></span><strong>Text scale is generally appropriate.</strong> Most thumbnails have text that reads clearly at thumbnail size. You are not making the common mistake of small decorative text that disappears at 120px.</li>
+        <li><span class="dot dot-g"></span><strong>After Effects comparison framing is in several thumbnails</strong> ("Text Animations That Look Like AE", "Animate Logos Like After Effects") and those videos are among your better performers. The framing is visually signalled in both the title and the thumbnail in those cases — that alignment is what makes it work.</li>
+        <li><span class="dot dot-g"></span><strong>Expression energy is improving over time.</strong> Your newer thumbnails (screenshot 1) show more animated, engaged expressions compared to the earliest work (screenshot 3). This is the right direction and it's happening naturally as you get more comfortable on camera.</li>
+      </ul>
+    </div>
+
+    <h3 style="margin-bottom:14px;">What to refine</h3>
+    <div class="panel" style="margin-bottom:18px;">
+      <ul>
+        <li><span class="dot dot-a"></span><strong>Background type changes too often.</strong> Across 38 thumbnails you have: plain black, dark room with studio lighting, bright solid green, colourful gradient, dark with colour wheel graphics, dark with audio waveforms, warm amber room. This variety prevents viewers from building instant pattern recognition. You do not need to pick one forever — but settling on two or three background types that rotate would build a more cohesive grid feel on your channel page.</li>
+        <li><span class="dot dot-a"></span><strong>Text colour system is not yet locked.</strong> Some thumbnails use white text with green accent word. Some use all-green text. Some use red and white. Some mix green, white and yellow. Picking one system — for example, always white as the primary text colour with one green accent word — would tighten the brand significantly without changing the overall feel.</li>
+        <li><span class="dot dot-a"></span><strong>The CapCut logo features very heavily across thumbnails.</strong> It appears in the vast majority of your thumbnails, often as a centrepiece element. The logo is useful for category recognition, especially while the channel is small. But on technique and effect videos, the visual result of the technique is a more clickable centrepiece than the logo. Agnes holding up the CapCut logo is fine — Agnes reacting to the text animation effect in frame would be stronger. The logo can move to a corner or smaller supporting position on those videos.</li>
+        <li><span class="dot dot-a"></span><strong>On numbered videos, the number itself should dominate.</strong> Your best numbered thumbnail is "PRO 30 TIPS" where "30" is large and immediately readable. Some other numbered videos have the number as one of several text elements of similar weight — "4 INSANE", "10 INSANE", "3 Color Tricks." The number should be visually larger than everything else on the thumbnail. That size signals value density before the viewer reads a single word.</li>
+        <li><span class="dot dot-a"></span><strong>Title energy and thumbnail expression sometimes diverge.</strong> The "4 INSANE CapCut Tricks" thumbnail shows Agnes smiling and holding up the logo — which reads as warm and approachable. The word INSANE in the title implies something more surprising or jaw-dropping. Neither is wrong, but aligning them — either use a different title word or use a more exaggerated expression — would make the package feel more consistent. This is a minor refinement, not a major problem.</li>
+      </ul>
+    </div>
+
+    <div class="note">
+      <div class="note-label">On the "Every Editor Needs This" video — 95 views</div>
+      <p>This video has both your faces in the thumbnail, clear text, and is well-composed. The low view count is not a thumbnail problem — it is a content type problem. This is effectively a product promotion video for your Creator Asset Pack, and audiences can sense that even before clicking. The title gives it away: "Every Editor Needs This | Motion Graphics, SFX, LUTs And More" reads as a commercial, not a tutorial. People come to your channel to learn how to do something. A product promotion, however well packaged, will always underperform tutorial content on a tutorial channel. The fix isn't the thumbnail — it's either accepting that promo videos will have lower views, or reframing the content as a tutorial that naturally features the pack (e.g., "I built a cinematic edit using only assets from my pack — here's how").</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PERFORMANCE -->
+  <section>
+    <div class="eyebrow">Performance Patterns</div>
+    <h2>What is working on your channel — read from your own data</h2>
+    <div class="h2-rule"></div>
+
+    <p>The following observations come from your own view counts and VPH ratios only. No comparison to other channels' absolute numbers.</p>
+
+    <h3 style="margin-bottom:14px;">Your top performers — and what they have in common</h3>
+    <div class="thumb-grid">
+      <div class="thumb-card" style="border-left:2px solid var(--gold);">
+        <div class="thumb-flag flag-gold">Your strongest ratio</div>
+        <div class="thumb-title">3 CapCut Transitions That Level Up Your Edits — 1,300 views, 5.1x</div>
+        <div class="thumb-desc">Small number (3) + specific concrete skill + "level up" transformation language + clean dark green background. The thumbnail is one of your cleaner compositions. This formula — small numbered list, specific skill, clean thumbnail — is working on your channel. Replicate it more.</div>
+      </div>
+      <div class="thumb-card" style="border-left:2px solid var(--gold);">
+        <div class="thumb-flag flag-gold">Best early velocity</div>
+        <div class="thumb-title">You Won't Believe This Was Made in CapCut | UI Animations — 700 views, 5 days, 5 VPH, 3.5x</div>
+        <div class="thumb-desc">Curiosity-gap title hook. Both faces in thumbnail creating energy between them. The "THIS?!" text on thumbnail matches the incredulous tone of the title. Good title-to-thumbnail alignment. Watch this one — if VPH holds above 3 it's your best indicator yet of what packaging works.</div>
+      </div>
+      <div class="thumb-card">
+        <div class="thumb-flag flag-blue">Consistent performer</div>
+        <div class="thumb-title">5 Text Animations That Look Like After Effects — 707 views, 2.9x</div>
+        <div class="thumb-desc">The AE comparison framing works. Text animations are a high-search topic. "ANIMATIONS" in large green text is the dominant thumbnail element. This format — numbered + AE comparison + specific technique — is reliably above your channel baseline.</div>
+      </div>
+      <div class="thumb-card">
+        <div class="thumb-flag flag-blue">Numbered format confirmed</div>
+        <div class="thumb-title">Master These CapCut Techniques — PRO 30 TIPS — highest view count in your data</div>
+        <div class="thumb-desc">Your view count leader at the time of this analysis. "30 TIPS" is the largest text on the thumbnail. This is exactly what should happen on a numbered video — the number dominates. The format works. The question is whether the other numbered videos are executing it at the same level.</div>
+      </div>
+    </div>
+
+    <h3 style="margin-bottom:14px;">What your top performers have in common</h3>
+    <div class="panel" style="margin-bottom:20px;">
+      <ul>
+        <li><span class="dot dot-g"></span>A specific, concrete skill or technique — not a vague promise. "3 Transitions that look clean" is specific. "4 Tricks That Make a Huge Difference" is vague. Specific wins.</li>
+        <li><span class="dot dot-g"></span>Either a number, or a strong curiosity-gap hook ("Won't Believe"), or an AE comparison — one of these three anchors appears in every top performer.</li>
+        <li><span class="dot dot-g"></span>The thumbnail text directly reflects the title hook — there is no disconnection between what the title promises and what the thumbnail shows.</li>
+        <li><span class="dot dot-g"></span>Cleaner background composition — the thumbnails where background elements compete with text are consistently the lower performers.</li>
+      </ul>
+    </div>
+
+    <h3 style="margin-bottom:14px;">What your lower performers have in common</h3>
+    <div class="panel" style="margin-bottom:20px;">
+      <ul>
+        <li><span class="dot dot-r"></span>Product promotion framing disguised as tutorial content — "Every Editor Needs This" is the clearest example. Not a thumbnail problem, a content framing problem.</li>
+        <li><span class="dot dot-r"></span>Titles that are vague about what skill the viewer will learn — "4 INSANE CapCut Tricks That Make a Huge Difference" tells you nothing about which tricks. "5 Text Animations That Look Like After Effects" tells you exactly what you will learn. The specific one performs better.</li>
+        <li><span class="dot dot-r"></span>Background complexity competing with text — when the background has UI elements, waveforms, or colour wheels behind the text, it reduces legibility and visual focus at small sizes.</li>
+        <li><span class="dot dot-r"></span>Thumbnails where the CapCut logo is the primary visual centrepiece rather than the technique result or the presenter's expression.</li>
+      </ul>
+    </div>
+
+    <h3 style="margin-bottom:14px;">Your full performance table — your data only</h3>
+    <table class="vid-table">
+      <thead>
+        <tr>
+          <th style="width:44%">Video</th>
+          <th style="width:12%">Views</th>
+          <th style="width:13%">Signal</th>
+          <th>Read</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>3 CapCut Transitions</strong></td>
+          <td>1,300</td>
+          <td><span class="badge b-gold">5.1x</span></td>
+          <td>Top ratio on the channel. Small number + specific skill. Replicate this structure.</td>
+        </tr>
+        <tr>
+          <td><strong>PRO 30 TIPS — Master These Techniques</strong></td>
+          <td>Highest in data</td>
+          <td><span class="badge b-gold">4.3x</span></td>
+          <td>Numbered format working. "30" is dominant on thumbnail. This is your best packaging execution so far.</td>
+        </tr>
+        <tr>
+          <td><strong>You Won't Believe This Was Made in CapCut</strong></td>
+          <td>700</td>
+          <td><span class="badge b-gold">3.5x, 5 VPH</span></td>
+          <td>Strong early velocity. Curiosity-gap hook + two faces + thumbnail matches title energy. Watch closely.</td>
+        </tr>
+        <tr>
+          <td><strong>5 Text Animations — Like After Effects</strong></td>
+          <td>707</td>
+          <td><span class="badge b-gold">2.9x</span></td>
+          <td>AE comparison format confirmed working on your channel. Do more of this.</td>
+        </tr>
+        <tr>
+          <td><strong>Your Text Looks Boring? Try These Text Animation Effects</strong></td>
+          <td>1,300</td>
+          <td><span class="badge b-gold">5.6x</span></td>
+          <td>Question-format title creating curiosity. Strong performer. The direct question hook ("Your Text Looks Boring?") is underused across your channel — this is one of your better title formats.</td>
+        </tr>
+        <tr>
+          <td><strong>10 INSANE Text Animations That Look Expensive</strong></td>
+          <td>427</td>
+          <td><span class="badge b-blue">1.1x</span></td>
+          <td>Topic is strong. "Expensive" framing is good. Performance is around channel average — thumbnail execution is likely the gap. The number should be larger.</td>
+        </tr>
+        <tr>
+          <td><strong>4 INSANE CapCut Tricks That Make a Huge Difference</strong></td>
+          <td>321</td>
+          <td><span class="badge b-blue">1x</span></td>
+          <td>Exactly channel average. The title is vague — "huge difference" doesn't tell the viewer what they'll learn. A more specific title would help this video find its audience.</td>
+        </tr>
+        <tr>
+          <td><strong>CapCut for COMPLETE BEGINNERS</strong></td>
+          <td>204</td>
+          <td><span class="badge b-blue">1.1x</span></td>
+          <td>Slightly above average. Beginner content is high-search and will compound over time as the channel grows search authority. Don't judge this one too harshly — evergreen beginner content accumulates slowly.</td>
+        </tr>
+        <tr>
+          <td><strong>These 7 Viral Reel Ideas — 3 months ago</strong></td>
+          <td>280</td>
+          <td><span class="badge b-blue">modest</span></td>
+          <td>Reel-specific content is a good angle — creators always want viral ideas. The "7" number is good. Worth revisiting this format with a stronger thumbnail.</td>
+        </tr>
+        <tr>
+          <td><strong>Every Editor Needs This — pack promo</strong></td>
+          <td>95</td>
+          <td><span class="badge b-red">lowest</span></td>
+          <td>Content type problem, not thumbnail problem. Both faces present, thumbnail is fine. Product promotion on a tutorial channel will always underperform. Accept it or reframe as tutorial.</td>
+        </tr>
+        <tr>
+          <td><strong>CapCut AI Templates Save Hours</strong></td>
+          <td>178</td>
+          <td><span class="badge b-red">1 VPH</span></td>
+          <td>AI topic should work. Background and layout may be too complex. Worth a rethumbnail test.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- WHAT TO TAKE FROM COMPETITOR DATA -->
+  <section>
+    <div class="eyebrow">From Competitor Research</div>
+    <h2>What to extract from the competitor data — applied to your stage</h2>
+    <div class="h2-rule"></div>
+
+    <p>The competitor channels are not a comparison point for view counts. They are a research source. Here is what their data tells you that is directly applicable to a channel at your size and stage — framed as patterns to adopt, not as benchmarks to hit.</p>
+
+    <div class="two-col">
+      <div class="panel">
+        <div class="panel-label">Formats proven to drive above-average performance — adopt these</div>
+        <ul>
+          <li><span class="dot dot-g"></span><strong>Specific numbered lists with the number dominant in the thumbnail.</strong> All three competitors confirm this. Your own channel confirms it (30 Tips, 3 Transitions, 5 Text Animations). The number needs to be the largest element.</li>
+          <li><span class="dot dot-g"></span><strong>After Effects comparison framing.</strong> Appears in Matt Loui's 176k video, Patrik Key's positioning, multiple Joey Edits videos, and confirmed in your own "5 Text Animations Like AE" at 2.9x. This format has proven search demand and your audience responds to it.</li>
+          <li><span class="dot dot-g"></span><strong>Curiosity-gap hooks.</strong> "You Won't Believe," "Pros Do This," "Nobody Teaches This," "It Feels Illegal." Your own "You Won't Believe This Was Made in CapCut" is your highest VPH video right now. The hook format works at any channel size because it generates clicks from the feed, not just from subscribers.</li>
+          <li><span class="dot dot-g"></span><strong>Question-format titles.</strong> "Your Text Looks Boring?" is one of your better performers. The direct question format creates identification — viewers self-select in if it describes their problem. Underused across your channel right now.</li>
+          <li><span class="dot dot-g"></span><strong>AI + CapCut pairing.</strong> Joey Edits' 14.3x ratio on this format is not a coincidence. The search demand for AI workflow content is rising and not yet saturated in the CapCut space. This is a time-sensitive opportunity.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <div class="panel-label">Patterns to avoid — confirmed by competitor data and your own</div>
+        <ul>
+          <li><span class="dot dot-r"></span><strong>Vague "tricks/tips that make a difference" titles without saying what the difference is.</strong> Specific skill titles consistently outperform across all three competitor channels and on yours.</li>
+          <li><span class="dot dot-r"></span><strong>Product promotion framing.</strong> Low across all three competitors too. Tutorial audience does not respond to feeling like they're being sold to.</li>
+          <li><span class="dot dot-r"></span><strong>Off-niche content.</strong> Matt Loui's MacBook and Filmora videos consistently underperform. Stay in your lane — CapCut desktop tutorials. Your audience came for that and only that.</li>
+          <li><span class="dot dot-r"></span><strong>Complex backgrounds competing with text.</strong> Consistent finding across all three channels and yours. Simpler backgrounds perform better because they give text and face room to breathe.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ACTIONS -->
+  <section>
+    <div class="eyebrow">What To Do Next</div>
+    <h2>Specific actions — ordered by impact</h2>
+    <div class="h2-rule"></div>
+
+    <div class="action-block" style="border-color:rgba(212,168,83,0.3);">
+      <div>
+        <div class="action-title">Make the AI + CapCut video — this is time-sensitive</div>
+        <div class="action-body">Format: "[AI Tool] + CapCut = [specific outcome]" — this is the highest-evidenced rising topic in the competitor data and you have no video on it yet. Your curriculum already covers ChatGPT for creators. Publish within the next 7–10 days. Thumbnail: AI tool logo + CapCut logo + face + bold outcome text. This is the most time-sensitive action because the search curve is currently rising.</div>
+      </div>
+      <span class="pri pri-now">Do now</span>
+    </div>
+
+    <div class="action-block" style="border-color:rgba(212,168,83,0.3);">
+      <div>
+        <div class="action-title">Lock your thumbnail text colour system — white primary, green accent, every video</div>
+        <div class="action-body">Pick it and apply it from this video forward: white as your main text colour, one green accent word per thumbnail. This single change starts building the visual consistency that makes a channel grid look professional and recognition-building. Takes 5 minutes to decide and no extra work per video after that.</div>
+      </div>
+      <span class="pri pri-now">Do now</span>
+    </div>
+
+    <div class="action-block">
+      <div>
+        <div class="action-title">On numbered videos: make the number the largest single element</div>
+        <div class="action-body">Your "PRO 30 TIPS" thumbnail does this correctly and it's your top performer. "4 INSANE Tricks" does not — the "4" is similar size to "INSANE" and "EDIT LIKE A PRO." For every numbered video from now: the number gets the largest font on the thumbnail, everything else supports it. This is a composition rule, not a design overhaul.</div>
+      </div>
+      <span class="pri pri-now">Next video</span>
+    </div>
+
+    <div class="action-block">
+      <div>
+        <div class="action-title">Make titles more specific about what skill the viewer learns</div>
+        <div class="action-body">"4 INSANE CapCut Tricks That Make a Huge Difference" → "4 CapCut Tricks That Make Your Transitions Look Cinematic" or "4 CapCut Tricks That Make Text Animations Look Expensive." The specific version tells the viewer exactly what they'll gain. Your own data confirms this: specific titles outperform vague ones. This is a title-writing habit change, not a content change.</div>
+      </div>
+      <span class="pri pri-soon">Every title going forward</span>
+    </div>
+
+    <div class="action-block">
+      <div>
+        <div class="action-title">Settle on 2–3 background types and rotate between them</div>
+        <div class="action-body">You don't need one rigid background — but reducing from ~8 different background approaches to 2–3 consistent ones would tighten the channel grid significantly. The dark background with green accent that appears on "3 Transitions" and "PRO 30 TIPS" is your strongest. The solid bright green works. Consider making those your two primary options and reserving anything else for a specific creative reason, not as a default.</div>
+      </div>
+      <span class="pri pri-soon">Next 2 weeks</span>
+    </div>
+
+    <div class="action-block">
+      <div>
+        <div class="action-title">Use the question-format title more — "Your [X] Looks [Problem]? Here's the Fix"</div>
+        <div class="action-body">Your "Your Text Looks Boring? Try These Text Animation Effects" is one of your stronger performers at 1,300 views and 5.6x. The question format creates immediate identification — the viewer recognises their own problem in the title and clicks to solve it. This format works at any channel size because it generates click intent from the feed independent of subscriber notifications. You are currently underusing it.</div>
+      </div>
+      <span class="pri pri-soon">Test on next 2–3 videos</span>
+    </div>
+
+    <div class="action-block">
+      <div>
+        <div class="action-title">Reframe product promo videos as tutorials — or accept lower views</div>
+        <div class="action-body">The Creator Asset Pack video at 95 views is not a thumbnail failure — it's a framing choice. If you want to feature your products in content, the format that works is building a tutorial around the assets: "I edited a cinematic travel video using only these free assets — here's every technique." The product becomes the proof, not the pitch. Or accept that promotional content will always have lower reach on a tutorial channel and measure it differently (conversion rate to purchase, not views).</div>
+      </div>
+      <span class="pri pri-ongoing">Ongoing decision</span>
+    </div>
+
+  </section>
+
+</div>
+
+<div class="footer">
+  <span>Dina & Agnes — Mindlyfter Ltd</span>
+  <span>Channel Self-Analysis — April 2026</span>
+  <span>Internal document</span>
+</div>
+
+</body>
+</html>
