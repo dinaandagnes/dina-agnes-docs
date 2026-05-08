@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Setup Guide — Claude Code + Remotion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #02E482;
+    --green-dim: rgba(2, 228, 130, 0.12);
+    --green-mid: rgba(2, 228, 130, 0.25);
+    --dark: #0a0a0a;
+    --card: #111111;
+    --card2: #161616;
+    --border: rgba(255,255,255,0.07);
+    --text: #f0f0f0;
+    --muted: #888;
+    --warn-bg: rgba(255, 180, 0, 0.08);
+    --warn-border: rgba(255, 180, 0, 0.4);
+    --warn-text: #ffb400;
+    --step-bg: #0e0e0e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Manrope', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    padding: 0 0 80px;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(160deg, #0d1a13 0%, #0a0a0a 60%);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 24px 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: 50%;
+    transform: translateX(-50%);
+    width: 500px; height: 300px;
+    background: radial-gradient(ellipse, rgba(2,228,130,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .brand-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--green-dim);
+    border: 1px solid rgba(2,228,130,0.3);
+    color: var(--green);
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+  }
+
+  .brand-pill span { font-size: 14px; }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    color: #fff;
+  }
+
+  h1 em {
+    font-style: normal;
+    color: var(--green);
+  }
+
+  .hero-sub {
+    color: var(--muted);
+    font-size: 15px;
+    max-width: 520px;
+    margin: 0 auto 32px;
+  }
+
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .tag {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 6px;
+  }
+
+  /* LAYOUT */
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* SECTION HEADING */
+  .section-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 48px 0 20px;
+  }
+
+  .section-heading .icon {
+    width: 34px; height: 34px;
+    background: var(--green-dim);
+    border: 1px solid rgba(2,228,130,0.25);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+
+  .section-heading h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 24px;
+    margin-bottom: 12px;
+  }
+
+  .card p + p { margin-top: 10px; }
+
+  /* REQUIREMENT LIST */
+  .req-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .req-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .req-icon {
+    width: 32px; height: 32px;
+    background: var(--green-dim);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .req-body strong {
+    display: block;
+    font-weight: 600;
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 3px;
+  }
+
+  .req-body p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .req-body a {
+    color: var(--green);
+    text-decoration: none;
+  }
+
+  .req-body a:hover { text-decoration: underline; }
+
+  /* STEPS */
+  .steps { display: flex; flex-direction: column; gap: 0; }
+
+  .step {
+    display: flex;
+    gap: 0;
+    position: relative;
+  }
+
+  .step-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 44px;
+    flex-shrink: 0;
+  }
+
+  .step-num {
+    width: 32px; height: 32px;
+    background: var(--card2);
+    border: 1px solid rgba(2,228,130,0.35);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--green);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-line {
+    width: 1px;
+    flex: 1;
+    background: var(--border);
+    margin: 6px 0;
+    min-height: 24px;
+  }
+
+  .step:last-child .step-line { display: none; }
+
+  .step-content {
+    padding: 0 0 28px 16px;
+    flex: 1;
+    padding-top: 4px;
+  }
+
+  .step-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  .step-content p {
+    color: #b0b0b0;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .step-content p:last-child { margin-bottom: 0; }
+
+  /* CODE BLOCKS */
+  .cmd-block {
+    background: #0d0d0d;
+    border: 1px solid rgba(2,228,130,0.15);
+    border-left: 3px solid var(--green);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin: 10px 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--green);
+    white-space: pre-wrap;
+    word-break: break-all;
+    line-height: 1.6;
+    position: relative;
+  }
+
+  .cmd-block .comment {
+    color: #444;
+    display: block;
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+
+  /* INLINE CODE */
+  code {
+    background: rgba(2,228,130,0.1);
+    color: var(--green);
+    font-family: 'DM Mono', monospace;
+    font-size: 12.5px;
+    padding: 2px 7px;
+    border-radius: 5px;
+  }
+
+  /* WARNING BOX */
+  .warn {
+    background: var(--warn-bg);
+    border: 1px solid var(--warn-border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 12px 0;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .warn-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  .warn p {
+    color: var(--warn-text) !important;
+    font-size: 13.5px !important;
+    margin: 0 !important;
+    line-height: 1.6;
+  }
+
+  /* TIP BOX */
+  .tip {
+    background: var(--green-dim);
+    border: 1px solid rgba(2,228,130,0.2);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 12px 0;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .tip-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  .tip p {
+    color: rgba(2,228,130,0.9) !important;
+    font-size: 13.5px !important;
+    margin: 0 !important;
+    line-height: 1.6;
+  }
+
+  /* OPTION PICKER */
+  .prompt-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 10px 0;
+  }
+
+  .option-row {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .option-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--green);
+    background: var(--green-dim);
+    padding: 2px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+
+  .option-text {
+    color: #b0b0b0;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 48px 0 0;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 32px 20px 0;
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  footer strong { color: var(--green); }
+
+  /* TROUBLESHOOT ACCORDION */
+  details {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 8px;
+    overflow: hidden;
+  }
+
+  summary {
+    padding: 14px 18px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  summary::after {
+    content: '+';
+    color: var(--green);
+    font-size: 18px;
+    font-weight: 400;
+    transition: transform 0.2s;
+  }
+
+  details[open] summary::after { transform: rotate(45deg); }
+
+  .details-body {
+    padding: 0 18px 16px;
+    color: #999;
+    font-size: 13.5px;
+    line-height: 1.6;
+  }
+
+  .details-body p + p { margin-top: 8px; }
+
+  /* PHASE BADGE */
+  .phase-badge {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 100px;
+    margin-bottom: 6px;
+  }
+
+  .phase-one-time { background: rgba(100,100,255,0.12); color: #8888ff; border: 1px solid rgba(100,100,255,0.25); }
+  .phase-daily { background: var(--green-dim); color: var(--green); border: 1px solid rgba(2,228,130,0.25); }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="brand-pill"><span>🎬</span> Dina & Agnes</div>
+  <h1>Claude Code + Remotion<br><em>Student Setup Guide</em></h1>
+  <p class="hero-sub">Everything you need to install once, then use every single day to create motion graphics with AI. Follow each step in order — do not skip ahead.</p>
+  <div class="hero-tags">
+    <span class="tag">macOS &amp; Windows</span>
+    <span class="tag">Claude Code Desktop</span>
+    <span class="tag">Remotion Studio</span>
+    <span class="tag">Node.js LTS</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- WHAT IS THIS -->
+  <div class="section-heading">
+    <div class="icon">💡</div>
+    <h2>What are we setting up?</h2>
+  </div>
+
+  <div class="card">
+    <p>You are going to connect two tools together: <strong>Remotion</strong> and <strong>Claude Code</strong>.</p>
+    <p><strong>Remotion</strong> is the engine that creates your motion graphics. It runs on your computer and generates video animations using code. You do not need to write the code yourself — that is Claude's job.</p>
+    <p><strong>Claude Code</strong> is the AI. You describe what you want in plain English, Claude writes the code, and Remotion turns that code into a video you can export and drop straight into CapCut.</p>
+    <p style="color: var(--muted); font-size: 13px;">Think of it like this: Remotion is the studio, Claude Code is the animator you hired.</p>
+  </div>
+
+  <!-- WHAT YOU NEED -->
+  <div class="section-heading">
+    <div class="icon">📋</div>
+    <h2>Before you start — what you need</h2>
+  </div>
+
+  <div class="card" style="margin-bottom: 16px;">
+    <p style="font-size: 13.5px; color: var(--muted);">You need four things installed before anything else works. If you already have one, skip it. If you are not sure, the steps below will check for you.</p>
+  </div>
+
+  <div class="req-list">
+    <div class="req-item">
+      <div class="req-icon">💻</div>
+      <div class="req-body">
+        <strong>A Mac or Windows computer</strong>
+        <p>This entire workflow runs on your desktop, not in a browser.</p>
+      </div>
+    </div>
+    <div class="req-item">
+      <div class="req-icon">🟢</div>
+      <div class="req-body">
+        <strong>Node.js LTS — the engine that runs Remotion</strong>
+        <p>Download the LTS version (not "Current") from <a href="https://nodejs.org" target="_blank">nodejs.org</a>. Run the installer, click through all the defaults.</p>
+      </div>
+    </div>
+    <div class="req-item">
+      <div class="req-icon">🔧</div>
+      <div class="req-body">
+        <strong>Git — a background tool Claude Code needs</strong>
+        <p>Download from <a href="https://git-scm.com" target="_blank">git-scm.com</a>. You will never open Git directly — it just needs to exist on your machine so Claude Code can use it.</p>
+      </div>
+    </div>
+    <div class="req-item">
+      <div class="req-icon">🤖</div>
+      <div class="req-body">
+        <strong>Claude Code — the desktop app</strong>
+        <p>Download from <a href="https://claude.ai/download" target="_blank">claude.ai/download</a>. This is the AI app you will use every day. Free to install, requires a Claude account.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETUP STEPS -->
+  <div class="section-heading">
+    <div class="icon">🔩</div>
+    <h2>One-time setup</h2>
+  </div>
+
+  <div class="card" style="margin-bottom: 20px;">
+    <span class="phase-badge phase-one-time">Do this once only</span>
+    <p style="font-size: 13.5px; color: var(--muted); margin-top: 6px;">You only do these steps once ever. After today, skip straight to the Daily Workflow section every time you want to create.</p>
+  </div>
+
+  <div class="steps">
+
+    <!-- STEP 1 -->
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num">01</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <div class="step-title">Verify Node.js installed correctly</div>
+        <p>Open your command line app — <strong>Terminal</strong> on Mac, or <strong>Command Prompt</strong> on Windows (search "cmd" in the Start menu to find it). Type the command below and press Enter. You should see a version number printed back, like <code>v20.11.0</code>. Any number is fine as long as something appears.</p>
+        <div class="cmd-block"><span class="comment"># Check Node.js is installed</span>node -v</div>
+        <p>Then check npm (it comes with Node.js automatically):</p>
+        <div class="cmd-block">npm -v</div>
+        <div class="tip"><span class="tip-icon">💡</span><p>If you see "command not found" or "not recognised" after either of these, go back and re-install Node.js from nodejs.org, then restart your Terminal / Command Prompt and try again.</p></div>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num">02</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <div class="step-title">Verify Git installed correctly</div>
+        <p>Still in Terminal, type this and press Enter. You should see a version number like <code>git version 2.39.0</code>.</p>
+        <div class="cmd-block">git --version</div>
+        <div class="tip"><span class="tip-icon">💡</span><p>If you see "command not found" or "not recognised", go back and install Git from git-scm.com, restart your Terminal / Command Prompt, and try again.</p></div>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num">03</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <div class="step-title">Create your Remotion project</div>
+        <p>This command creates a new folder on your computer where all your motion graphics projects will live. Type it exactly as shown and press Enter.</p>
+        <div class="cmd-block">npx create-video@latest</div>
+        <p>It will download some files first, then ask you a series of questions. Answer them exactly like this:</p>
+        <div class="prompt-options">
+          <div class="option-row"><span class="option-label">Template</span><span class="option-text">Choose <strong>Blank</strong></span></div>
+          <div class="option-row"><span class="option-label">Project name</span><span class="option-text">Type <code>ai-motion-lab</code> and press Enter</span></div>
+          <div class="option-row"><span class="option-label">Install Tailwind?</span><span class="option-text">Yes</span></div>
+          <div class="option-row"><span class="option-label">Install Skills?</span><span class="option-text">Yes</span></div>
+          <div class="option-row"><span class="option-label">Scope</span><span class="option-text">Choose <strong>Project</strong></span></div>
+          <div class="option-row"><span class="option-label">Symlink?</span><span class="option-text">Yes (or press Enter to accept default)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num">04</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <div class="step-title">Move into your new project folder</div>
+        <p>Now navigate your Terminal / Command Prompt into the folder that was just created:</p>
+        <div class="cmd-block">cd ai-motion-lab</div>
+        <p>Then install all the project dependencies (this may take a minute or two):</p>
+        <div class="cmd-block">npm install</div>
+        <p>You will see a lot of text scroll past. That is normal. Wait for it to finish and return you to a blank prompt.</p>
+      </div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num">05</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <div class="step-title">Set up Git inside your project</div>
+        <p>Claude Code needs Git to be active inside your project folder before it will work. You only do this once. Run these three commands one at a time, pressing Enter after each:</p>
+        <div class="cmd-block"><span class="comment"># Step 1 — initialise Git</span>git init</div>
+        <div class="cmd-block"><span class="comment"># Step 2 — mark all current files</span>git add .</div>
+        <div class="cmd-block"><span class="comment"># Step 3 — save the first snapshot</span>git commit -m "initial setup"</div>
+        <div class="tip"><span class="tip-icon">💡</span><p>This is required. If you skip it, Claude Code will show a "Git is required" error when you try to use it. These commands are harmless and only take a few seconds.</p></div>
+      </div>
+    </div>
+
+    <!-- STEP 6 -->
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num">06</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <div class="step-title">Launch Remotion Studio</div>
+        <p>This starts the live preview window where you will watch your motion graphics build in real time. Make sure you are still inside the <code>ai-motion-lab</code> folder in your Terminal / Command Prompt, then run:</p>
+        <div class="cmd-block">npm run dev</div>
+        <p>After a few seconds, your browser should open automatically and show the Remotion Studio interface. If it does not open automatically, go to <code>http://localhost:3000</code> in your browser.</p>
+        <div class="warn"><span class="warn-icon">⚠️</span><p><strong>Do not close this Terminal / Command Prompt window or the browser tab.</strong> Remotion Studio must stay running the entire time you are working. If you accidentally close it, just run <code>npm run dev</code> again.</p></div>
+      </div>
+    </div>
+
+    <!-- STEP 7 -->
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num">07</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <div class="step-title">Open Claude Code and point it at your project</div>
+        <p>Open the Claude Code desktop app (the one you downloaded earlier — it looks like the Claude logo).</p>
+        <p>When it opens, it will ask you to select a folder. Navigate to and select your <code>ai-motion-lab</code> folder. Claude Code will ask you to allow access — click Allow.</p>
+        <div class="tip"><span class="tip-icon">💡</span><p>Not sure where the folder is? On Mac it is usually in your home folder (e.g. <code>/Users/YourName/ai-motion-lab</code>). On Windows it is usually in your user folder (e.g. <code>C:\Users\YourName\ai-motion-lab</code>). It was created wherever your Terminal / Command Prompt was pointing when you ran the setup command.</p></div>
+        <p>You are now fully set up. You should have Remotion Studio open in your browser and Claude Code open as a desktop app, both pointing at the same <code>ai-motion-lab</code> folder.</p>
+      </div>
+    </div>
+
+  </div><!-- end steps -->
+
+  <!-- DAILY WORKFLOW -->
+  <div class="section-heading">
+    <div class="icon">🎬</div>
+    <h2>Daily workflow — how to create</h2>
+  </div>
+
+  <div class="card" style="margin-bottom: 20px;">
+    <span class="phase-badge phase-daily">Every session</span>
+    <p style="font-size: 13.5px; color: var(--muted); margin-top: 6px;">From today onwards, this is the only routine you need. Setup is done. Now you just create.</p>
+  </div>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">1</div><div class="step-line"></div></div>
+      <div class="step-content">
+        <div class="step-title">Open your command line and navigate to your project</div>
+        <p>Every session starts here. Open Terminal (Mac) or Command Prompt (Windows) and run:</p>
+        <div class="cmd-block">cd ai-motion-lab</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">2</div><div class="step-line"></div></div>
+      <div class="step-content">
+        <div class="step-title">Start Remotion Studio</div>
+        <div class="cmd-block">npm run dev</div>
+        <p>Wait for your browser to open Remotion Studio, then leave that window running. You need to open a second command line window for the next steps.</p>
+        <div class="tip"><span class="tip-icon">💡</span><p><strong>How to open a second window:</strong> On Mac, press Cmd+T in Terminal to open a new tab, or Cmd+N for a new window. On Windows, search "cmd" in the Start menu to open a fresh Command Prompt, or press Ctrl+Shift+T if you are using Windows Terminal.</p></div>
+        <div class="warn"><span class="warn-icon">⚠️</span><p>Do not use the Remotion window for anything else. Keep it dedicated to running Remotion.</p></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">3</div><div class="step-line"></div></div>
+      <div class="step-content">
+        <div class="step-title">Open Claude Code and select your project folder</div>
+        <p>Open the Claude Code desktop app. If it does not automatically open the <code>ai-motion-lab</code> folder, use the folder picker to select it again.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">4</div><div class="step-line"></div></div>
+      <div class="step-content">
+        <div class="step-title">Describe what you want to Claude in plain English</div>
+        <p>Type your animation idea into Claude Code exactly as you would explain it to a person. You do not need to know any code. Examples:</p>
+        <div class="prompt-options">
+          <div class="option-row"><span class="option-label">Example</span><span class="option-text">"Create a rolling number animation from 0 to 100,000 over 5 seconds on a transparent background. The final number should be in our brand green #02E482."</span></div>
+          <div class="option-row"><span class="option-label">Example</span><span class="option-text">"Create a subscriber count graphic with glassmorphism cards, soft shadows, a black background, and green accents. Animate the numbers from zero."</span></div>
+        </div>
+        <p>The more specific you are, the better the result. Mention colours, timing, sizes, and style if you know them.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">5</div><div class="step-line"></div></div>
+      <div class="step-content">
+        <div class="step-title">Watch the preview update live</div>
+        <p>Claude Code writes the code. The Remotion Studio browser tab updates in real time as it works. You can see your animation take shape without doing anything else.</p>
+        <p>If you want to tweak something — a colour, the timing, the position — just type the change in plain English back into Claude Code. You do not need to touch any code files manually.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">6</div><div class="step-line"></div></div>
+      <div class="step-content">
+        <div class="step-title">Export your finished animation</div>
+        <p>When you are happy with the preview, go to Remotion Studio in your browser and click the <strong>Render</strong> button. Choose your output format (MP4 or transparent WebM for overlays), choose your export location, and click Render.</p>
+        <p>Your file is ready to import directly into CapCut.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TROUBLESHOOTING -->
+  <div class="section-heading">
+    <div class="icon">🔍</div>
+    <h2>Troubleshooting</h2>
+  </div>
+
+  <details>
+    <summary>Nothing happened after I ran <code>npx create-video@latest</code></summary>
+    <div class="details-body">
+      <p>It may be downloading quietly in the background. Wait 30 seconds — it sometimes takes a moment before the setup questions appear.</p>
+      <p>If still nothing after a minute, check your internet connection and try again. If it says "permission denied", try running Terminal as administrator (Windows) or add <code>sudo</code> before the command (Mac).</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Claude Code shows a "Git is required" error</summary>
+    <div class="details-body">
+      <p>This means you skipped or did not complete Step 5. Navigate to your project folder in Terminal / Command Prompt and run these three commands in order:</p>
+      <p><code>git init</code> then <code>git add .</code> then <code>git commit -m "initial setup"</code></p>
+      <p>After the third command, try Claude Code again.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Remotion Studio is not opening in my browser</summary>
+    <div class="details-body">
+      <p>After running <code>npm run dev</code>, go to your browser manually and type <code>http://localhost:3000</code> in the address bar. That should open it directly.</p>
+      <p>If you see an error saying port 3000 is already in use, another app is blocking it. Either close that app or run <code>npm run dev -- --port 3001</code> and visit <code>http://localhost:3001</code> instead.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>The preview is not updating when Claude Code writes code</summary>
+    <div class="details-body">
+      <p>Make sure both Claude Code and Remotion Studio are pointing at the same <code>ai-motion-lab</code> folder. If they are in different folders, Claude's changes will not appear in the preview.</p>
+      <p>Also check that the <code>npm run dev</code> Terminal / Command Prompt window is still running and not showing an error. If it stopped, run it again.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>I accidentally closed the Remotion Terminal window</summary>
+    <div class="details-body">
+      <p>No problem. Open a new Terminal (Mac) or Command Prompt (Windows), navigate back to your project with <code>cd ai-motion-lab</code>, and run <code>npm run dev</code> again. Your project files are safe — nothing is lost.</p>
+    </div>
+  </details>
+
+  <hr class="divider">
+
+  <footer>
+    <p><strong>Dina & Agnes</strong> — dinaandagnes.com</p>
+    <p style="margin-top: 6px;">Student Setup Guide v4 — April 2026</p>
+  </footer>
+
+</div><!-- end container -->
+</body>
+</html>
