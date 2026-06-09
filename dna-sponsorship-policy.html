@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sponsorship Policy — Dina & Agnes</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #02e482;
+    --black: #0a0a0a;
+    --white: #ffffff;
+    --off-white: #f7f7f5;
+    --mid: #e8e8e4;
+    --muted: #888884;
+    --text: #1a1a18;
+    --text-light: #5a5a56;
+
+    --accept: #02e482;
+    --accept-bg: #eafaf3;
+    --accept-text: #047a45;
+    --angle: #f59e0b;
+    --angle-bg: #fffbeb;
+    --angle-text: #92400e;
+    --soft: #64748b;
+    --soft-bg: #f1f5f9;
+    --soft-text: #334155;
+    --decline: #ef4444;
+    --decline-bg: #fef2f2;
+    --decline-text: #991b1b;
+    --hard: #7c3aed;
+    --hard-bg: #f5f3ff;
+    --hard-text: #4c1d95;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--off-white);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 48px 24px 80px;
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  .page {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  /* HEADER */
+  .header {
+    border-bottom: 2px solid var(--green);
+    padding-bottom: 28px;
+    margin-bottom: 40px;
+  }
+
+  .header-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .wordmark {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green);
+  }
+
+  .doc-meta {
+    text-align: right;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .doc-title {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--black);
+    margin-top: 20px;
+    line-height: 1.15;
+  }
+
+  .doc-subtitle {
+    font-size: 15px;
+    color: var(--text-light);
+    margin-top: 8px;
+    max-width: 600px;
+    line-height: 1.6;
+  }
+
+  /* PRINCIPLE BLOCK */
+  .principle {
+    background: var(--black);
+    border-left: 4px solid var(--green);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 40px;
+  }
+
+  .principle-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 8px;
+  }
+
+  .principle-text {
+    font-size: 15px;
+    color: var(--white);
+    font-weight: 500;
+    line-height: 1.6;
+  }
+
+  /* TIER SECTION */
+  .tier-section {
+    margin-bottom: 36px;
+  }
+
+  .tier-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .tier-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 4px;
+  }
+
+  .badge-accept { background: var(--accept-bg); color: var(--accept-text); }
+  .badge-angle  { background: var(--angle-bg);  color: var(--angle-text);  }
+  .badge-soft   { background: var(--soft-bg);   color: var(--soft-text);   }
+  .badge-decline{ background: var(--decline-bg);color: var(--decline-text);}
+  .badge-hard   { background: var(--hard-bg);   color: var(--hard-text);   }
+
+  .tier-desc {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* TABLE */
+  .policy-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--mid);
+  }
+
+  .policy-table thead tr {
+    background: var(--black);
+  }
+
+  .policy-table thead th {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 12px 16px;
+    text-align: left;
+  }
+
+  .policy-table thead th:first-child { color: var(--white); }
+
+  .policy-table tbody tr {
+    border-bottom: 1px solid var(--mid);
+    transition: background 0.15s;
+  }
+
+  .policy-table tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  .policy-table tbody tr:hover {
+    background: #fafaf8;
+  }
+
+  .policy-table td {
+    padding: 14px 16px;
+    vertical-align: top;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  /* Brand cell */
+  .brand-cell {
+    white-space: nowrap;
+  }
+
+  .brand-name {
+    font-weight: 600;
+    color: var(--black);
+    font-size: 13px;
+  }
+
+  .brand-cat {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .star-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 1px 6px;
+    border-radius: 3px;
+    margin-left: 4px;
+    background: #fff7e6;
+    color: #b45309;
+    vertical-align: middle;
+  }
+
+  /* Decision pill in table */
+  .pill {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  .pill-accept  { background: var(--accept-bg);  color: var(--accept-text);  }
+  .pill-angle   { background: var(--angle-bg);   color: var(--angle-text);   }
+  .pill-soft    { background: var(--soft-bg);    color: var(--soft-text);    }
+  .pill-decline { background: var(--decline-bg); color: var(--decline-text); }
+  .pill-hard    { background: var(--hard-bg);    color: var(--hard-text);    }
+
+  .verdict-text {
+    color: var(--text);
+    font-size: 13px;
+  }
+
+  .verdict-note {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 4px;
+  }
+
+  /* Col widths */
+  .col-decision { width: 11%; }
+  .col-brand    { width: 18%; }
+  .col-what     { width: 27%; }
+  .col-verdict  { width: 44%; }
+
+  /* NOTES SECTION */
+  .notes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 40px;
+  }
+
+  .note-card {
+    background: var(--white);
+    border: 1px solid var(--mid);
+    border-radius: 10px;
+    padding: 20px;
+  }
+
+  .note-card-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .note-card p {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.65;
+  }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--mid);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer-brand {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green);
+  }
+
+  .footer-note {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  @media (max-width: 680px) {
+    .notes-grid { grid-template-columns: 1fr; }
+    .doc-title { font-size: 24px; }
+    .header-top { flex-direction: column; }
+    .doc-meta { text-align: left; }
+    .col-what { display: none; }
+    .col-decision { width: 14%; }
+    .col-brand { width: 28%; }
+    .col-verdict { width: 58%; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-top">
+      <div class="wordmark">Dina &amp; Agnes / Mindlyfter Ltd</div>
+      <div class="doc-meta">
+        Internal Policy Document<br>
+        Sponsorship &amp; Brand Partnerships<br>
+        Last updated: June 2026
+      </div>
+    </div>
+    <h1 class="doc-title">Sponsorship Policy</h1>
+    <p class="doc-subtitle">A reference guide for evaluating inbound partnership and sponsorship opportunities across all Dina &amp; Agnes platforms.</p>
+  </div>
+
+  <!-- CORE PRINCIPLE -->
+  <div class="principle">
+    <div class="principle-label">Core test — apply to every opportunity</div>
+    <div class="principle-text">Would our audience see this brand in a video and think "yes, obviously they use that"? If there is any hesitation, the answer is no.</div>
+  </div>
+
+  <!-- TIER 1: ACCEPT IMMEDIATELY -->
+  <div class="tier-section">
+    <div class="tier-label">
+      <span class="tier-badge badge-accept">✓ Accept immediately — pursue actively</span>
+      <span class="tier-desc">Zero brand friction. Natural to the channel. Apply proactively, do not wait to be approached.</span>
+    </div>
+    <table class="policy-table">
+      <thead>
+        <tr>
+          <th class="col-decision">Decision</th>
+          <th class="col-brand">Brand</th>
+          <th class="col-what">What it is</th>
+          <th class="col-verdict">Verdict &amp; notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="pill pill-accept">Accept</span></td>
+          <td class="brand-cell">
+            <div class="brand-name">CapCut <span class="star-badge">★★ Priority</span></div>
+            <div class="brand-cat">Pioneer Programme + Affiliate</div>
+          </td>
+          <td class="verdict-text">The tool we teach. Official Pioneer Programme (cash rewards, long-term partnership) and an affiliate programme on Impact.com paying up to $31.50 per Pro subscriber referred.</td>
+          <td>
+            <div class="verdict-text">The single highest-priority brand relationship to build. Apply to the Pioneer Programme immediately. Sign up to the affiliate programme now — every video already published can carry an affiliate link. This is passive income from content we make anyway.</div>
+            <div class="verdict-note">Apply at: capcut.com/newsroom/pioneer-program and capcut.com/partners/affiliate-program</div>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="pill pill-accept">Accept</span></td>
+          <td class="brand-cell">
+            <div class="brand-name">Higgsfield <span class="star-badge">★ Pursue</span></div>
+            <div class="brand-cat">AI video effects</div>
+          </td>
+          <td class="verdict-text">AI video generation and effects tool built for creators. Creative Partnership Programme with free credits, early access, and paid campaigns via Higgsfield Earn. $1.3B valuation, 15M+ users.</td>
+          <td>
+            <div class="verdict-text">Strong fit. "I use Higgsfield to create effects, then bring them into CapCut" is a genuine tutorial angle. Not a competitor — a companion tool. Our Claude + CapCut video at 14k views proves our audience responds to AI workflow content. Apply to the Creative Partnership proactively, do not wait to be approached.</div>
+            <div class="verdict-note">Apply at: higgsfield.typeform.com/CreativePartner</div>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="pill pill-accept">Accept</span></td>
+          <td class="brand-cell">
+            <div class="brand-name">ElevenLabs <span class="star-badge">★ Pursue</span></div>
+            <div class="brand-cat">AI voiceover</div>
+          </td>
+          <td class="verdict-text">Leading AI text-to-speech and voice cloning platform. 22% recurring commission for 12 months via PartnerStack.</td>
+          <td>
+            <div class="verdict-text">Strong fit. Our audience adds voiceover and narration to their videos. "How to add AI voiceover in CapCut using ElevenLabs" is a tutorial that writes itself. The recurring commission model compounds as the audience grows — better than a one-off fee. Sign up to the affiliate programme regardless of any paid deal.</div>
+            <div class="verdict-note">Apply via PartnerStack at elevenlabs.io</div>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="pill pill-accept">Accept</span></td>
+          <td class="brand-cell">
+            <div class="brand-name">Rode</div>
+            <div class="brand-cat">Audio gear</div>
+          </td>
+          <td class="verdict-text">Industry-leading microphone brand for creators and YouTubers. Wireless mics, studio mics, on-camera mics.</td>
+          <td><div class="verdict-text">Our audience makes videos. Bad audio kills retention. A sound design tutorial with Rode is invisible as an ad — it is just context. Other acceptable audio brands: Shure, DJI Mic, Blue (Logitech), Sennheiser, Elgato.</div></td>
+        </tr>
+        <tr>
+          <td><span class="pill pill-accept">Accept</span></td>
+          <td class="brand-cell">
+            <div class="brand-name">Elgato / Godox</div>
+            <div class="brand-cat">Studio lighting</div>
+          </td>
+          <td class="verdict-text">Creator-focused studio and desk lighting. Elgato Key Light, Godox panels, Neewer, Aputure, Lume Cube.</td>
+          <td><div class="verdict-text">Studio setup content is part of our world. A lighting integration fits without any forcing. Other acceptable lighting brands: Neewer, Aputure, Lume Cube.</div></td>
+        </tr>
+        <tr>
+          <td><span class="pill pill-accept">Accept</span></td>
+          <td class="brand-cell">
+            <div class="brand-name">Epidemic Sound</div>
+            <div class="brand-cat">Music licensing</div>
+          </td>
+          <td class="verdict-text">Royalty-free music platform for creators. Subscription-based, YouTube-safe, 50k+ tracks. Also: Artlist, Musicbed, Soundstripe.</td>
+          <td><div class="verdict-text">Every creator needs licensed music. Directly solves a real audience pain point. Completely on-brand and easily integrated into audio or editing tutorials. Both Epidemic Sound and Artlist have active creator partnership programmes.</div></td>
+        </tr>
+        <tr>
+          <td><span class="pill pill-accept">Accept</span></td>
+          <td class="brand-cell">
+            <div class="brand-name">Artlist / Storyblocks</div>
+            <div class="brand-cat">Stock footage</div>
+          </td>
+          <td class="verdict-text">Royalty-free footage and asset libraries. Artlist also covers music, templates, and AI tools under one subscription.</td>
+          <td><div class="verdict-text">Creators need B-roll. Completely on-brand. Useful content for tutorials about storytelling and visual quality. Other acceptable options: Envato Elements, Motion Array.</div></td>
+        </tr>
+        <tr>
+          <td><span class="pill pill-accept">Accept</span></td>
+          <td class="brand-cell">
+            <div class="brand-name">Runway / Pika / Kling</div>
+            <div class="brand-cat">AI video generation</div>
+          </td>
+          <td class="verdict-text">AI video generation tools used by creators to generate B-roll, effects, and motion sequences. Used alongside CapCut, not instead of it.</td>
+          <td><div class="verdict-text">The "use this with CapCut" angle is natural and genuinely useful content. Our audience has proven it responds to AI tools content (14k views on Claude + CapCut). Position as workflow companions, not substitutes.</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- TIER 2: ACCEPT WITH ANGLE -->
+  <div class="tier-section">
+    <div class="tier-label">
+      <span class="tier-badge badge-angle">→ Accept with a strong content angle</span>
+      <span class="tier-desc">Only proceed if a genuine tutorial can be built around the product. Mid-roll mention alone is not sufficient.</span>
+    </div>
+    <table class="policy-table">
+      <thead>
+        <tr>
+          <th class="col-decision">Decision</th>
+          <th class="col-brand">Brand</th>
+          <th class="col-what">What it is</th>
+          <th class="col-verdict">Verdict &amp; notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="pill pill-angle">Angle needed</span></td>
+          <td class="brand-cell">
+            <div class="brand-name">Opus Clip</div>
+            <div class="brand-cat">AI clip repurposing</div>
+          </td>
+          <td class="verdict-text">AI tool that automatically clips long-form videos into short-form content for Reels, Shorts, and TikTok.</td>
+          <td>
+            <div class="verdict-text">Relevant because our audience makes long-form YouTube content and needs to repurpose it. The angle is "here's how I turn my YouTube videos into Shorts using Opus Clip." Not a CapCut competitor — it works alongside it. Only accept if the tutorial is genuinely useful and the content angle is clean.</div>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="pill pill-angle">Angle needed</span></td>
+          <td class="brand-cell">
+            <div class="brand-name">Submagic</div>
+            <div class="brand-cat">AI captions / short-form</div>
+          </td>
+          <td class="verdict-text">Animated caption tool optimised for short-form content. Dynamic word-by-word highlight styles popular on TikTok and Reels.</td>
+          <td>
+            <div class="verdict-text">Acceptable as a short-form workflow companion only. Frame it as "for your Shorts and Reels, here's how I style captions." Do not imply CapCut cannot do this — that undermines core positioning. Only take if the deal is solid and the content angle is genuinely clean.</div>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="pill pill-angle">Angle needed</span></td>
+          <td class="brand-cell">
+            <div class="brand-name">VidIQ / TubeBuddy</div>
+            <div class="brand-cat">YouTube growth tools</div>
+          </td>
+          <td class="verdict-text">YouTube analytics, SEO, keyword research, and channel optimisation tools.</td>
+          <td>
+            <div class="verdict-text">Our audience wants to grow their channels. We use these tools ourselves — that is the only angle that works. Frame it as "here is what we actually use to research and optimise our videos." Authentic because it is true. Do not take if we are not genuinely using them.</div>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="pill pill-angle">Angle needed</span></td>
+          <td class="brand-cell">
+            <div class="brand-name">Teleprompter tools</div>
+            <div class="brand-cat">On-camera delivery</div>
+          </td>
+          <td class="verdict-text">Teleprompter Premium, PromptSmart, Speeko. On-camera delivery aids for presenters and YouTubers.</td>
+          <td>
+            <div class="verdict-text">Useful for creators who present directly to camera. Needs a dedicated tutorial framed around on-camera confidence and delivery, not a generic mid-roll mention. Agnes especially could frame this naturally.</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- TIER 3: DECLINE POLITELY -->
+  <div class="tier-section">
+    <div class="tier-label">
+      <span class="tier-badge badge-soft">✕ Decline politely</span>
+      <span class="tier-desc">These create brand confusion or positioning conflicts. Respond professionally and leave the door open.</span>
+    </div>
+    <table class="policy-table">
+      <thead>
+        <tr>
+          <th class="col-decision">Decision</th>
+          <th class="col-brand">Brand / Category</th>
+          <th class="col-what">Why it fails the test</th>
+          <th class="col-verdict">How to decline</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="pill pill-soft">Decline</span></td>
+          <td class="brand-cell">
+            <div class="brand-name">VEED</div>
+            <div class="brand-cat">Online video editor</div>
+          </td>
+          <td class="verdict-text">Browser-based video editor. A direct substitute for CapCut aimed at the same beginner audience we serve. Promoting it signals to our audience there is another tool they could use instead of the one we teach.</td>
+          <td><div class="verdict-text">"Our channel is exclusively focused on CapCut education. We have a policy of not partnering with tools that serve as video editing alternatives."</div></td>
+        </tr>
+        <tr>
+          <td><span class="pill pill-soft">Decline</span></td>
+          <td class="brand-cell">
+            <div class="brand-name">FlexClip</div>
+            <div class="brand-cat">Online video editor</div>
+          </td>
+          <td class="verdict-text">Template-driven browser-based video editor. Beginner-friendly and positioned at the same audience as CapCut. Same category, same problem as VEED.</td>
+          <td><div class="verdict-text">Same response as VEED. We have already received and declined an approach from FlexClip (June 2026).</div></td>
+        </tr>
+        <tr>
+          <td><span class="pill pill-soft">Decline</span></td>
+          <td class="brand-cell">
+            <div class="brand-name">Lovart / Canva / Firefly</div>
+            <div class="brand-cat">AI design tools</div>
+          </td>
+          <td class="verdict-text">Design agents and graphic tools. Our audience edits video, not posters. The overlap is too thin to justify brand friction. We have already received and declined an approach from Lovart (June 2026).</td>
+          <td><div class="verdict-text">"Our audience is focused on video editing and CapCut specifically. Design tools fall outside our content scope."</div></td>
+        </tr>
+        <tr>
+          <td><span class="pill pill-soft">Decline</span></td>
+          <td class="brand-cell">
+            <div class="brand-name">Other video editors</div>
+            <div class="brand-cat">DaVinci, Premiere, Final Cut, VN, InShot</div>
+          </td>
+          <td class="verdict-text">We teach CapCut. Promoting a competing editor — even framed as a "complement" — creates a confused brand signal and directly undermines our positioning and upcoming course.</td>
+          <td><div class="verdict-text">Same response as VEED. This is a hard rule with no exceptions regardless of fee offered.</div></td>
+        </tr>
+        <tr>
+          <td><span class="pill pill-soft">Decline</span></td>
+          <td class="brand-cell">
+            <div class="brand-name">Generic productivity tools</div>
+            <div class="brand-cat">Notion, Asana, Monday.com</div>
+          </td>
+          <td class="verdict-text">Our audience follows us for CapCut editing education. Productivity and project management tools have no relevance to our content and would confuse our brand identity.</td>
+          <td><div class="verdict-text">"This falls outside our content focus. We only partner with tools directly relevant to video creation and CapCut workflows."</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- TIER 4: DECLINE IMMEDIATELY -->
+  <div class="tier-section">
+    <div class="tier-label">
+      <span class="tier-badge badge-decline">✕✕ Decline immediately — no discussion</span>
+      <span class="tier-desc">These damage the brand regardless of fee. One wrong deal at this stage costs more in trust than it earns in revenue.</span>
+    </div>
+    <table class="policy-table">
+      <thead>
+        <tr>
+          <th class="col-decision">Decision</th>
+          <th class="col-brand">Category</th>
+          <th class="col-what">Examples</th>
+          <th class="col-verdict">Why it is a hard no</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="pill pill-decline">Hard no</span></td>
+          <td class="brand-cell">
+            <div class="brand-name">VPNs</div>
+          </td>
+          <td class="verdict-text">NordVPN, Surfshark, ExpressVPN and all similar services.</td>
+          <td><div class="verdict-text">The universal signal of a channel that takes any deal. Appears on channels regardless of niche. Instantly signals to our audience that we are prioritising money over relevance. Damages the educational trust we are building.</div></td>
+        </tr>
+        <tr>
+          <td><span class="pill pill-decline">Hard no</span></td>
+          <td class="brand-cell">
+            <div class="brand-name">Finance / Crypto</div>
+          </td>
+          <td class="verdict-text">Trading apps, crypto platforms, investment tools, dropshipping courses.</td>
+          <td><div class="verdict-text">Zero relevance to our niche. High risk of association with scammy or misleading products. Brand damage far outweighs any revenue.</div></td>
+        </tr>
+        <tr>
+          <td><span class="pill pill-decline">Hard no</span></td>
+          <td class="brand-cell">
+            <div class="brand-name">Supplements / Health</div>
+          </td>
+          <td class="verdict-text">Protein powders, nootropics, diet products, wellness apps.</td>
+          <td><div class="verdict-text">No connection to our audience or content. Immediately damages the credibility of an education-first creator brand.</div></td>
+        </tr>
+        <tr>
+          <td><span class="pill pill-decline">Hard no</span></td>
+          <td class="brand-cell">
+            <div class="brand-name">Generic SaaS</div>
+          </td>
+          <td class="verdict-text">Any software product with no direct connection to video creation or creator workflows.</td>
+          <td><div class="verdict-text">The test is simple: if it could appear on any YouTube channel regardless of niche, it should not appear on ours.</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- NOTES -->
+  <div class="notes-grid">
+    <div class="note-card">
+      <div class="note-card-title">Rate guidance (June 2026)</div>
+      <p>At 1.15k subscribers, negotiate based on niche value not reach. Mid-roll integration in a relevant tutorial: £200–250. Dedicated long-form sponsored video (only if format risk is justified): £400–500. Always define usage rights clearly. Organic posting and paid amplification are separate rights requiring separate fees.</p>
+    </div>
+    <div class="note-card">
+      <div class="note-card-title">Usage rights — plain English</div>
+      <p>The initial rate covers the right to post the video organically on our channel. If the brand wants to run it as a paid advertisement or boost it in campaigns, that requires a separate negotiation. Our rate for paid usage rights should reflect the video's performance after organic publication.</p>
+    </div>
+    <div class="note-card">
+      <div class="note-card-title">Format rule</div>
+      <p>Never accept a dedicated long-form video for a brand that only justifies a mid-roll mention. A 10–15 minute video built around a sponsor is a format risk on a growing channel. Protect editorial integrity. A mid-roll in a relevant tutorial is always the preferred format unless the content genuinely warrants a full video.</p>
+    </div>
+    <div class="note-card">
+      <div class="note-card-title">Precedents set (June 2026)</div>
+      <p>Declined: Lovart (AI design agent — niche mismatch). Declined: FlexClip (online video editor — direct CapCut substitute). Both declined on the basis of this policy. These decisions are documented as reference points for future similar approaches.</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-brand">Dina &amp; Agnes — Mindlyfter Ltd</div>
+    <div class="footer-note">Internal use only — review and update quarterly</div>
+  </div>
+
+</div>
+</body>
+</html>
